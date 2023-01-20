@@ -10,3 +10,8 @@
 *.cmi
 *.cmo
 *.zip
+*.vo
+*.vos
+*.glob
+*.conf
+*.d

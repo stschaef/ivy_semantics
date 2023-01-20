@@ -184,6 +184,7 @@ let rec subst (e: expr) (v : expr) (x : id) : expr =
   | Forall(y, t, e) -> Forall(y, t, subst e v x)
   | Exists(y, t, e) -> Exists(y, t, subst e v x)
   | Nondet(t) -> Nondet(t)
+  | Cond(e1, e2, e3) -> Cond(subst e1 v x, subst e2 v x, subst e3 v x)
 
 let unpack_id_under_expr (e : expr) : id =
   match e with
