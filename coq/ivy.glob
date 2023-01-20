@@ -1,0 +1,259 @@
+DIGEST a733d01e2297cdc8379161c44698e5a7
+Fcoq.ivy
+R141:144 coq.Maps <> <> lib
+R162:165 Coq.Lists.List <> <> lib
+R183:200 Coq.Strings.String <> <> lib
+ind 241:247 <> Ivytype
+constr 263:274 <> Ivytype_Bool
+constr 291:310 <> Ivytype_User_Defined
+R278:284 coq.ivy <> Ivytype:1 ind
+R320:323 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R314:319 Coq.Strings.String <> string ind
+R324:330 coq.ivy <> Ivytype:1 ind
+ind 344:347 <> Expr
+constr 363:377 <> Expr_VarLiteral
+constr 400:410 <> Expr_VarFun
+constr 446:467 <> Expr_ActionApplication
+constr 503:511 <> Expr_True
+constr 517:526 <> Expr_False
+constr 532:539 <> Expr_Not
+constr 560:567 <> Expr_And
+constr 596:602 <> Expr_Or
+constr 631:637 <> Expr_Eq
+constr 666:677 <> Expr_Implies
+constr 706:713 <> Expr_Iff
+constr 742:752 <> Expr_Forall
+constr 794:804 <> Expr_Exists
+constr 846:856 <> Expr_Nondet
+constr 880:888 <> Expr_Cond
+R387:390 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R381:386 Coq.Strings.String <> string ind
+R391:394 coq.ivy <> Expr:3 ind
+R420:423 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R414:419 Coq.Strings.String <> string ind
+R433:436 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R424:427 Coq.Init.Datatypes <> list ind
+R429:432 coq.ivy <> Expr:3 ind
+R437:440 coq.ivy <> Expr:3 ind
+R477:480 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R471:476 Coq.Strings.String <> string ind
+R490:493 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R481:484 Coq.Init.Datatypes <> list ind
+R486:489 coq.ivy <> Expr:3 ind
+R494:497 coq.ivy <> Expr:3 ind
+R547:550 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R543:546 coq.ivy <> Expr:3 ind
+R551:554 coq.ivy <> Expr:3 ind
+R575:578 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R571:574 coq.ivy <> Expr:3 ind
+R583:586 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R579:582 coq.ivy <> Expr:3 ind
+R587:590 coq.ivy <> Expr:3 ind
+R610:613 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R606:609 coq.ivy <> Expr:3 ind
+R618:621 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R614:617 coq.ivy <> Expr:3 ind
+R622:625 coq.ivy <> Expr:3 ind
+R645:648 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R641:644 coq.ivy <> Expr:3 ind
+R653:656 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R649:652 coq.ivy <> Expr:3 ind
+R657:660 coq.ivy <> Expr:3 ind
+R685:688 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R681:684 coq.ivy <> Expr:3 ind
+R693:696 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R689:692 coq.ivy <> Expr:3 ind
+R697:700 coq.ivy <> Expr:3 ind
+R721:724 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R717:720 coq.ivy <> Expr:3 ind
+R729:732 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R725:728 coq.ivy <> Expr:3 ind
+R733:736 coq.ivy <> Expr:3 ind
+R762:765 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R756:761 Coq.Strings.String <> string ind
+R773:776 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R766:772 coq.ivy <> Ivytype ind
+R781:784 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R777:780 coq.ivy <> Expr:3 ind
+R785:788 coq.ivy <> Expr:3 ind
+R814:817 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R808:813 Coq.Strings.String <> string ind
+R825:828 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R818:824 coq.ivy <> Ivytype ind
+R833:836 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R829:832 coq.ivy <> Expr:3 ind
+R837:840 coq.ivy <> Expr:3 ind
+R867:870 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R860:866 coq.ivy <> Ivytype ind
+R871:874 coq.ivy <> Expr:3 ind
+R896:899 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R892:895 coq.ivy <> Expr:3 ind
+R904:907 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R900:903 coq.ivy <> Expr:3 ind
+R912:915 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R908:911 coq.ivy <> Expr:3 ind
+R916:919 coq.ivy <> Expr:3 ind
+ind 933:935 <> Com
+constr 951:960 <> Com_Assign
+constr 990:1002 <> Com_AssignFun
+constr 1047:1053 <> Com_Seq
+constr 1079:1084 <> Com_If
+constr 1111:1120 <> Com_IfElse
+constr 1154:1160 <> Com_For
+constr 1200:1208 <> Com_While
+constr 1235:1242 <> Com_Call
+constr 1277:1292 <> Com_LocalVarDecl
+constr 1325:1341 <> Com_GlobalVarDecl
+constr 1374:1394 <> Com_GlobalFuncVarDecl
+constr 1455:1466 <> Com_TypeDecl
+constr 1496:1511 <> Com_EnumTypeDecl
+constr 1548:1561 <> Com_ActionDecl
+constr 1629:1636 <> Com_Skip
+R970:973 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R964:969 Coq.Strings.String <> string ind
+R978:981 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R974:977 coq.ivy <> Expr ind
+R982:984 coq.ivy <> Com:5 ind
+R1012:1015 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1006:1011 Coq.Strings.String <> string ind
+R1027:1030 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1016:1019 Coq.Init.Datatypes <> list ind
+R1021:1026 Coq.Strings.String <> string ind
+R1035:1038 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1031:1034 coq.ivy <> Expr ind
+R1039:1041 coq.ivy <> Com:5 ind
+R1060:1063 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1057:1059 coq.ivy <> Com:5 ind
+R1067:1070 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1064:1066 coq.ivy <> Com:5 ind
+R1071:1073 coq.ivy <> Com:5 ind
+R1092:1095 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1088:1091 coq.ivy <> Expr ind
+R1099:1102 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1096:1098 coq.ivy <> Com:5 ind
+R1103:1105 coq.ivy <> Com:5 ind
+R1128:1131 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1124:1127 coq.ivy <> Expr ind
+R1135:1138 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1132:1134 coq.ivy <> Com:5 ind
+R1142:1145 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1139:1141 coq.ivy <> Com:5 ind
+R1146:1148 coq.ivy <> Com:5 ind
+R1170:1173 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1164:1169 Coq.Strings.String <> string ind
+R1181:1184 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1174:1180 coq.ivy <> Ivytype ind
+R1188:1191 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1185:1187 coq.ivy <> Com:5 ind
+R1192:1194 coq.ivy <> Com:5 ind
+R1216:1219 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1212:1215 coq.ivy <> Expr ind
+R1223:1226 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1220:1222 coq.ivy <> Com:5 ind
+R1227:1229 coq.ivy <> Com:5 ind
+R1252:1255 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1246:1251 Coq.Strings.String <> string ind
+R1265:1268 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1256:1259 Coq.Init.Datatypes <> list ind
+R1261:1264 coq.ivy <> Expr ind
+R1269:1271 coq.ivy <> Com:5 ind
+R1302:1305 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1296:1301 Coq.Strings.String <> string ind
+R1313:1316 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1306:1312 coq.ivy <> Ivytype ind
+R1317:1319 coq.ivy <> Com:5 ind
+R1351:1354 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1345:1350 Coq.Strings.String <> string ind
+R1362:1365 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1355:1361 coq.ivy <> Ivytype ind
+R1366:1368 coq.ivy <> Com:5 ind
+R1404:1407 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1398:1403 Coq.Strings.String <> string ind
+R1432:1435 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1408:1411 Coq.Init.Datatypes <> list ind
+R1420:1423 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1414:1419 Coq.Strings.String <> string ind
+R1424:1430 coq.ivy <> Ivytype ind
+R1443:1446 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1436:1442 coq.ivy <> Ivytype ind
+R1447:1449 coq.ivy <> Com:5 ind
+R1476:1479 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1470:1475 Coq.Strings.String <> string ind
+R1483:1486 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1480:1482 Coq.Init.Datatypes <> nat ind
+R1487:1489 coq.ivy <> Com:5 ind
+R1521:1524 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1515:1520 Coq.Strings.String <> string ind
+R1536:1539 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1525:1528 Coq.Init.Datatypes <> list ind
+R1530:1535 Coq.Strings.String <> string ind
+R1540:1542 coq.ivy <> Com:5 ind
+R1571:1574 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1565:1570 Coq.Strings.String <> string ind
+R1599:1602 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1575:1578 Coq.Init.Datatypes <> list ind
+R1587:1590 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1581:1586 Coq.Strings.String <> string ind
+R1591:1597 coq.ivy <> Ivytype ind
+R1610:1613 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1603:1609 coq.ivy <> Ivytype ind
+R1617:1620 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1614:1616 coq.ivy <> Com:5 ind
+R1621:1623 coq.ivy <> Com:5 ind
+ind 1650:1659 <> Value_Expr
+constr 1684:1704 <> Value_Expr_VarLiteral
+constr 1753:1767 <> Value_Expr_True
+constr 1796:1811 <> Value_Expr_False
+constr 1841:1858 <> Value_Expr_Var_Fun
+R1667:1670 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1663:1666 coq.ivy <> Expr ind
+binder 1715:1715 <> x:9
+R1718:1727 coq.ivy <> Value_Expr:7 ind
+R1730:1744 coq.ivy <> Expr_VarLiteral constr
+R1746:1746 coq.ivy <> x:9 var
+R1771:1780 coq.ivy <> Value_Expr:7 ind
+R1782:1790 coq.ivy <> Expr_True constr
+R1815:1824 coq.ivy <> Value_Expr:7 ind
+R1826:1835 coq.ivy <> Expr_False constr
+binder 1869:1869 <> x:10
+binder 1871:1872 <> es:11
+R1875:1875 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1909:1913 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 1883:1883 <> e:12
+R1893:1896 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1886:1887 Coq.Lists.List <> In def
+R1891:1892 coq.ivy <> es:11 var
+R1889:1889 coq.ivy <> e:12 var
+R1897:1906 coq.ivy <> Value_Expr:7 ind
+R1908:1908 coq.ivy <> e:12 var
+R1914:1923 coq.ivy <> Value_Expr:7 ind
+R1926:1936 coq.ivy <> Expr_VarFun constr
+R1938:1938 coq.ivy <> x:10 var
+R1940:1941 coq.ivy <> es:11 var
+def 1957:1967 <> Context_Var
+R1991:1994 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1972:1982 coq.Maps <> partial_map def
+R1984:1990 coq.ivy <> Ivytype ind
+R1995:2005 coq.Maps <> partial_map def
+R2008:2011 coq.ivy <> Expr ind
+def 2026:2040 <> Context_Var_Fun
+R2064:2067 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2045:2055 coq.Maps <> partial_map def
+R2057:2063 coq.ivy <> Ivytype ind
+R2068:2078 coq.Maps <> partial_map def
+R2090:2093 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2081:2084 Coq.Init.Datatypes <> list ind
+R2086:2089 coq.ivy <> Expr ind
+R2094:2097 coq.ivy <> Expr ind
+def 2112:2125 <> Context_Action
+R2149:2152 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2130:2140 coq.Maps <> partial_map def
+R2142:2148 coq.ivy <> Ivytype ind
+R2153:2163 coq.Maps <> partial_map def
+R2175:2178 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2166:2169 Coq.Init.Datatypes <> list ind
+R2171:2174 coq.ivy <> Expr ind
+R2179:2181 coq.ivy <> Com ind
+def 2196:2207 <> Context_Type
+R2212:2222 coq.Maps <> partial_map def
+R2224:2226 Coq.Init.Datatypes <> nat ind
