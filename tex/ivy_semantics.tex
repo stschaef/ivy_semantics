@@ -1,0 +1,340 @@
+\documentclass{article}
+
+\usepackage[left=3cm, right=3cm]{geometry}
+
+\input{../../../EECS590_preamble.tex}
+\usepackage{multicol}
+\usepackage{lipsum}
+\usepackage{syntax}
+\usepackage{mathpartir}
+
+\makeatletter
+\define@key {mprset}{style}[1]{\def\TirNameStyle{#1}}
+\makeatother
+
+\newenvironment{mymathpar}[1][]
+ {%
+  \AtBeginEnvironment{mathpar}{\scriptsize}%
+  \mprset{style={#1\scshape}}%
+  \mathpar
+ }
+ {\endmathpar}
+
+\title{\course \\ \Large \assignment}
+\date{\duedate}
+\author{\fullname \\ \textit{\email}}
+
+\newcommand{\assignment}{Ivy Operational Semantics}
+\newcommand{\duedate}{December 13th, 2022}
+
+\begin{document}
+\maketitle
+
+\begin{multicols}{2}
+    \section{Introduction}
+    \subsection{What is Ivy?}
+    Ivy \cite{Ivy} is a language to aid in the design and verification of systems. Because of its simplicity and convenient interface, it allows one to reason easily about concurrent and distributed systems.
+
+    Here, we provide some small step operational semantics of a stripped down version of Ivy. For a first treament of the language semantics, we ignore some constructs that do not (greatly) change the behavior of Ivy programs. Some of the ignored cases include the semantics behind modules, objects, monitors, definitions, importing actions, exporting actions, and some syntactic sugar. Additionally, we can assume that actions are implemented at the same time as they are declared. None of these assumptions changes what a user may accomplish with the language; instead, the same behaviors may be encoded in the language fragment presented. In the future, it would be interesting to give a formal treatment to these parts of the language; however, for now I don't believe they fundamentally affect why people care about Ivy.
+
+    Typically, many Ivy programs are presented similar to a specification of a system rather than an executable program. That is, instead of a user providing an explicit sequence of actions in a \texttt{.ivy} file, one could imagine a program verfier --- like \texttt{ivy\_check} \cite{ivycheck} --- generating and testing these action traces. In our presentation of Ivy's semantics, we have these action traces written explicitly. For example, consider a program containing these declarations,
+    \begin{lstlisting}
+action connect(x:client,y:server) = {
+    require semaphore(y);
+    link(x,y) := true;
+    semaphore(y) := false
+}
+
+action disconnect(x:client,y:server) = {
+    require link(x,y);
+    link(x,y) := false;
+    semaphore(y) := true
+}
+    \end{lstlisting}
+    The program's global state is only affected if we have an explicit trace of actions like
+    \[\texttt{call connect(c1, s1); call disconnect(c1, s1); \dots} \]
+    Because the invoked actions are explicitly given in this way, we may analyze their effect on program state by evaluating them with an interpreter for our stripped down language.
+
+    \subsection{Project Contribution}
+    This project attempts to give some formal semantics for analyzing Ivy, which do not seem to be present in the community. To this end, I give formal inference rules for small-step semantics on a stripped down version of the Ivy language. Additionally, for this stripped down language, I also provide typing rules for expressions in Ivy and rules to check if commands are well-formed.
+
+    To sanity check these proposed rules and give some empirical evidence that these semantics are correct, I implemented an Ivy interpreter and type-checker in OCaml.
+
+    \section{Semantics}
+    In \cref{fig:syntax} we find a description of the Ivy-like syntax. Effectively, the expressions behave like terms in first-order logic with the addition of callable actions --- potentially with side effects --- and non-determinism.
+
+    We assume that declarations and assertions are correctly scoped and stored in variable context $\Gamma$ --- which tracks what variables have been declared along with their types --- and theory context $\Theta$ --- which tracks what assertions are valid at a given point in a program. Note, some assertions --- like \texttt{axiom} --- must be true everywhere, while a \texttt{require} assertion need only hold as a precondition to an action.
+
+    As our writeable locations, we have variables that are explicitly defined in the program --- either locally or globally --- as well as the values of declared functions. We can effectively interpret functions as arrays indexed by their arguments, and thus we may edit what is stored at those indices. These variables and function values will determine the program's state and are contained in store $\sigma$.
+
+    \begin{figure*}
+        \begin{multicols}{4}
+            \paragraph*{\scriptsize Expressions}
+            \begin{grammar}
+                \scriptsize
+                <expr> :: = <x>
+                \alt <f> (<expr>, \dots, <expr>)
+                \alt \texttt{true}
+                \alt \texttt{false}
+                \alt $\neg$ <expr>
+                \alt <expr> $\oplus$ <expr>, $\oplus \in \{\land, \lor, \to, \Leftrightarrow\}$
+                \alt $\forall$ <var> . <expr>
+                \alt $\exists$ <var> . <expr>
+                \alt \texttt{call} <action>
+                \alt $\ast$ (non-deterministic choice)
+
+                <value> ::= \texttt{true}
+                \alt \texttt{false}
+                \alt <x>
+                \alt <f>(<value>,\dots, <value>)
+            \end{grammar}
+
+            \paragraph*{\scriptsize Commands/Declarations}
+            \begin{grammar}
+                \scriptsize
+
+                <declaration> :: = \texttt{var} <var> (local variable declaration)
+                \alt \texttt{individual} <var> (global variable declaration)
+                \alt $\texttt{type}~ <type>$
+                \alt $\texttt{type}~ <type> = \{ \tau_1, \dots, \tau_n\}$ (enumerated type)
+                \alt $\texttt{function}~ <f> (<var>:<type>) : <type>$
+
+                <command> :: = <x> := <expr>
+                \alt $f(\tau_{n_1}, \dots, \tau_{n_m})$ := <expr>
+                \alt <command>; <command>
+                \alt \texttt{if} <expr> \{ <command> \}
+                \alt \texttt{if} <expr> \{ <command> \} \texttt{else} \{ <command> \}
+                \alt \texttt{for} <var> \texttt{in} $\tau$ \{ <command> \}
+                \alt \texttt{while} <expr> \{ <command> \}
+                \alt \texttt{skip}
+
+                <value_cmd> ::= \texttt{skip}
+            \end{grammar}
+            \paragraph*{\scriptsize Assertions}
+            \begin{grammar}
+                \scriptsize
+                <assertion> :: = \texttt{require} <expr>
+                \alt \texttt{ensure} <expr>
+                \alt \texttt{assume} <expr>
+                \alt \texttt{axiom} <expr>
+            \end{grammar}
+            \paragraph*{\scriptsize Evaluation Contexts}
+            \begin{grammar}
+                \scriptsize
+                <E> :: = $[\bullet]$
+                \alt $<E> \oplus <expr>, \oplus \in \{\land, \lor, \to, \Leftrightarrow\}$
+                \alt $<v> \oplus <E>$
+                \alt $\neg <E>$
+                \alt $<E>~\texttt{if} ~ <expr>~  \texttt{else} ~ <expr>$
+                \alt $<v>~\texttt{if} ~ <E> ~ \texttt{else}~  <expr>$
+                \alt $<v>~\texttt{if} ~ <v> ~ \texttt{else}~  <E>$
+                \alt $x := E$
+                \alt $\texttt{if} ~ <E> ~\texttt{then}~\{ <command> \} $
+                \alt $\texttt{if} ~ <E> ~\texttt{then}~\{ <command> \}  \\ \texttt{else} \{ <command> \}$
+
+                <E_cmd> ::= $[\bullet]$
+                \alt <E_cmd>;<command>
+            \end{grammar}
+        \end{multicols}
+        \caption{Ivy-like Syntax}\label{fig:syntax}
+    \end{figure*}
+
+    \subsection{Things Not Considered}
+
+    \paragraph*{Syntactic Sugar}
+    There are many instances of Ivy constructs that can be entirely described via other constructs. Here are a couple cases of syntactic sugar that we ignored for this reason. First, commands like
+
+    \[
+        \texttt{if some x:t . s(x)} \{ \dots \}
+    \]
+
+    are ignored because these are equivalent to
+
+    \[
+        \texttt{if } \exists \texttt{x:t} . \texttt{s(x)} \{ \dots \}
+    \]
+
+    In Ivy expressions capitalized, free variables are implicitly universally quantified. We may assume that these have been translated into their equivalent expressions with explicit quantifiers.
+
+    In Ivy, $+: \alpha \times \alpha \to \alpha$ and $<: \alpha \times \alpha \to \texttt{bool}$ are defined for all types $\alpha$. We ignore these, as they are treated like uninterpreted functions. That is, if a user of this toy model of Ivy wanted to replicate the behavior of $+$ in proper Ivy, they could do so by explicitly declaring an add function on the type they're interested in. Similarly, if they wish to have a theory of arithmetic --- say on \texttt{int}'s --- they could declare the proper types and axiomatize them appropriately. While it may be convenient to have these as primitive to the language, we can encode their behavior through our existing constructs.
+
+    \paragraph{Time Constraints}
+    Due to the short amount of time around the project, there were some features that I would have liked to finish in more detail but could not.
+
+    First of all, I had trouble coding up enumerated types in my Ivy interpreter because of a parsing issue. Additionally, I did not have enough time to get callable actions --- with optional return types --- or the handling of assertions \footnote{In some of the code examples, there may appear to be assertions. These are handled by the language frontend, but simply map to a \texttt{skip} command on the backend.} in my interpreter. The lack of callable actions is not greatly detrimental, as a user could do some simple rewriting to dodge this construct. However, the lack of proper assertions in the interpreter does change the semantics of the language greatly. Similarly, I do not handle errors.
+
+    Interestingly, these last two features --- the invoking of actions and assertions --- have a lot of overlap semantically. If the precondition to an action is not met and the action is called, then the desired behavior in Ivy is for the action to return with no effect on global state.
+
+    \subsection{Syntax}
+
+    In \cref{fig:syntax}, we find a formal presentation of Ivy syntax. We take $\langle x \rangle$, $\langle f \rangle$ to be syntactic categories containing variable names and function names, respectively. Here, \textit{functions} refer to global state variables. In this setting, it is useful to think of these as akin to arrays indexed by their arguments.
+
+    For simplicity, we take all types to be enumerated, even if not stated as such. A priori, the Ivy language that exists out in the world can reason about an unbounded number of elements in its type. However, when used for actual verification purposes, a verifier will usually instantiate these types are particular sizes. Because we wish to implement an interpreter, we require that all types are either enumerated explicitly or are given a size so that they are enumerated implicitly. \footnote{This implicit enumeration does not appear in the formal syntax described in this paper, but is implemented in the interpreter.} Likewise, we will consider formulas like $\bigwedge_{y \in \tau} e[x \mapsto y]$ as finitary. That is, because types $\tau$ are finite we may explicitly instantiate quantified expressions. When $\tau = \{\tau_1, \dots, \tau_n \}$,
+
+    \[
+        \left( \bigwedge_{y \in \tau} e[x \mapsto y] \right) \Leftrightarrow e[x \mapsto \tau_1] \land \cdots \land e[x \mapsto \tau_n]
+    \]
+
+    Take variable context $\Gamma$ to contain all the typing information explicitly declared as well as the new information that may be gained from the declared through a type inference procedure like Hindley-Milner. $\Theta$ will contain current axioms and assertions, and we must importantly evaluate each expression with respect to the constraints described in $\Theta$. In the setting of the interpreter, we require everything to be explicitly typed. I did not have time to implement type inference on top of the type checking and small step evaluation.
+
+    Note that $\Gamma, E[\ast] \models \ast : \tau$ means that this occurence of $\ast$ was inferred to be of type $\tau$ in the context of the entire program. Two occurences of $\ast$ in the same program may inhabit two distinct types, as the evaluation context surrounding each occurence may allow different type inferences.
+
+    \subsection{Theory Context}
+
+    The theory context $\Theta$ is meant to track the set of logical obligations the program state must obey in the current scope. We write $\sigma \models \Theta$ to denote that state $\sigma$ satisfies all of the constraints laid out in $\Theta$. When evaluating expressions, we also must instantiate the current axioms and conjoin them to the expression. This is not formally expressed, but we can imagine that $\langle expr \rangle$ behaves instead as some sort of pre-expression category that must be instantiated with respect to the axioms of $\Theta_{\text{ax}}$. 
+
+    For example, suppose $\Theta_{\text{ax}} = \{ \phi_1, \phi_2 \}$. If we wish to evaluate $e$ in the context $\Theta$, then to get the correct value we need to instantiate $\Theta_{\text{ax}}$ in $e$. This means instead of evaluating $e$ in our formal semantics, we should be evaluating $e' = \phi_1 \land \phi_2 \land e$.
+    
+    In the formal semantics, we comprehend $\Theta$ mathematically. That is, if we are checking if $\sigma \models \Theta$, we don't worry about the decision procedure. In general, first order logic is undecidable so this may appear worrying; however, here all of our types are finite so there exists a brute force decision procedure. 
+    
+    To omit a redundant premise across all inference rules in \cref{fig:commandrules}, we add \cref{fig:assertions} to ensure that computations only step if they respect the theory context. Use $\Theta_{\text{ax}}, \Theta_{\text{pre/post}}$ to denote the set of \texttt{axiom} assertions and the set of \texttt{require}/\texttt{ensure} assertions, respectively. 
+
+    I am attempting to avoid overloading notation too much, but might be failing. When applying rules like FAILS-PRE/FAILS-POST the failed \texttt{require}/\texttt{ensure} assertion in $\Theta_{\text{pre/post}}$ must come from a precondition to an action that is called somewhere in $p$. There may be a better way to denote this syntactically.
+
+    \begin{figure*}
+        \begin{mathpar}
+            \scriptsize
+            \inferrule*[right=respects-axioms]{\Gamma \models \langle p, \sigma \rangle \to \langle p', \sigma' \rangle \\ \sigma \models \Theta \\ \sigma' \models \Theta}{\Gamma, \Theta \models \langle p, \sigma \rangle \to \langle p', \sigma' \rangle} \\
+            \inferrule*[right=fails-axioms-l]{\Gamma \models \langle p, \sigma \rangle \to \langle p', \sigma' \rangle \\ \sigma \not \models \Theta_{\text{ax}}}{\Gamma, \Theta \models \langle p, \sigma \rangle \to \texttt{error}} \\
+            \inferrule*[right=fails-pre]{\Gamma \models \langle p, \sigma \rangle \to \langle p', \sigma' \rangle \\ \sigma \models \Theta_{\text{ax}} \\ \sigma \not \models \Theta_{\text{pre/post}}}{\Gamma, \Theta \models \langle p, \sigma \rangle \to \langle \texttt{skip}, \sigma \rangle} \\
+            \inferrule*[right=fails-post]{\Gamma \models \langle p, \sigma \rangle \to \langle p', \sigma' \rangle \\ \sigma \models \Theta_{\text{ax}} \\ \sigma' \not \models \Theta_{\text{pre/post}}}{\Gamma, \Theta \models \langle p, \sigma \rangle \to \langle \texttt{skip}, \sigma \rangle}
+        \end{mathpar}
+        \caption{Assertion Semantics}\label{fig:assertions}
+    \end{figure*}
+    
+    % If we just define a function $\texttt{lt(x:Nat, y:Nat) : bool}$ and expect it to behavior like $<$ on the natural numbers, then we also need to add axioms making it irreflexive, transitive, and asymmetric. Consider the following example,
+    % \begin{gather*}
+    %     \phi : \forall n : \N . n \neq 0 \to (\exists m : \N . m < n) \\
+    %     \psi : \neg(\exists m: \N. m < n)
+    % \end{gather*}
+    % Take $\phi$ as an axiom and $\psi$ as an action precondition. We can conclude from $\phi \land \psi$ that $n = 0$. Without assuming $\phi$ to be true, $\psi$ does not give us the information that $n = 0$. It is exactly the same case with assertions in Ivy, we may combine pieces of information and draw additional conclusions.
+
+
+    \subsection{Evaluation Rules}
+    Note that the evaluation rules do not necessarily preserve state. Expressions can call actions and thus may have side effects, $\sigma$ is not necessarily equal to $\sigma'$ even when only evaluating an expression. Further, in a conditional expression, it is the desired behavior that all calls are invoked regardless of if their branch was taken --- which is why we see the evalutation to $\langle v \rangle ~\texttt{if}~ \langle v \rangle ~\texttt{else}~ \langle v \rangle$ despite these side effects.
+
+    % Reference for most of these comments: http://microsoft.github.io/ivy/language.html
+
+    % Expressions
+    % ------------------
+    % In Ivy, expressions are formulas in first-order logic with equality. 
+    % Operators: ~, &, |, ->, <->, =
+    % Also a conditional: X if C else Y
+    % Quantifiers: forall, exists
+    % ex) exists X. forall Y. link(X, Y)
+    % Expressions can be implicitly universally quantified with capital letters 
+
+    % Note that we can have things like <-> as syntactic sugar on top of this
+    \begin{figure*}
+        \begin{mathpar}
+            \scriptsize
+            \hspace{1em}
+            \inferrule*[right=eval]{\Gamma \models \langle e, \sigma \rangle \to \langle e', \sigma' \rangle}{\Gamma \models \langle E[e], \sigma \rangle \to \langle  E[e'] , \sigma' \rangle}
+            \hspace{1em}
+            \inferrule*[right=bool-binop]{\oplus \in \{\land, \lor, \to, \Leftrightarrow\}}{\Gamma \models \langle v_1 \oplus v_2, \sigma \rangle \to \langle (\sigma(v_1) \oplus_{\texttt{bool}} \sigma(v_2)), \sigma \rangle} \\
+            \vspace{-1em}\hspace{1em}
+            \inferrule*[right=neg]{ }{\Gamma \models \langle \neg v, \sigma \rangle \to \langle \neg_{\texttt{bool}} \sigma(v), \sigma \rangle}
+            \hspace{1em}
+            \inferrule*[right=t-lit]{ } {\Gamma \models \langle \neg \texttt{true}, \sigma \rangle \to \langle \texttt{false}, \sigma \rangle}                                                                                               \\
+            \vspace{-1em}\hspace{1em}
+            \inferrule*[right=f-lit]{ }{\Gamma \models \langle \neg \texttt{false}, \sigma \rangle \to \langle \texttt{true}, \sigma \rangle}
+            \hspace{1em}
+            \inferrule*[right=forall-inst]{\Gamma \models x : \tau}{\Gamma \models \langle \forall x . e , \sigma \rangle \to \langle  \bigwedge_{y \in \tau} e[x \mapsto y], \sigma \rangle} \\
+            \vspace{-1em}\hspace{1em}
+            \inferrule*[right=exists-inst]{\Gamma \models x : \tau}{\Gamma \models \langle \exists x . e , \sigma \rangle \to \langle  \bigvee_{y \in \tau} e[x \mapsto y], \sigma \rangle}
+            \hspace{1em}
+            \inferrule*[right=cond-t]{ }{\Gamma \models \langle v_1 ~\texttt{if}~ \texttt{true} ~\texttt{else}~ v_3 , \sigma \rangle \to \langle \sigma(v_1) , \sigma \rangle}                                                               \\
+            \vspace{-1em}\hspace{1em}
+            \inferrule*[right=cond-f]{ }{\Gamma \models \langle v_1 ~\texttt{if}~ \texttt{false} ~\texttt{else}~ v_3 , \sigma \rangle \to \langle \sigma(v_2) , \sigma \rangle}
+            \vspace{-1em}\hspace{1em}
+            \inferrule*[right=non-det]{\Gamma, E[\ast] \models \ast : \tau \\ \Gamma \models t : \tau}{\Gamma \models \langle \ast, \sigma \rangle \to \langle t, \sigma \rangle}
+        \end{mathpar}
+        \caption{Expression Semantics}\label{fig:exprrules}
+    \end{figure*}
+
+    \begin{figure*}
+        \begin{mathpar}
+            \scriptsize
+            \inferrule*[right=assign]{ }{\Gamma \models \langle x := v, \sigma \rangle \to \langle \texttt{skip}, \sigma[x \mapsto v] \rangle }
+            \vspace{-1em}\hspace{1em}
+            \inferrule*[right=seq]{ }{\Gamma \models \langle \texttt{skip}; c_2 , \sigma \rangle \to \langle c_2, \sigma \rangle } \\
+            \inferrule*[right=if-t]{ }{\Gamma \models \langle \texttt{if}~ \texttt{true}~ \{ c \}, \sigma \rangle \to \langle c , \sigma \rangle}
+            \vspace{-1em}\hspace{1em}
+            \inferrule*[right=if-f]{ }{\Gamma \models \langle \texttt{if}~ \texttt{false}~ \{ c \}, \sigma \rangle \to \langle \texttt{skip} , \sigma \rangle} \\
+            \inferrule*[right=if-else-t]{ }{\Gamma \models \langle \texttt{if}~ ~\texttt{true}~ \{ c_1 \} ~\texttt{else} ~\{ c_2 \}, \sigma \rangle \to \langle c_1 , \sigma \rangle}
+            \vspace{-1em}\hspace{1em}
+            \inferrule*[right=if-else-f]{ }{\Gamma \models \langle \texttt{if}~ ~\texttt{false}~ \{ c_1 \} ~\texttt{else} ~\{ c_2 \}, \sigma \rangle \to \langle c_2 , \sigma \rangle} \\
+            \inferrule*[right=for]{\Gamma \models \tau = \{y_i\}_{i = 1}^n}{\Gamma \models \langle \texttt{for}~ x ~\texttt{in}~ \tau ~\{ c \},\sigma \rangle \to \langle c[x \mapsto y_1]; \cdots;c[x \mapsto y_n], \sigma \rangle}
+            \inferrule*[right=while]{ }{\Gamma \models \langle \texttt{while}~e~ \{ c \}, \sigma \rangle \to \langle \texttt{if}~ e ~\{ c \};\texttt{while}~e ~\{ c \}, \sigma  \rangle} \\
+            \vspace{-1em}\hspace{1em}
+        \end{mathpar}
+        \caption{Command Semantics}\label{fig:commandrules}
+    \end{figure*}
+
+    \begin{figure*}
+        \begin{mathpar}
+            \scriptsize
+            \inferrule*[right=binop-intro]{\Gamma \vdash b_1 : \texttt{bool}  \\  \Gamma \vdash b_2 : \texttt{bool} \\ \oplus \in \{\land, \lor, \to, \Leftrightarrow\}}{\Gamma \vdash b_1 \oplus b_2 : \texttt{bool}}\vspace{-1em}\hspace{1em}
+            \inferrule*[right=neg-intro]{\Gamma \vdash b : \texttt{bool}}{\Gamma \vdash \neg b : \texttt{bool}} \\
+            \inferrule*[right=bool-lit]{\beta \in  \{\texttt{true}, \texttt{false} \}}{\Gamma \vdash \beta : \texttt{bool}} \vspace{-1em}\hspace{1em}
+            \inferrule*[right=forall-intro]{\Gamma \vdash e[x \mapsto y_i] : \texttt{bool} \\ \tau = \{y_i\}_{i = 1}^n}{\Gamma \vdash \forall (x : \tau) . e : \texttt{bool}} \\
+            \inferrule*[right=exists-intro]{\Gamma \vdash e[x \mapsto y_i] : \texttt{bool} \\ \tau = \{y_i\}_{i = 1}^n}{\Gamma \vdash \exists (x : \tau) . e : \texttt{bool}} \vspace{-1em}\hspace{1em}
+            \inferrule*[right=cond-intro]{\Gamma \vdash e_1 : \tau \\ \Gamma \vdash e_2 : \tau \\ \Gamma \vdash b : \texttt{bool}}{\Gamma \vdash e_1 ~\texttt{if}~ b ~\texttt{else}~ e_2 : \tau} \\
+            \inferrule*[right=non-det-infer]{\ast \text{ inferred to be of type } \tau \text{ in } E}{\Gamma, E[\ast] \vdash \ast : \tau}
+        \end{mathpar}
+        \caption{Typing Rules}\label{fig:typingrules}
+    \end{figure*}
+
+    \begin{figure*}
+        \begin{mathpar}
+            \scriptsize
+            \inferrule*[right=t-assn]{x \in \Gamma \\ \Gamma \vdash x : \tau \\ \Gamma \vdash e : \tau \\ \tau \in \Gamma}{\Gamma \vdash x := e : 1}
+            \vspace{-1em}\hspace{1em}
+            \inferrule*[right=t-seq]{\Gamma \vdash c_1 : 1 \\ \Gamma, c_1\vdash c_2 : 1}{\Gamma \vdash c_1; c_2 : 1} \\
+            \inferrule*[right=t-if]{\Gamma \vdash e : \texttt{bool} \\ \Gamma \vdash c : 1}{\Gamma \vdash \texttt{if}~ e ~\{ c \} : 1}
+            \vspace{-1em}\hspace{1em}
+            \inferrule*[right=t-if-else]{\Gamma \vdash e : \texttt{bool} \\ \Gamma \vdash c_1 : 1 \\ \Gamma \vdash c_2 : 1}{\Gamma \vdash \texttt{if}~ ~e~ \{ c_1 \} ~\texttt{else} ~\{ c_2 \} : 1 }
+            \inferrule*[right=t-for]{\Gamma, x : \tau \vdash c : 1 \\ \tau \in \Gamma}{\Gamma \vdash \texttt{for}~ x ~\texttt{in}~ \tau ~\{ c \} : 1} \\
+            \inferrule*[right=t-while]{\Gamma \vdash e : \texttt{bool} \\ \Gamma \vdash c : 1}{\Gamma \vdash \texttt{while}~e~\{c\} : 1}
+            \vspace{-1em}\hspace{1em}
+            \inferrule*[right=t-infer-dec]{x \not \in \Gamma \\ \text{type of } x \text{ inferrable}}{\Gamma \vdash \texttt{var}~ x : 1}
+            \inferrule*[right=t-lvar-dec]{x \not \in \Gamma \\ \tau \in \Gamma}{\Gamma \vdash (\texttt{var}~ x : \tau):1} \\
+            \vspace{-1em}\hspace{1em}
+            \inferrule*[right=t-fun-dec]{f \not \in \Gamma \\ \tau_i \in \Gamma}{\Gamma \vdash (\texttt{function}~ f (x_1: \tau_1, \dots, x_n : \tau_n) : \tau_{n + 1} ): 1} \\
+            \inferrule*[right=t-gvar-dec]{\tau \in \Gamma \\ x \not \in \Gamma}{\Gamma \vdash (\texttt{individual}~ x : \tau)}
+        \end{mathpar}
+        \caption{Well-formed commands}\label{fig:wellformedcommands}
+    \end{figure*}
+
+    We read the declarations chronologically when building $\Gamma$. That is, read from beginning of program to the end and only use declarations up until that point. Similarly, build theory context $\Theta$ for the appropriate scope --- usually an \texttt{action} definition or surrounding conditionals. Building these formally is likely a useful exercise, although for the purpose of describing operational semantics we can assume that these are handed to us well-formed.
+
+    \subsection{Operational Semantics}
+
+    Most of the rules in \cref{fig:exprrules,fig:commandrules,fig:typingrules} speak for themselves. Some neat ones to highlight include FORALL-INST and EXISTS-INST, because of the finite instantiation across the types from earlier. NON-DET is also interesting, as the non-determinism is baked into the premise applying to multiple elements $t : \tau$.
+
+    \section{Interpreter}
+    I will zip and upload the code if you're interested. This was modeled after the previous homeworks.
+
+    \begin{itemize}
+        \item \texttt{ast.ml} contains the abstract syntax description of Ivy.
+        \item \texttt{lexer.ml} describes how the lexer should split the program into tokens.
+        \item \texttt{parser.mly} denotes how the parser gives meaning to the tokens.
+        \item \texttt{repl.ml} contains the main read-evaluate-print loop.
+        \item \texttt{ivy.ml} contains the interpreter and type checker for Ivy.
+    \end{itemize}
+
+    Much of the implementation in \texttt{ivy.ml} followed from a combination of the 590 coursework, just with more declarations and stores to carry around.
+
+    \section{Conclusion}
+    Overall, this project takes a step toward useful Ivy semantics, and it was fun to do; however, there are still some gaps that I believe need to be addressed before calling this work complete or hoping to publish it somewhere.
+
+    \begin{enumerate}
+        \item Go back and prove that any concepts deliberately ignored were indeed redundant, and thus not needed for this formal analysis
+        \item Handle assertions and actions in greater detail. In particular, get these working in my interpreter. These are huge part of Ivy and are crucial to a complete semantics of it. I initally considered describing the actions via a translation in something resembling the simply-typed lambda calculus with a void type added. This way I could handle actions with or without return types. The overhead for this seemed too high and I prioritized getting a minimal working interpreter. Perhaps this wasn't the right choice, but in the future it is very feasible to finish this part up.
+        \item Escalate above empirical evidence on my hacky interpreter, and instead formalize these semantics --- say, in Coq.
+    \end{enumerate}
+
+    \bibliographystyle{plain} % We choose the "plain" reference style
+    \bibliography{refs} % Entries are in the refs.bib file
+\end{multicols}
+\end{document}

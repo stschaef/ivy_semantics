@@ -1,0 +1,20 @@
+type client 4
+type server 2
+
+individual user: client
+
+function link(X: client, Y: server) : bool
+relation semaphore(X: server)
+
+for y:server {
+    semaphore(y) := true;
+    for x:client {
+        link(x, y) := false;
+    }
+}
+
+link(client1, server1) := *:bool;
+semaphore(server1) := false;
+link(client1, server1) := false;
+semaphore(server1) := *:bool;
+user := *:client;
