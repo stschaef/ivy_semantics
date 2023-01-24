@@ -96,7 +96,7 @@ Inductive Com : Type :=
   | Com_IfElse : Expr -> Com -> Com -> Com
   | Com_For : string -> Ivytype -> Com -> Com
   | Com_While : Expr -> Com -> Com
-  | Com_Call : string -> list Expr -> Com
+  (* | Com_Call : string -> list Expr -> Com *)
   | Com_LocalVarDecl : string -> Ivytype -> Com
   | Com_GlobalVarDecl : string -> Ivytype -> Com
   | Com_GlobalFuncVarDecl : string -> list Ivytype -> Ivytype -> Com
@@ -127,7 +127,7 @@ Fixpoint string_of_Com (c : Com) : string :=
   | Com_IfElse e c1 c2 => "if " ++ (string_of_Expr e) ++ " then " ++ (string_of_Com c1) ++ " else " ++ (string_of_Com c2)
   | Com_For x t c => "for " ++ x ++ " : " ++ (string_of_Ivytype t) ++ " do " ++ (string_of_Com c)
   | Com_While e c => "while " ++ (string_of_Expr e) ++ " do " ++ (string_of_Com c)
-  | Com_Call x es => x ++ "(" ++ (string_of_list string_of_Expr es) ++ ")"
+  (* | Com_Call x es => x ++ "(" ++ (string_of_list string_of_Expr es) ++ ")" *)
   | Com_LocalVarDecl x t => "var " ++ x ++ " : " ++ (string_of_Ivytype t)
   | Com_GlobalVarDecl x t => "global var " ++ x ++ " : " ++ (string_of_Ivytype t)
   | Com_GlobalFuncVarDecl x xs t => "global var " ++ x ++ "(" ++ (string_of_list string_of_Ivytype xs) ++ ") : " ++ (string_of_Ivytype t)
@@ -196,7 +196,7 @@ Fixpoint subst_com (p : Com) (v : Expr) (x : string) : Com :=
   | Com_IfElse e p1 p2 => (Com_IfElse (subst e v x) (subst_com p1 v x) (subst_com p2 v x))
   | Com_For y t p => (Com_For y t (subst_com p v x))
   | Com_While e p => (Com_While (subst e v x) (subst_com p v x))
-  | Com_Call f es => (Com_Call f (map (fun e => subst e v x) es))
+  (* | Com_Call f es => (Com_Call f (map (fun e => subst e v x) es)) *)
   | Com_Skip => Com_Skip
   | _ => p (* declarations *)
   end.
@@ -204,7 +204,7 @@ Fixpoint subst_com (p : Com) (v : Expr) (x : string) : Com :=
 Print In.
   
 Fixpoint type_expr 
-(e : Expr) (var_ctx fun_var_ctx act_ctx : context) (declared_types : list Ivytype) (type_sizes : EnumTypeSizes) {struct e} : option Ivytype := 
+(e : Expr) (var_ctx fun_var_ctx act_ctx : context) (declared_types : Ivytype -> bool) (type_sizes : EnumTypeSizes) {struct e} : option Ivytype := 
   match e with
   | Expr_VarLiteral x => var_ctx x
   | Expr_VarFun x es => 
@@ -275,16 +275,19 @@ Fixpoint type_expr
     | _ => None
     end
   | Expr_Forall x t e =>
-    match In t declared_types with
-    | True => type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes
+    match declared_types t with
+    | true => type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes
+    | false => None
     end
   | Expr_Exists x t e =>
-    match In t declared_types with
-    | True => type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes
+    match declared_types t with
+    | true => type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes
+    | false => None
     end
   | Expr_Nondet t => 
-    match In t declared_types with
-    | True => Some t
+    match declared_types t with
+    | true => Some t
+    | false => None
     end
   | Expr_Cond e1 e2 e3 =>
     match type_expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes with
@@ -303,9 +306,8 @@ Fixpoint type_expr
   end.
 
 Fixpoint check_command_helper (p : Com) 
-(var_ctx fun_var_ctx act_ctx : context) 
-(declared_types : list Ivytype) (type_sizes : EnumTypeSizes) {struct p} : 
-option (context * context * context * list Ivytype * EnumTypeSizes) :=
+(var_ctx fun_var_ctx act_ctx : context) (declared_types: Ivytype -> bool) (type_sizes : EnumTypeSizes) {struct p} : 
+option (context * context * context * context * EnumTypeSizes) :=
   match p with
   | Com_Assign x e => 
     let e_type := type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes in
@@ -349,9 +351,11 @@ option (context * context * context * list Ivytype * EnumTypeSizes) :=
     | _ => None
     end
   | Com_For x t p' =>
-    match In t declared_types with
-    | True => 
+  (* TODO this is bad, I really just want a set of types rather than this partial map of strings to types *)
+    match declared_types t with
+    | true => 
       check_command_helper p' var_ctx fun_var_ctx act_ctx declared_types type_sizes
+    | false => None
     end
   | Com_While e p' =>
     match type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes with
@@ -359,7 +363,7 @@ option (context * context * context * list Ivytype * EnumTypeSizes) :=
       check_command_helper p' var_ctx fun_var_ctx act_ctx declared_types type_sizes
     | _ => None
     end
-  | Com_Call f arg_ids =>
+  (* | Com_Call f arg_ids =>
     let t := fun_var_ctx f in
       match t with
       | Some (Ivytype_Fun arg_ts ret_t) =>
@@ -368,34 +372,43 @@ option (context * context * context * list Ivytype * EnumTypeSizes) :=
         then Some (var_ctx, fun_var_ctx, act_ctx, declared_types, type_sizes) 
         else None
       | _ => None
-      end
+      end *)
   | Com_LocalVarDecl var_id t =>
-    match In t declared_types with
-    | True => 
-      let var_ctx' := update var_ctx var_id (Some t) in
+    match declared_types t with
+    | true => 
+      let var_ctx' := update var_ctx var_id t in
       Some (var_ctx', fun_var_ctx, act_ctx, declared_types, type_sizes)
+    | false => None
     end
   | Com_GlobalVarDecl var_id t =>
-    match In t declared_types with
-    | True => 
-      let var_ctx' := update var_ctx var_id (Some t) in
+    match declared_types t with
+    | true => 
+      let var_ctx' := update var_ctx var_id t in
       Some (var_ctx', fun_var_ctx, act_ctx, declared_types, type_sizes)
+    | false => None
     end
-  | Com_GlobalFuncVarDecl var_id arg_ids_and_types ret_type =>
-    match In ret_type declared_types with
-    | True => 
-      let arg_ts := map (fun x => snd x) arg_ids_and_types in
-      let arg_ts' := map (fun x => fromMaybe Ivytype_Void (In x declared_types)) arg_ts in
-      if (list_beq Ivytype eqb_Ivytype arg_ts arg_ts') 
-      then let fun_var_ctx' := update fun_var_ctx var_id (Some (Ivytype_Fun arg_ts ret_type)) in
+  | Com_GlobalFuncVarDecl var_id arg_ts ret_type =>
+    match declared_types ret_type with
+    | true =>
+      (* check that each of arg_ts is declared *)
+      let arg_ts_declared := 
+        fold_left (fun acc t => 
+          match declared_types t with
+          | true => acc
+          | false => false
+          end) arg_ts true in
+      if arg_ts_declared then 
+        let fun_var_ctx' := update fun_var_ctx var_id (Ivytype_Fun arg_ts ret_type) in
         Some (var_ctx, fun_var_ctx', act_ctx, declared_types, type_sizes)
       else None
+    | false => None
     end
-  | Com_TypeDecl t n =>
-    match In t declared_types with
-    | True => None
-    | False => 
-      let declared_types' := t :: declared_types in
+  | Com_TypeDecl t_id n =>
+    let t := Ivytype_User_Defined t_id in
+    match declared_types t with
+    | true => None
+    | false => 
+      let declared_types' := (fun t' => if eqb_Ivytype t t' then true else declared_types t') in
       let type_sizes' := update type_sizes t (Some n) in
       Some (var_ctx, fun_var_ctx, act_ctx, declared_types', type_sizes')
     end
