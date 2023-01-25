@@ -35,7 +35,7 @@ Fixpoint eqb_Ivytype (t1 t2 : Ivytype) : bool :=
 Inductive Expr : Type :=
   | Expr_VarLiteral : string -> Expr
   | Expr_VarFun : string -> list Expr -> Expr
-  | Expr_ActionApplication : string -> list Expr -> Expr
+  (* | Expr_ActionApplication : string -> list Expr -> Expr *)
   | Expr_True
   | Expr_False
   | Expr_Not : Expr -> Expr
@@ -53,7 +53,7 @@ Fixpoint string_of_Expr (e : Expr) : string :=
   match e with
   | Expr_VarLiteral x => x
   | Expr_VarFun x es => x ++ "(" ++ (fold_left (fun s e => s ++ ", " ++ (string_of_Expr e)) es "") ++ ")"
-  | Expr_ActionApplication x es => x ++ "(" ++ (fold_left (fun s e => s ++ ", " ++ (string_of_Expr e)) es "") ++ ")"
+  (* | Expr_ActionApplication x es => x ++ "(" ++ (fold_left (fun s e => s ++ ", " ++ (string_of_Expr e)) es "") ++ ")" *)
   | Expr_True => "true"
   | Expr_False => "false"
   | Expr_Not e => "!" ++ (string_of_Expr e)
@@ -72,7 +72,7 @@ Fixpoint eqb_Expr (e1 e2 : Expr) : bool :=
   match e1, e2 with
   | Expr_VarLiteral x1, Expr_VarLiteral x2 => eqb x1 x2
   | Expr_VarFun x1 es1, Expr_VarFun x2 es2 => andb (eqb x1 x2) (list_beq Expr eqb_Expr es1 es2)
-  | Expr_ActionApplication x1 es1, Expr_ActionApplication x2 es2 => andb (eqb x1 x2) (list_beq Expr eqb_Expr es1 es2)
+  (* | Expr_ActionApplication x1 es1, Expr_ActionApplication x2 es2 => andb (eqb x1 x2) (list_beq Expr eqb_Expr es1 es2) *)
   | Expr_True, Expr_True => true
   | Expr_False, Expr_False => true
   | Expr_Not e1, Expr_Not e2 => eqb_Expr e1 e2
@@ -150,7 +150,7 @@ Fixpoint subst (e : Expr) (v : Expr) (x : string) : Expr :=
   match e with 
   | Expr_VarLiteral y => if eqb x y then v else e
   | Expr_VarFun y es => Expr_VarFun y (map (fun e => subst e v x) es)
-  | Expr_ActionApplication y es => Expr_ActionApplication y (map (fun e => subst e v x) es)
+  (* | Expr_ActionApplication y es => Expr_ActionApplication y (map (fun e => subst e v x) es) *)
   | Expr_True => Expr_True
   | Expr_False => Expr_False
   | Expr_Not e => Expr_Not (subst e v x)
@@ -170,7 +170,7 @@ Definition unpack_id_under_expr (e : Expr) : option string :=
   match e with
   | Expr_VarLiteral x => Some x
   | Expr_VarFun x es => Some x
-  | Expr_ActionApplication x es => Some x
+  (* | Expr_ActionApplication x es => Some x *)
   | _ => None (* Shouldn't be able to extract id from anything else *)
   end.
   
@@ -217,13 +217,13 @@ Fixpoint type_expr
       if (list_beq Ivytype eqb_Ivytype arg_ts decl_arg_ts) then Some ret_t else None
     | _ => None
     end
-  | Expr_ActionApplication x es =>
+  (* | Expr_ActionApplication x es =>
     match act_ctx x with
       | Some (_, Ivytype_Fun t1 t2, _) => 
         let arg_ts := map (fun e => fromMaybe Ivytype_Void (type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes)) es in
         if (list_beq Ivytype eqb_Ivytype arg_ts t1) then Some t2 else None
       | _ => None
-      end
+      end *)
   | Expr_True => Some Ivytype_Bool
   | Expr_False => Some Ivytype_Bool
   | Expr_Not e => 
@@ -464,3 +464,29 @@ Admitted.
   induction p; simpl in *; try (inversion H; subst; reflexivity). *)
 
 (* TODO : small steps and type preservation/progress *)
+
+(* Fixpoint small_step_Expr 
+(e : Expr)
+(var_ctx fun_var_ctx : context)
+(act_ctx : context)
+(declared_types : Ivytype -> bool)
+(type_sizes : EnumTypeSizes)
+: option Expr :=
+  match e with
+  | Expr_VarLiteral _ => None
+  (* | Expr_VarFun x es => None TODO: these need to reduce until the args are values *)
+  (* | Expr_ActionApplication *)
+  | Expr_True => None
+  | Expr_False => None
+  | Expr_Not e => if eqb_Expr e Expr_True then Some Expr_False else 
+                  if eqb_Expr e Expr_False then Some Expr_True else
+                  Expr_Not (small_step_Expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes)
+  | Expr_And e1 e2 => 
+  | Expr_Or 
+  | Expr_Eq 
+  | Expr_Implies
+  | Expr_Iff 
+  | Expr_Forall 
+  | Expr_Exists 
+  | Expr_Nondet 
+  | Expr_Cond  *)

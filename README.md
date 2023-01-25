@@ -17,3 +17,6 @@ This repository contains some small-step structural operational semantics of the
 - Look over the data structures used again. I currently have a mess of different flavors of maps (some from `Maps.v` and some written by me). It would be very nice to swap some things out for things that act like sets. 
 - Incorporate assertions (axioms and pre-/post-conditions) into the interpreter
 - Quadruple check that what is down now works. A lot of the translation from OCaml to Coq was straightforward, but I got lazy and offloaded some to Copilot. The code looks fine, but I should double check that it works as intended.
+- action application
+- probably separate the use of a function as a location and as an actual function   
+- decide is_value as a boolean, not a proposition. This should be doable
