@@ -101,8 +101,8 @@ Inductive Com : Type :=
   | Com_GlobalVarDecl : string -> Ivytype -> Com
   | Com_GlobalFuncVarDecl : string -> list Ivytype -> Ivytype -> Com
   | Com_TypeDecl : string -> nat -> Com 
-  | Com_EnumTypeDecl : string -> list string -> Com
-  | Com_ActionDecl : string -> list Ivytype -> Ivytype -> Com -> Com
+  (* | Com_EnumTypeDecl : string -> list string -> Com *)
+  | Com_ActionDecl : string -> list (string * Ivytype) -> Ivytype -> Com -> Com
   | Com_Skip.
 
 Fixpoint string_of_list {A} (f : A -> string) (l : list A) : string :=
@@ -132,8 +132,8 @@ Fixpoint string_of_Com (c : Com) : string :=
   | Com_GlobalVarDecl x t => "global var " ++ x ++ " : " ++ (string_of_Ivytype t)
   | Com_GlobalFuncVarDecl x xs t => "global var " ++ x ++ "(" ++ (string_of_list string_of_Ivytype xs) ++ ") : " ++ (string_of_Ivytype t)
   | Com_TypeDecl x n => "type " ++ x ++ " = " ++ (string_of_nat n)
-  | Com_EnumTypeDecl x xs => "type " ++ x ++ " = " ++ (string_of_list (fun x => x) xs)
-  | Com_ActionDecl x xs t c => "action " ++ x ++ "(" ++ (string_of_list string_of_Ivytype xs) ++ ") : " ++ (string_of_Ivytype t) ++ " = " ++ (string_of_Com c)
+  (* | Com_EnumTypeDecl x xs => "type " ++ x ++ " = " ++ (string_of_list (fun x => x) xs) *)
+  | Com_ActionDecl x xs t c => "action " ++ x ++ "(" ++ (string_of_list string_of_Ivytype (map snd xs)) ++ ") : " ++ (string_of_Ivytype t) ++ " = " ++ (string_of_Com c)
   | Com_Skip => "skip"
   end.
 
@@ -179,7 +179,8 @@ Definition update (c : context) (x : string) (t : Ivytype) : context := t_update
 Definition store (A : Type) := partial_map A.
 Definition store_lookup {A} (s : store A) (x : string) : option A := s x.
 Definition store_update {A} (s : store A) (x : string) (v : A) : store A := t_update s x (Some v).
-Definition EnumTypeSizes := partial_map nat.
+Definition EnumTypeSizes := Ivytype -> nat.
+Definition action_context := partial_map (list (string * Ivytype) * Ivytype * Com).
 
 Definition fromMaybe {A : Type} (x : A) (y : option A) : A :=
   match y with
@@ -204,7 +205,9 @@ Fixpoint subst_com (p : Com) (v : Expr) (x : string) : Com :=
 Print In.
   
 Fixpoint type_expr 
-(e : Expr) (var_ctx fun_var_ctx act_ctx : context) (declared_types : Ivytype -> bool) (type_sizes : EnumTypeSizes) {struct e} : option Ivytype := 
+(e : Expr) (var_ctx fun_var_ctx : context) 
+(act_ctx : action_context) 
+(declared_types : Ivytype -> bool) (type_sizes : EnumTypeSizes) {struct e} : option Ivytype := 
   match e with
   | Expr_VarLiteral x => var_ctx x
   | Expr_VarFun x es => 
@@ -216,7 +219,7 @@ Fixpoint type_expr
     end
   | Expr_ActionApplication x es =>
     match act_ctx x with
-      | Some (Ivytype_Fun t1 t2) => 
+      | Some (_, Ivytype_Fun t1 t2, _) => 
         let arg_ts := map (fun e => fromMaybe Ivytype_Void (type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes)) es in
         if (list_beq Ivytype eqb_Ivytype arg_ts t1) then Some t2 else None
       | _ => None
@@ -306,8 +309,11 @@ Fixpoint type_expr
   end.
 
 Fixpoint check_command_helper (p : Com) 
-(var_ctx fun_var_ctx act_ctx : context) (declared_types: Ivytype -> bool) (type_sizes : EnumTypeSizes) {struct p} : 
-option (context * context * context * context * EnumTypeSizes) :=
+(var_ctx fun_var_ctx : context) 
+(act_ctx : action_context) 
+(declared_types: Ivytype -> bool) 
+(type_sizes : EnumTypeSizes) {struct p} : 
+option (context * context * action_context * (Ivytype -> bool) * EnumTypeSizes) :=
   match p with
   | Com_Assign x e => 
     let e_type := type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes in
@@ -409,7 +415,52 @@ option (context * context * context * context * EnumTypeSizes) :=
     | true => None
     | false => 
       let declared_types' := (fun t' => if eqb_Ivytype t t' then true else declared_types t') in
-      let type_sizes' := update type_sizes t (Some n) in
+      let type_sizes' := (fun t' => if eqb_Ivytype t t' then n else type_sizes t') in
       Some (var_ctx, fun_var_ctx, act_ctx, declared_types', type_sizes')
     end
+  | Com_ActionDecl act_id arg_ids_and_types ret_type p' =>
+    match act_ctx act_id with
+    | Some _ => None
+    | None =>
+      match declared_types ret_type with
+      | true =>
+        let arg_ts := map snd arg_ids_and_types in
+        let arg_ts_declared := 
+          fold_left (fun acc t => 
+            match declared_types t with
+            | true => acc
+            | false => false
+            end) arg_ts true in
+        if arg_ts_declared then 
+          let act_ctx' := t_update act_ctx act_id (Some (arg_ids_and_types, ret_type, p')) in
+          match check_command_helper p' var_ctx fun_var_ctx act_ctx' declared_types type_sizes with
+          | Some (var_ctx', fun_var_ctx', act_ctx'', declared_types', type_sizes') => 
+            Some (var_ctx', fun_var_ctx', act_ctx', declared_types', type_sizes')
+          | None => None
+          end
+        else None
+      | false => None
+      end
+    end
+  | Com_Skip => Some (var_ctx, fun_var_ctx, act_ctx, declared_types, type_sizes)
 end.
+
+Definition check (p : Com) : bool :=
+  match check_command_helper p empty empty empty (fun _ => false) (fun _ => 0) with
+  | Some _ => true
+  | None => false
+  end.
+
+(* Want to show that a command is well-formed (i.e. check = true) implies
+ that all of the expression that show up in the command are well-typed (type to 
+ Some Ivytype) *)
+Theorem check_command_helper_correct : forall p var_ctx fun_var_ctx act_ctx declared_types type_sizes, 
+check p = true -> 
+check_command_helper p var_ctx fun_var_ctx act_ctx declared_types type_sizes = 
+  Some (var_ctx, fun_var_ctx, act_ctx, declared_types, type_sizes).
+Proof.
+Admitted.
+  (* intros.
+  induction p; simpl in *; try (inversion H; subst; reflexivity). *)
+
+(* TODO : small steps and type preservation/progress *)
