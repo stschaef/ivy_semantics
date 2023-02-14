@@ -384,7 +384,7 @@ let rec small_step
     let n = Random.int (List.length (List.assoc t type_decls)) in
       VarLiteral(List.nth (List.assoc t type_decls) n) 
   )
-
+(* client_1 client_2 ... UserDefined(client, "client_2") *)
 let rec small_step_com 
 (p : com) 
 (var_store : (id * expr) list)

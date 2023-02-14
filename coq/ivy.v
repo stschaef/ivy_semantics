@@ -8,7 +8,7 @@ Open Scope string_scope.
 From coq Require Import Maps.
 
 Scheme Equality for list.
-
+(* Local Open Scope nat_scope. *)
 Inductive Ivytype : Type :=
   | Ivytype_Bool : Ivytype 
   | Ivytype_User_Defined : string -> Ivytype
@@ -34,6 +34,7 @@ Fixpoint eqb_Ivytype (t1 t2 : Ivytype) : bool :=
 
 Inductive Expr : Type :=
   | Expr_VarLiteral : string -> Expr
+  | Expr_EnumVarLiteral : Ivytype -> nat -> Expr
   | Expr_VarFun : string -> list Expr -> Expr
   (* | Expr_ActionApplication : string -> list Expr -> Expr *)
   | Expr_True
@@ -47,11 +48,13 @@ Inductive Expr : Type :=
   | Expr_Forall : string -> Ivytype -> Expr -> Expr
   | Expr_Exists : string -> Ivytype -> Expr -> Expr
   (* | Expr_Nondet : Ivytype -> Expr *)
-  | Expr_Cond : Expr -> Expr -> Expr -> Expr.
+  | Expr_Cond : Expr -> Expr -> Expr -> Expr
+  | Expr_Error.
 
 Fixpoint string_of_Expr (e : Expr) : string :=
   match e with
   | Expr_VarLiteral x => x
+  | Expr_EnumVarLiteral t n => "TODO"
   | Expr_VarFun x es => x ++ "(" ++ (fold_left (fun s e => s ++ ", " ++ (string_of_Expr e)) es "") ++ ")"
   (* | Expr_ActionApplication x es => x ++ "(" ++ (fold_left (fun s e => s ++ ", " ++ (string_of_Expr e)) es "") ++ ")" *)
   | Expr_True => "true"
@@ -66,11 +69,13 @@ Fixpoint string_of_Expr (e : Expr) : string :=
   | Expr_Exists x t e => "(exists " ++ x ++ " : " ++ (string_of_Ivytype t) ++ ". " ++ (string_of_Expr e) ++ ")"
   (* | Expr_Nondet t => "nondet(" ++ (string_of_Ivytype t) ++ ")" *)
   | Expr_Cond e1 e2 e3 => "(" ++ (string_of_Expr e1) ++ " ? " ++ (string_of_Expr e2) ++ " : " ++ (string_of_Expr e3) ++ ")"
+  | Expr_Error => "error"
   end.
 
 Fixpoint eqb_Expr (e1 e2 : Expr) : bool :=
   match e1, e2 with
   | Expr_VarLiteral x1, Expr_VarLiteral x2 => eqb x1 x2
+  | Expr_EnumVarLiteral t1 n1, Expr_EnumVarLiteral t2 n2 => andb (eqb_Ivytype t1 t2) (Nat.eqb n1 n2)
   | Expr_VarFun x1 es1, Expr_VarFun x2 es2 => andb (eqb x1 x2) (list_beq Expr eqb_Expr es1 es2)
   (* | Expr_ActionApplication x1 es1, Expr_ActionApplication x2 es2 => andb (eqb x1 x2) (list_beq Expr eqb_Expr es1 es2) *)
   | Expr_True, Expr_True => true
@@ -81,8 +86,8 @@ Fixpoint eqb_Expr (e1 e2 : Expr) : bool :=
   | Expr_Eq e11 e12, Expr_Eq e21 e22 => andb (eqb_Expr e11 e21) (eqb_Expr e12 e22)
   | Expr_Implies e11 e12, Expr_Implies e21 e22 => andb (eqb_Expr e11 e21) (eqb_Expr e12 e22)
   | Expr_Iff e11 e12, Expr_Iff e21 e22 => andb (eqb_Expr e11 e21) (eqb_Expr e12 e22)
-  | Expr_Forall x1 t1 e1, Expr_Forall x2 t2 e2 => andb (eqb x1 x2) (andb (eqb_Ivytype t1 t2) (eqb_Expr e1 e2))
-  | Expr_Exists x1 t1 e1, Expr_Exists x2 t2 e2 => andb (eqb x1 x2) (andb (eqb_Ivytype t1 t2) (eqb_Expr e1 e2))
+  (* | Expr_Forall x1 t1 e1, Expr_Forall x2 t2 e2 => andb (eqb x1 x2) (andb (eqb_Ivytype t1 t2) (eqb_Expr e1 e2))
+  | Expr_Exists x1 t1 e1, Expr_Exists x2 t2 e2 => andb (eqb x1 x2) (andb (eqb_Ivytype t1 t2) (eqb_Expr e1 e2)) *)
   (* | Expr_Nondet t1, Expr_Nondet t2 => eqb_Ivytype t1 t2 *)
   | Expr_Cond e11 e12 e13, Expr_Cond e21 e22 e23 => andb (eqb_Expr e11 e21) (andb (eqb_Expr e12 e22) (eqb_Expr e13 e23))
   | _, _ => false
@@ -139,6 +144,7 @@ Fixpoint string_of_Com (c : Com) : string :=
 
 Inductive Value_Expr : Expr -> Prop := 
   | Value_Expr_VarLiteral : forall x, Value_Expr (Expr_VarLiteral x)
+  | Value_Expr_EnumVarLiteral : forall n t, Value_Expr (Expr_EnumVarLiteral t n)
   | Value_Expr_True : Value_Expr Expr_True
   | Value_Expr_False : Value_Expr Expr_False
   | Value_Expr_Var_Fun : forall x es, (forall e, In e es -> Value_Expr e) -> Value_Expr (Expr_VarFun x es).
@@ -158,6 +164,7 @@ Fixpoint is_value (e : Expr) : bool :=
 Fixpoint subst (e : Expr) (v : Expr) (x : string) : Expr :=
   match e with 
   | Expr_VarLiteral y => if eqb x y then v else e
+  | Expr_EnumVarLiteral y n => Expr_EnumVarLiteral y n
   | Expr_VarFun y es => Expr_VarFun y (map (fun e => subst e v x) es)
   (* | Expr_ActionApplication y es => Expr_ActionApplication y (map (fun e => subst e v x) es) *)
   | Expr_True => Expr_True
@@ -172,6 +179,7 @@ Fixpoint subst (e : Expr) (v : Expr) (x : string) : Expr :=
   | Expr_Exists y t e => Expr_Exists y t (subst e v x)
   (* | Expr_Nondet t => Expr_Nondet t *)
   | Expr_Cond e1 e2 e3 => Expr_Cond (subst e1 v x) (subst e2 v x) (subst e3 v x)
+  | Expr_Error => Expr_Error
   end.
   
 
@@ -183,7 +191,7 @@ Definition unpack_id_under_expr (e : Expr) : option string :=
   | _ => None (* Shouldn't be able to extract id from anything else *)
   end.
   
-Definition context := partial_map Ivytype.
+Definition context := partial_map Ivytype. (* string -> option Ivytype *)
 Definition update (c : context) (x : string) (t : Ivytype) : context := t_update c x (Some t).
 Definition store (A : Type) := partial_map A.
 Definition store_lookup {A} (s : store A) (x : string) : option A := s x.
@@ -219,6 +227,7 @@ Fixpoint type_expr
 (declared_types : Ivytype -> bool) (type_sizes : EnumTypeSizes) {struct e} : option Ivytype := 
   match e with
   | Expr_VarLiteral x => var_ctx x
+  | Expr_EnumVarLiteral t n => Some t
   | Expr_VarFun x es => 
     match fun_var_ctx x with
     | Some (Ivytype_Fun decl_arg_ts ret_t) =>
@@ -315,6 +324,7 @@ Fixpoint type_expr
       end
     | _ => None
     end
+  | Expr_Error => None
   end.
 
 Fixpoint check_command_helper (p : Com) 
@@ -474,26 +484,50 @@ Admitted. *)
 
 (* TODO : small steps and type preservation/progress *)
 
+
 Fixpoint small_step_Expr 
 (e : Expr)
 (var_ctx fun_var_ctx : context)
-(act_ctx : context)
+(act_ctx : action_context)
 (declared_types : Ivytype -> bool)
 (type_sizes : EnumTypeSizes)
 : option Expr :=
   match e with
   | Expr_VarLiteral _ => None
-  (* | Expr_VarFun x es => None TODO: these need to reduce until the args are values *)
+  | Expr_EnumVarLiteral _ _ => None
+  | Expr_VarFun x es => 
+    match fun_var_ctx x with
+    | Some (Ivytype_Fun arg_ts ret_type) =>
+      match es with
+      | [] => None
+      | e :: es' => 
+        match small_step_Expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes with
+        | Some e' => Some (Expr_VarFun x (e' :: es'))
+        | None => 
+          match es' with
+          | [] => None
+          | e' :: es'' => 
+            match small_step_Expr e' var_ctx fun_var_ctx act_ctx declared_types type_sizes with
+            | Some e'' => Some (Expr_VarFun x (e :: e'' :: es''))
+            | None => None
+            end
+          end
+        end
+      end
+    | _ => None
+    end
   (* | Expr_ActionApplication *)
   | Expr_True => None
   | Expr_False => None
-  | Expr_Not e => if is_value e then
-                    match e with
+  | Expr_Not e' => if is_value e' then
+                    match e' with
                     | Expr_True => Some Expr_False
                     | Expr_False => Some Expr_True
                     | _ => None
                     end
-                  else Not (small_step_Expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes)
+                  else 
+                  let e'' := small_step_Expr e' var_ctx fun_var_ctx act_ctx declared_types type_sizes in
+                  Some (Expr_Not (fromMaybe Expr_Error e''))
   | Expr_And e1 e2 => if is_value e1 then 
                         if is_value e2 then 
                           match e1, e2 with
@@ -503,8 +537,8 @@ Fixpoint small_step_Expr
                           | Expr_False, Expr_False => Some Expr_False
                           | _, _ => None
                           end
-                        else And e1 (small_step_Expr e2 var_ctx fun_var_ctx act_ctx declared_types type_sizes)
-                      else And (small_step_Expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes) e2
+                        else Some (Expr_And e1 (fromMaybe Expr_Error (small_step_Expr e2 var_ctx fun_var_ctx act_ctx declared_types type_sizes)))
+                      else Some (Expr_And (fromMaybe Expr_Error (small_step_Expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes)) e2)
   | Expr_Or e1 e2 => if is_value e1 then 
                         if is_value e2 then 
                           match e1, e2 with
@@ -514,13 +548,13 @@ Fixpoint small_step_Expr
                           | Expr_False, Expr_False => Some Expr_False
                           | _, _ => None
                           end
-                        else Or e1 (small_step_Expr e2 var_ctx fun_var_ctx act_ctx declared_types type_sizes)
-                      else Or (small_step_Expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes) e2
+                        else Some (Expr_Or e1 (fromMaybe Expr_Error (small_step_Expr e2 var_ctx fun_var_ctx act_ctx declared_types type_sizes)))
+                      else Some (Expr_Or (fromMaybe Expr_Error (small_step_Expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes)) e2)
   | Expr_Eq e1 e2 => if is_value e1 then
                       if is_value e2 then 
                         if eqb_Expr e1 e2 then Some Expr_True else Some Expr_False
-                      else Eq e1 (small_step_Expr e2 var_ctx fun_var_ctx act_ctx declared_types type_sizes)
-                    else Eq (small_step_Expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes) e2
+                      else Some (Expr_Eq e1 (fromMaybe Expr_Error (small_step_Expr e2 var_ctx fun_var_ctx act_ctx declared_types type_sizes)))
+                    else Some (Expr_Eq (fromMaybe Expr_Error (small_step_Expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes)) e2)
   | Expr_Implies e1 e2 => if is_value e1 then
                             if is_value e2 then 
                               match e1, e2 with
@@ -530,22 +564,20 @@ Fixpoint small_step_Expr
                               | Expr_False, Expr_False => Some Expr_True
                               | _, _ => None
                               end
-                            else Implies e1 (small_step_Expr e2 var_ctx fun_var_ctx act_ctx declared_types type_sizes)
-                          else Implies (small_step_Expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes) e2
+                            else Some (Expr_Implies e1 (fromMaybe Expr_Error (small_step_Expr e2 var_ctx fun_var_ctx act_ctx declared_types type_sizes)))
+                          else Some (Expr_Implies (fromMaybe Expr_Error (small_step_Expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes)) e2)
   | Expr_Iff e1 e2 => if is_value e1 then
                         if is_value e2 then 
                           if eqb_Expr e1 e2 then Some Expr_True else Some Expr_False
-                        else Iff e1 (small_step_Expr e2 var_ctx fun_var_ctx act_ctx declared_types type_sizes)
-                      else Iff (small_step_Expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes) e2
-  | Expr_Forall x t e' =>
-    let t_str := string_of_Ivytype t in
-    let t_elts_strs := map (fun y => t_str ++ y) (seq 0 (EnumTypeSizes t)) in 
-    let out := fold_left (fun acc y => Expr_And(acc (subst e' (Expr_VarLiteral y) x))) (t_elts_strs) (Expr_True) in
+                        else Some (Expr_Iff e1 (fromMaybe Expr_Error (small_step_Expr e2 var_ctx fun_var_ctx act_ctx declared_types type_sizes)))
+                      else Some (Expr_Iff (fromMaybe Expr_Error (small_step_Expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes)) e2)
+  (* TODO refacotr the string encoding of the enumerated types *)
+| Expr_Forall x t e' =>
+    let nums := seq 0 (type_sizes t) in
+    let out := fold_left (fun acc y => Expr_And acc (subst e' (Expr_EnumVarLiteral t y) x) ) nums Expr_True in
     Some out
   | Expr_Exists x t e' =>
-    let t_str := string_of_Ivytype t in
-    let t_elts_strs := map (fun y => t_str ++ y) (seq 0 (EnumTypeSizes t)) in
-    let out := fold_left (fun acc y => Expr_Or(acc (subst e' (Expr_VarLiteral y) x))) (t_elts_strs) (Expr_False) in
+    let out := fold_left (fun acc y => Expr_Or acc (subst e' (Expr_EnumVarLiteral t y) x)) (seq 0 (type_sizes t)) (Expr_False) in
     Some out
   (* | Expr_Nondet  *)
   (* TODO the conditional should call all actions --- and thus perform side effects --- regardless of the 
@@ -557,4 +589,50 @@ Fixpoint small_step_Expr
       | Expr_False => Some e3
       | _ => None
       end
-    else Cond (small_step_Expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes) e2 e3
+    else Some (Expr_Cond (fromMaybe Expr_Error (small_step_Expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes)) e2 e3)
+  | Expr_Error => None
+end.
+
+Theorem preservation_Expr :
+  forall e e' t var_ctx fun_var_ctx act_ctx declared_types type_sizes,
+    type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes = Some t ->
+    small_step_Expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes = Some e' ->
+    type_expr e' var_ctx fun_var_ctx act_ctx declared_types type_sizes = Some t.
+Proof.
+  Admitted.
+  (* induction e; intros.
+  -   (* Expr_VarLiteral *) simpl in H0. inversion H0.
+  -   (* Expr_VarFun *)  
+  (* Expr_ActionApplication *)
+  (* - *)
+  (* Expr_True *)
+  - simpl in Hss. inversion Hss.
+  (* Expr_False *)
+  - simpl in Hss. inversion Hss.
+  (* Expr_Not *)
+  - destruct e.
+    + simpl in Hss. inversion Hss.
+    + simpl in Hss. inversion Hss.
+  (* Expr_And *)
+  -
+  (* Expr_Or *)
+  -
+  (* Expr_Eq *)
+  -
+  (* Expr_Implies *)
+  -
+  (* Expr_Iff *)
+  -
+  (* Expr_Forall *)
+  -
+  (* Expr_Exists *)
+  -
+  (* Expr_Nondet *)
+  -
+  (* Expr_Cond *)
+  -
+  (* Expr_Error *)
+  -
+
+  
+  TODO : refactor enumerated constants to be parametrized by nats or sum types *)

@@ -10,6 +10,8 @@ This repository contains some small-step structural operational semantics of the
 
 ## TODOs
 - An `eval` function in Coq, and parsing so that I can test the Coq implementation. I might be able to leverage my use of `ocamlyacc` in the OCaml implementation to pass the same grammar to Coq.
+    + Check compcert for parsing
+    + Parse w/ Ocaml, serialize then read in Coq. Output Ocaml to .v files.
 - Convert small steps for expressions and commands from OCaml to Coq
 - Prove type preservation/progress for expressions and commands
 - Prove that commands are well-formed if the underlying expressions are well-typed, and vice versa
