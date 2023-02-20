@@ -7,6 +7,8 @@ Require Import String.
 Open Scope string_scope.
 From coq Require Import Maps.
 
+
+
 Scheme Equality for list.
 (* Local Open Scope nat_scope. *)
 Inductive Ivytype : Type :=
@@ -47,7 +49,7 @@ Inductive Expr : Type :=
   | Expr_Iff : Expr -> Expr -> Expr
   | Expr_Forall : string -> Ivytype -> Expr -> Expr
   | Expr_Exists : string -> Ivytype -> Expr -> Expr
-  (* | Expr_Nondet : Ivytype -> Expr *)
+  | Expr_Nondet : Ivytype -> Expr
   | Expr_Cond : Expr -> Expr -> Expr -> Expr
   | Expr_Error.
 
@@ -67,7 +69,7 @@ Fixpoint string_of_Expr (e : Expr) : string :=
   | Expr_Iff e1 e2 => "(" ++ (string_of_Expr e1) ++ " <==> " ++ (string_of_Expr e2) ++ ")"
   | Expr_Forall x t e => "(forall " ++ x ++ " : " ++ (string_of_Ivytype t) ++ ". " ++ (string_of_Expr e) ++ ")"
   | Expr_Exists x t e => "(exists " ++ x ++ " : " ++ (string_of_Ivytype t) ++ ". " ++ (string_of_Expr e) ++ ")"
-  (* | Expr_Nondet t => "nondet(" ++ (string_of_Ivytype t) ++ ")" *)
+  | Expr_Nondet t => "nondet(" ++ (string_of_Ivytype t) ++ ")"
   | Expr_Cond e1 e2 e3 => "(" ++ (string_of_Expr e1) ++ " ? " ++ (string_of_Expr e2) ++ " : " ++ (string_of_Expr e3) ++ ")"
   | Expr_Error => "error"
   end.
@@ -88,7 +90,7 @@ Fixpoint eqb_Expr (e1 e2 : Expr) : bool :=
   | Expr_Iff e11 e12, Expr_Iff e21 e22 => andb (eqb_Expr e11 e21) (eqb_Expr e12 e22)
   (* | Expr_Forall x1 t1 e1, Expr_Forall x2 t2 e2 => andb (eqb x1 x2) (andb (eqb_Ivytype t1 t2) (eqb_Expr e1 e2))
   | Expr_Exists x1 t1 e1, Expr_Exists x2 t2 e2 => andb (eqb x1 x2) (andb (eqb_Ivytype t1 t2) (eqb_Expr e1 e2)) *)
-  (* | Expr_Nondet t1, Expr_Nondet t2 => eqb_Ivytype t1 t2 *)
+  | Expr_Nondet t1, Expr_Nondet t2 => eqb_Ivytype t1 t2
   | Expr_Cond e11 e12 e13, Expr_Cond e21 e22 e23 => andb (eqb_Expr e11 e21) (andb (eqb_Expr e12 e22) (eqb_Expr e13 e23))
   | _, _ => false
   end.
@@ -177,7 +179,7 @@ Fixpoint subst (e : Expr) (v : Expr) (x : string) : Expr :=
   | Expr_Iff e1 e2 => Expr_Iff (subst e1 v x) (subst e2 v x)
   | Expr_Forall y t e => Expr_Forall y t (subst e v x)
   | Expr_Exists y t e => Expr_Exists y t (subst e v x)
-  (* | Expr_Nondet t => Expr_Nondet t *)
+  | Expr_Nondet t => Expr_Nondet t
   | Expr_Cond e1 e2 e3 => Expr_Cond (subst e1 v x) (subst e2 v x) (subst e3 v x)
   | Expr_Error => Expr_Error
   end.
@@ -305,11 +307,11 @@ Fixpoint type_expr
     | true => type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes
     | false => None
     end
-  (* | Expr_Nondet t => 
+  | Expr_Nondet t => 
     match declared_types t with
     | true => Some t
     | false => None
-    end *)
+    end
   | Expr_Cond e1 e2 e3 =>
     match type_expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes with
     | Some Ivytype_Bool => 
@@ -485,6 +487,25 @@ Admitted. *)
 (* TODO : small steps and type preservation/progress *)
 
 
+Require Import Coq.ZArith.ZArith.
+Require Import Coq.Lists.Streams.
+CoFixpoint rand (seed n1 n2 : Z) : Stream Z :=
+let seed' := Zmod seed n2 in Cons seed' (rand (seed' * n1) n1 n2).
+
+(* TODO: fix this. Need to actually read from further up the stream;
+however, for now this makes everyting typecheck 
+
+May also need nondet for function types 
+*)
+Definition Nondet_helper (t : Ivytype) (type_sizes : EnumTypeSizes) : option Expr
+:= match t with
+  | Ivytype_Bool => if Z.eqb (hd (rand 0 2 3)) 0 then Some (Expr_True) else Some (Expr_False)
+  | Ivytype_User_Defined t_id => Some (Expr_EnumVarLiteral t (Z.to_nat (hd (rand 0 2 (Z.of_nat (type_sizes t) + 1)))))
+  | Ivytype_Fun _ _ => None
+  | Ivytype_Void => None
+  end.
+
+
 Fixpoint small_step_Expr 
 (e : Expr)
 (var_ctx fun_var_ctx : context)
@@ -572,14 +593,14 @@ Fixpoint small_step_Expr
                         else Some (Expr_Iff e1 (fromMaybe Expr_Error (small_step_Expr e2 var_ctx fun_var_ctx act_ctx declared_types type_sizes)))
                       else Some (Expr_Iff (fromMaybe Expr_Error (small_step_Expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes)) e2)
   (* TODO refacotr the string encoding of the enumerated types *)
-| Expr_Forall x t e' =>
-    let nums := seq 0 (type_sizes t) in
-    let out := fold_left (fun acc y => Expr_And acc (subst e' (Expr_EnumVarLiteral t y) x) ) nums Expr_True in
-    Some out
+  | Expr_Forall x t e' =>
+      let nums := seq 0 (type_sizes t) in
+      let out := fold_left (fun acc y => Expr_And acc (subst e' (Expr_EnumVarLiteral t y) x) ) nums Expr_True in
+      Some out
   | Expr_Exists x t e' =>
     let out := fold_left (fun acc y => Expr_Or acc (subst e' (Expr_EnumVarLiteral t y) x)) (seq 0 (type_sizes t)) (Expr_False) in
     Some out
-  (* | Expr_Nondet  *)
+  | Expr_Nondet t => Nondet_helper t type_sizes
   (* TODO the conditional should call all actions --- and thus perform side effects --- regardless of the 
   truth value of e1 *)
   | Expr_Cond e1 e2 e3 =>
@@ -593,13 +614,17 @@ Fixpoint small_step_Expr
   | Expr_Error => None
 end.
 
-Theorem preservation_Expr :
+Require Import ExtrOcamlBasic.
+Require Import ExtrOcamlString.
+Extraction "ocaml/generated/extract.ml" small_step_Expr.
+
+(* Theorem preservation_Expr :
   forall e e' t var_ctx fun_var_ctx act_ctx declared_types type_sizes,
     type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes = Some t ->
     small_step_Expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes = Some e' ->
     type_expr e' var_ctx fun_var_ctx act_ctx declared_types type_sizes = Some t.
 Proof.
-  Admitted.
+  Admitted. *)
   (* induction e; intros.
   -   (* Expr_VarLiteral *) simpl in H0. inversion H0.
   -   (* Expr_VarFun *)  
