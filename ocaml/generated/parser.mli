@@ -40,4 +40,4 @@ type token =
   | EOL
 
 val main :
-  (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> Ast.com
+  (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> Extract.com
