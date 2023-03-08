@@ -1,5 +1,5 @@
 %{
-open Ast
+open Extract
 %}
 
 %token TYPE ACTION_DECL
@@ -16,7 +16,7 @@ open Ast
 %token CALL
 %token COMMA
 %token COLON
-%token <string> ID
+%token <char list> ID
 %token <int> NUM
 %token EOL
 
@@ -40,7 +40,7 @@ open Ast
 %nonassoc LPAREN LBRACE /* highest precedence - always shift */
 
 %start main /* entry points */
-%type <Ast.com> main
+%type <Extract.com> main
 
 %%
 
@@ -61,7 +61,7 @@ comlist:
 
 com:
   | FOR ID COLON ID LBRACE comlist RBRACE { let a = Com_For ($2, Ivytype_User_Defined($4), $6) in a}
-  | FOR ID COLON BOOL LBRACE comlist RBRACE { let a = Com_For ($2, Bool, $6) in a}
+  | FOR ID COLON BOOL LBRACE comlist RBRACE { let a = Com_For ($2, Ivytype_Bool, $6) in a}
   | ID LPAREN varlist RPAREN ASSG exp { let a = Com_AssignFun ($1, $3, $6) in a}
   | ID LPAREN var RPAREN ASSG exp { let a = Com_AssignFun ($1, [$3], $6) in a}
   | ID ASSG exp { let a = Com_Assign ($1, $3) in a}
@@ -94,7 +94,7 @@ assertion:
 decl:
   | ACTION_DECL ID LPAREN typed_varlist RPAREN EQ LBRACE comlist RBRACE { Com_ActionDecl($2, $4, Ivytype_Void, $8) }
   | INDIVIDUAL ID COLON ID { Com_GlobalVarDecl ($2, Ivytype_User_Defined($4)) }
-  | INDIVIDUAL ID COLON BOOL { Com_GlobalVarDecl ($2, Bool) }
+  | INDIVIDUAL ID COLON BOOL { Com_GlobalVarDecl ($2, Ivytype_Bool) }
   | VAR_DECL ID COLON ID { Com_LocalVarDecl ($2, Ivytype_User_Defined($4)) }
   | VAR_DECL ID COLON BOOL { Com_LocalVarDecl ($2, Ivytype_Bool) }
   | FUNCTION ID LPAREN typed_varlist RPAREN COLON ID { Com_GlobalFuncVarDecl ($2, $4, Ivytype_User_Defined($7)) }

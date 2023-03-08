@@ -4,7 +4,7 @@
 # all: rebuild the project (default)
 # clean: remove all objects and executables
 
-SOURCES = parser.mli parser.ml lexer.ml extract.ml extract.mli main.ml
+SOURCES = extract.mli extract.ml parser.mli parser.ml lexer.ml extract.ml main.ml
 CLEAN = parser.ml parser.mli lexer.ml *.cmo *.cmx *.cmi *.o
 
 .PHONY: all clean

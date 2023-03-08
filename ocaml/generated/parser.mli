@@ -35,7 +35,7 @@ type token =
   | CALL
   | COMMA
   | COLON
-  | ID of (string)
+  | ID of (char list)
   | NUM of (int)
   | EOL
 

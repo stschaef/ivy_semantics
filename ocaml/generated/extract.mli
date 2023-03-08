@@ -157,8 +157,7 @@ type context = ivytype partial_map
 
 type enumTypeSizes = ivytype -> nat
 
-type action_context =
-  (((char list * ivytype) list * ivytype) * com) partial_map
+type action_context = (((char list * ivytype) list * ivytype) * com) partial_map
 
 val fromMaybe : 'a1 -> 'a1 option -> 'a1
 
@@ -166,6 +165,4 @@ val rand : z -> z -> z -> z stream
 
 val nondet_helper : ivytype -> enumTypeSizes -> expr option
 
-val small_step_Expr :
-  expr -> context -> context -> action_context -> (ivytype -> bool) ->
-  enumTypeSizes -> expr option
+val small_step_Expr : expr -> context -> context -> action_context -> (ivytype -> bool) -> enumTypeSizes -> expr option
