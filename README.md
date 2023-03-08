@@ -3,7 +3,15 @@
 This repository contains some small-step structural operational semantics of the Ivy programming language. The semantics are given as formal inference rules and are implemented in Coq.
 
 ## Setup
-- To make imports work using `coqtop` inside VSCode I had to adjust my `coq.coqProjectRoot` and `coqtop.binPath` settings.
+To make imports work using `coqtop` inside VSCode I had to adjust my `coq.coqProjectRoot` and `coqtop.binPath` settings.
+
+For instance on my laptop, I have the following settings:
+```json
+// settings.json
+...
+"coqtop.binPath": "/opt/homebrew/bin",
+    "coq.coqProjectRoot": "/Users/stevenschaefer/ivy_semantics/coq",
+```
 
 
 <!-- TODO Rewrite README from here down -->

@@ -175,7 +175,9 @@ Fixpoint subst_com (p : Com) (v : Expr) (x : string) : Com :=
   end.
 
 (* String Utilities *)
-(* TODO: These don't typecheck. Either fix or move into OCaml *)
+(* TODO: Some of these don't typecheck. 
+Either fix or move into OCaml. Shouldn't have to do string processing in coq
+*)
 
 Fixpoint string_of_list {A} (f : A -> string) (l : list A) : string :=
   match l with
