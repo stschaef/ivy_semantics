@@ -2,6 +2,12 @@
 
 This repository contains some small-step structural operational semantics of the Ivy programming language. The semantics are given as formal inference rules and are implemented in Coq.
 
+## Setup
+- To make imports work using `coqtop` inside VSCode I had to adjust my `coq.coqProjectRoot` and `coqtop.binPath` settings.
+
+
+<!-- TODO Rewrite README from here down -->
+
 ## So Far
 - Syntax of most of the expressions and commands
 - Substitution functions

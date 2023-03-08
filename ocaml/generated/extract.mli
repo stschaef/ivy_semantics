@@ -12,7 +12,10 @@ val compOpp : comparison -> comparison
 
 val add : nat -> nat -> nat
 
-val eqb : nat -> nat -> bool
+module Nat :
+ sig
+  val eqb : nat -> nat -> bool
+ end
 
 val map : ('a1 -> 'a2) -> 'a1 list -> 'a2 list
 
@@ -42,7 +45,8 @@ module Pos :
 
   val mul : positive -> positive -> positive
 
-  val compare_cont : comparison -> positive -> positive -> comparison
+  val compare_cont :
+    comparison -> positive -> positive -> comparison
 
   val compare : positive -> positive -> comparison
 
@@ -94,15 +98,15 @@ module Z :
 
 val eqb0 : char list -> char list -> bool
 
-type 'a total_map = char list -> 'a
-
-type 'a partial_map = 'a option total_map
-
 type 'a stream = 'a __stream Lazy.t
 and 'a __stream =
 | Cons of 'a * 'a stream
 
 val hd : 'a1 stream -> 'a1
+
+type 'a total_map = char list -> 'a
+
+type 'a partial_map = 'a option total_map
 
 val list_beq : ('a1 -> 'a1 -> bool) -> 'a1 list -> 'a1 list -> bool
 
@@ -146,7 +150,8 @@ type com =
 | Com_GlobalVarDecl of char list * ivytype
 | Com_GlobalFuncVarDecl of char list * ivytype list * ivytype
 | Com_TypeDecl of char list * nat
-| Com_ActionDecl of char list * (char list * ivytype) list * ivytype * com
+| Com_ActionDecl of char list * (char list * ivytype) list
+   * ivytype * com
 | Com_Skip
 
 val is_value : expr -> bool
@@ -157,7 +162,8 @@ type context = ivytype partial_map
 
 type enumTypeSizes = ivytype -> nat
 
-type action_context = (((char list * ivytype) list * ivytype) * com) partial_map
+type action_context =
+  (((char list * ivytype) list * ivytype) * com) partial_map
 
 val fromMaybe : 'a1 -> 'a1 option -> 'a1
 
@@ -165,4 +171,6 @@ val rand : z -> z -> z -> z stream
 
 val nondet_helper : ivytype -> enumTypeSizes -> expr option
 
-val small_step_Expr : expr -> context -> context -> action_context -> (ivytype -> bool) -> enumTypeSizes -> expr option
+val small_step_Expr :
+  expr -> context -> context -> action_context -> (ivytype ->
+  bool) -> enumTypeSizes -> expr option
