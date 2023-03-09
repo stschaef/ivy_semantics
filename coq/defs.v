@@ -47,7 +47,7 @@ Inductive Expr : Type :=
   | Expr_Iff : Expr -> Expr -> Expr
   | Expr_Forall : string -> Ivytype -> Expr -> Expr
   | Expr_Exists : string -> Ivytype -> Expr -> Expr
-  | Expr_Nondet : Ivytype -> Expr
+  (* | Expr_Nondet : Ivytype -> Expr *) (* These should be refactored to be polymorphic maps out of unit?*)
   | Expr_Cond : Expr -> Expr -> Expr -> Expr
   | Expr_Error.
 
@@ -67,7 +67,7 @@ Fixpoint eqb_Expr (e1 e2 : Expr) : bool :=
   | Expr_Iff e11 e12, Expr_Iff e21 e22 => andb (eqb_Expr e11 e21) (eqb_Expr e12 e22)
   (* | Expr_Forall x1 t1 e1, Expr_Forall x2 t2 e2 => andb (eqb x1 x2) (andb (eqb_Ivytype t1 t2) (eqb_Expr e1 e2))
   | Expr_Exists x1 t1 e1, Expr_Exists x2 t2 e2 => andb (eqb x1 x2) (andb (eqb_Ivytype t1 t2) (eqb_Expr e1 e2)) *)
-  | Expr_Nondet t1, Expr_Nondet t2 => eqb_Ivytype t1 t2
+  (* | Expr_Nondet t1, Expr_Nondet t2 => eqb_Ivytype t1 t2 *)
   | Expr_Cond e11 e12 e13, Expr_Cond e21 e22 e23 => andb (eqb_Expr e11 e21) (andb (eqb_Expr e12 e22) (eqb_Expr e13 e23))
   | _, _ => false
   end.
@@ -85,7 +85,7 @@ Inductive Com : Type :=
   (* | Com_Call : string -> list Expr -> Com *)
   | Com_LocalVarDecl : string -> Ivytype -> Com
   | Com_GlobalVarDecl : string -> Ivytype -> Com
-  | Com_GlobalFuncVarDecl : string -> list Ivytype -> Ivytype -> Com
+  | Com_GlobalFuncVarDecl : string -> list (string * Ivytype) -> Ivytype -> Com
   | Com_TypeDecl : string -> nat -> Com 
   (* | Com_EnumTypeDecl : string -> list string -> Com *)
   | Com_ActionDecl : string -> list (string * Ivytype) -> Ivytype -> Com -> Com
@@ -155,7 +155,7 @@ Fixpoint subst (e : Expr) (v : Expr) (x : string) : Expr :=
   | Expr_Iff e1 e2 => Expr_Iff (subst e1 v x) (subst e2 v x)
   | Expr_Forall y t e => Expr_Forall y t (subst e v x)
   | Expr_Exists y t e => Expr_Exists y t (subst e v x)
-  | Expr_Nondet t => Expr_Nondet t
+  (* | Expr_Nondet t => Expr_Nondet t *)
   | Expr_Cond e1 e2 e3 => Expr_Cond (subst e1 v x) (subst e2 v x) (subst e3 v x)
   | Expr_Error => Expr_Error
   end.

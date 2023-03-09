@@ -50,13 +50,13 @@ let check () : unit =
   match !program with
   (* | Some p -> (try Ivy.check p with _ -> failwith "check failed")
    *)
-  | Some p -> Ivy.check p
+  | Some p -> if Extract.check p then () else failwith "check failed"
   | None -> failwith "No program loaded"
 
-let run () : unit =
+(* let run () : unit =
   match !program with
-  | Some p -> Ivy.run p
-  | None -> failwith "No program loaded"
+  | Some p -> Extract.run p
+  | None -> failwith "No program loaded" *)
 
 let help () : unit =
   print_endline "Available commands are:";
@@ -76,7 +76,7 @@ let read_eval_print () : unit =
     begin match cmd, args with
     | "load", [filename] -> load filename
     | "check", [] -> check ()
-    | "run", [] -> run()
+    (* | "run", [] -> run() *)
     | "list", [] -> list ()
     | "quit", [] -> quit ()
     | _ -> help ()

@@ -1,5 +1,6 @@
 %{
 open Extract
+open Helper
 %}
 
 %token TYPE ACTION_DECL
@@ -100,8 +101,8 @@ decl:
   | FUNCTION ID LPAREN typed_varlist RPAREN COLON ID { Com_GlobalFuncVarDecl ($2, $4, Ivytype_User_Defined($7)) }
   | FUNCTION ID LPAREN typed_varlist RPAREN COLON BOOL {Com_GlobalFuncVarDecl ($2, $4, Ivytype_Bool) }
   | RELATION ID LPAREN typed_varlist RPAREN { Com_GlobalFuncVarDecl ($2, $4, Ivytype_Bool) }
-  | TYPE ID NUM { Com_TypeDecl ($2, $3) }
-  | TYPE ID EQ LBRACE varlist RBRACE { Com_EnumTypeDecl($2, $5) }
+  | TYPE ID NUM { Com_TypeDecl ($2, int_to_nat $3) }
+  /* | TYPE ID EQ LBRACE varlist RBRACE { Com_EnumTypeDecl($2, $5) } */
 
 
 decllist:
@@ -145,8 +146,8 @@ exp:
   | EXISTS ID COLON ID DOT exp { let a = Expr_Exists ($2, Ivytype_User_Defined($4), $6) in a}
   | EXISTS ID COLON BOOL DOT exp { let a = Expr_Exists ($2, Ivytype_Bool, $6) in a}
   /* | CALL ID LPAREN explist RPAREN { let a = ActionApplication ($2, $4) in a} */
-  | AST COLON ID { let a = Expr_Nondet(Ivytype_User_Defined($3)) in a}
-  | AST COLON BOOL { let a = Expr_Nondet(Bool) in a}
+  /* | AST COLON ID { let a = Expr_Nondet(Ivytype_User_Defined($3)) in a} */
+  /* | AST COLON BOOL { let a = Expr_Nondet(Bool) in a} */
 ;
 
 %%

@@ -90,11 +90,11 @@ Fixpoint type_expr
     | true => type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes
     | false => None
     end
-  | Expr_Nondet t => 
+  (* | Expr_Nondet t => 
     match declared_types t with
     | true => Some t
     | false => None
-    end
+    end *)
   | Expr_Cond e1 e2 e3 =>
     match type_expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes with
     | Some Ivytype_Bool => 
@@ -198,7 +198,8 @@ option (context * context * action_context * (Ivytype -> bool) * EnumTypeSizes) 
       Some (var_ctx', fun_var_ctx, act_ctx, declared_types, type_sizes)
     | false => None
     end
-  | Com_GlobalFuncVarDecl var_id arg_ts ret_type =>
+  | Com_GlobalFuncVarDecl var_id arg_names_and_ts ret_type =>
+    let arg_ts := map snd arg_names_and_ts in
     match declared_types ret_type with
     | true =>
       (* check that each of arg_ts is declared *)
@@ -250,7 +251,6 @@ option (context * context * action_context * (Ivytype -> bool) * EnumTypeSizes) 
   | Com_Skip => Some (var_ctx, fun_var_ctx, act_ctx, declared_types, type_sizes)
 end.
 
-
 (* Check that a command is well-formed. 
 
 Note, the parameters to check_command_helper are defaults values for contexts, etc
@@ -277,29 +277,8 @@ Admitted. *)
 
 (* TODO : small steps and type preservation/progress *)
 
-
-Require Import Coq.ZArith.ZArith.
-Require Import Coq.Lists.Streams.
-CoFixpoint rand (seed n1 n2 : Z) : Stream Z :=
-let seed' := Zmod seed n2 in Cons seed' (rand (seed' * n1) n1 n2).
-
-(* TODO: fix this. Need to actually read from further up the stream;
-however, for now this makes everyting typecheck 
-
-May also need nondet for function types
-
-It would be ideal if this could be treated like an unintepreted function. I think
-this can be achieved by taking a map f : 1 \to <The Ivytype Type>
-*)
-Definition Nondet_helper (t : Ivytype) (type_sizes : EnumTypeSizes) : option Expr
-:= match t with
-  | Ivytype_Bool => if Z.eqb (hd (rand 0 2 3)) 0 then Some (Expr_True) else Some (Expr_False)
-  | Ivytype_User_Defined t_id => Some (Expr_EnumVarLiteral t (Z.to_nat (hd (rand 0 2 (Z.of_nat (type_sizes t) + 1)))))
-  | Ivytype_Fun _ _ => None
-  | Ivytype_Void => None
-  end.
-
-
+(* TODO: Make this cleaner so I don't carry around a bunch of different context that mostly don't change.
+Something, something use a monad? *)
 Fixpoint small_step_Expr 
 (e : Expr)
 (var_ctx fun_var_ctx : context)
@@ -394,7 +373,7 @@ Fixpoint small_step_Expr
   | Expr_Exists x t e' =>
     let out := fold_left (fun acc y => Expr_Or acc (subst e' (Expr_EnumVarLiteral t y) x)) (seq 0 (type_sizes t)) (Expr_False) in
     Some out
-  | Expr_Nondet t => Nondet_helper t type_sizes
+  (* | Expr_Nondet t => Nondet_helper t type_sizes *)
   (* TODO the conditional should call all actions --- and thus perform side effects --- regardless of the 
   truth value of e1 *)
   | Expr_Cond e1 e2 e3 =>
@@ -410,7 +389,7 @@ end.
 
 Require Import ExtrOcamlBasic.
 Require Import ExtrOcamlString.
-(* Extraction "../ocaml/generated/extract.ml" small_step_Expr. *)
+Extraction "../ocaml/generated/extract.ml" small_step_Expr check.
 
 (* Theorem preservation_Expr :
   forall e e' t var_ctx fun_var_ctx act_ctx declared_types type_sizes,

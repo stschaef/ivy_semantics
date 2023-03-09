@@ -1,5 +1,7 @@
 {
 open Parser
+open Extract
+open Helper
 }
 
 let alph = ['a'-'z' 'A'-'Z']
@@ -30,7 +32,7 @@ rule token = parse
   | "var" { VAR_DECL }
   | '*'     {AST}
   | number as int { NUM (int_of_string int) }
-  | alph rest as id { ID id}
+  | alph rest as id { ID (explode id)}
   | '&'    { AND }
   | '|'    { OR }
   | '~'    { NOT }
