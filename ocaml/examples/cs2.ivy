@@ -4,23 +4,26 @@ type server 2
 relation link(X: client, Y: server)
 relation semaphore(X: server)
 
-for y:server {
-    semaphore(y) := forall x. link(x, y);
+action connect(c: client, s: server) = {
+    require semaphore(s);
+    link(c, s) := true;
+    semaphore(s) := false;
 }
 
-# for y:server {
-#     semaphore(y) := true;
-#     for x:client {
-#         link(x, y) := false;
-#     }
-# }
+action disconnect(c: client, s: server) = {
+    require link(c, s);
+    link(c, s) := false;
+    semaphore(s) := true;
+}
 
-# link(client1, server1) := true;
-# semaphore(server1) := false;
+for y:server {
+    semaphore(y) := true;
+    for x:client {
+        link(x, y) := false;
+    }
+}
 
-# link(client1, server1) := false;
-# semaphore(server1) := true;
-
-
+call connect(client1, server1);
+call disconnect(client1, server1);
 
 
