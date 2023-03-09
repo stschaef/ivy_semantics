@@ -389,7 +389,7 @@ end.
 
 Require Import ExtrOcamlBasic.
 Require Import ExtrOcamlString.
-Extraction "../ocaml/generated/extract.ml" small_step_Expr check.
+Extraction "../ocaml/extracted/extract.ml" small_step_Expr check.
 
 (* Theorem preservation_Expr :
   forall e e' t var_ctx fun_var_ctx act_ctx declared_types type_sizes,
