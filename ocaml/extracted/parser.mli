@@ -17,12 +17,12 @@ type token =
   | RBRACE
   | ASSG
   | COMP
-  | SKIP
   | IF
   | ELSE
   | WHILE
   | FOR
   | BOOL
+  | SKIP
   | FUNCTION
   | RELATION
   | INDIVIDUAL
@@ -38,7 +38,7 @@ type token =
   | COLON
   | ID of (char list)
   | NUM of (int)
-  | EOL
+  | EOF
 
 val main :
   (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> Extract.com

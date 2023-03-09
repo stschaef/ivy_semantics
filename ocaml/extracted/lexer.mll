@@ -1,15 +1,27 @@
 {
+open Lexing
 open Parser
 open Extract
 open Helper
+
+exception SyntaxError of string
+
+let next_line lexbuf =
+  let pos = lexbuf.lex_curr_p in
+  lexbuf.lex_curr_p <-
+    { pos with pos_bol = lexbuf.lex_curr_pos;
+               pos_lnum = pos.pos_lnum + 1
+    }
 }
 
 let alph = ['a'-'z' 'A'-'Z']
 let rest = ['a'-'z' 'A'-'Z' '0'-'9' '\'']*
 let number = ['0'-'9'] ['0'-'9']*
+let whitespace = [' ' '\t']+
+let newline = '\r' | '\n' | "\r\n"
 
 rule token = parse
-  | [' ' '\t' '\n' '\r'] { token lexbuf } (* skip whitespace *)
+  | '('    { LPAREN }
   | "true"  { TRUE }
   | "false" { FALSE }
   | "bool" { BOOL }
@@ -30,16 +42,13 @@ rule token = parse
   | "action" {ACTION_DECL}
   | "individual" { INDIVIDUAL }
   | "var" { VAR_DECL }
-  | '*'     {AST}
-  | number as int { NUM (int_of_string int) }
-  | alph rest as id { ID (explode id)}
+  | '*'    { AST}
   | '&'    { AND }
   | '|'    { OR }
   | '~'    { NOT }
   | '='    { EQ }
   | "->"   { IMPL }
   | "<->"  { IFF }
-  | '('    { LPAREN }
   | ')'    { RPAREN }
   | '{'    { LBRACE }
   | '}'    { RBRACE }
@@ -48,5 +57,10 @@ rule token = parse
   | ';'    { COMP }
   | '.'   { DOT }
   | ','    { COMMA }
-  | eof    { EOL }
   | '#'     { COMMENT }
+  | whitespace {  token lexbuf }
+  | number as int { NUM (int_of_string int) }
+  | alph rest as id { ID (explode id)}
+  | newline { next_line lexbuf; token lexbuf }
+  | eof    { EOF }
+  | _ {raise (SyntaxError ("Lexer - Illegal character: " ^ Lexing.lexeme lexbuf))}
