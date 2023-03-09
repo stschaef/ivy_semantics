@@ -3,6 +3,7 @@ open Extract
 open Helper
 %}
 
+%token COMMENT
 %token TYPE ACTION_DECL
 %token TRUE FALSE AND OR NOT AST
 %token EQ IMPL IFF
@@ -44,6 +45,9 @@ open Helper
 %type <Extract.com> main
 
 %%
+
+comment :
+  | COMMENT { () }
 
 main:
   | comlist EOL { $1 }

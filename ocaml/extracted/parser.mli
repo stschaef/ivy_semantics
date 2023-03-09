@@ -1,4 +1,5 @@
 type token =
+  | COMMENT
   | TYPE
   | ACTION_DECL
   | TRUE

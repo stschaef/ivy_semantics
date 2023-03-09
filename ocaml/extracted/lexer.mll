@@ -7,10 +7,12 @@ open Helper
 let alph = ['a'-'z' 'A'-'Z']
 let rest = ['a'-'z' 'A'-'Z' '0'-'9' '\'']*
 let number = ['0'-'9'] ['0'-'9']*
+let white = [' ' '\t']+
+let newline = '\r' | '\n' | "\r\n"
 
 rule token = parse
-  | [' ' '\t' '\n' '\r'] { token lexbuf } (* skip whitespace *)
-  | "true"  { TRUE }
+  | white    { token lexbuf }
+  | newline  { next_line lexbuf; token lexbuf }  | "true"  { TRUE }
   | "false" { FALSE }
   | "bool" { BOOL }
   | "skip"  { SKIP }
@@ -49,3 +51,4 @@ rule token = parse
   | '.'   { DOT }
   | ','    { COMMA }
   | eof    { EOL }
+  | '#'     { COMMENT }
