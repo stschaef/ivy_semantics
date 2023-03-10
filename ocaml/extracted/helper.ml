@@ -9,10 +9,12 @@ let rec int_to_nat (n : int) : nat =
 let explode s = List.init (String.length s) (String.get s)
 
 (* let run (p : com) : unit =
-  let pokay, var_decls, fun_var_decls, action_decls, type_decls = check_command_helper p [] [] [] [(Bool, ["true";"false"]);(Void, ["void"])] in
-  pokay;
+  let results = check_command_helper p empty empty empty (fun _ -> false) (fun _ -> O) in
+  let ((var_decls, fun_var_decls), action_decls), type_decls = Option.get results in
   (* Perform a full evaluation of the program by repeatedly calling small_step_com *)
-  let rec eval (p : com) (var_store : (id * expr) list) (fun_var_store : (id * (id list * expr)) list) : (id * expr) list * (id * (id list * expr)) list =
+  let rec eval (p : com) 
+  (var_store : (id * expr) list)
+  (fun_var_store : (id * (id list * expr)) list) : (id * expr) list * (id * (id list * expr)) list =
     (* print_endline ("______________________________________");
     print_endline ("Running " ^ string_of_com p);
     print_endline ("______________________________________");

@@ -492,7 +492,62 @@ let rec type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes =
     ((((context * context) * action_context) * (ivytype
     -> bool)) * enumTypeSizes) option **)
 
+(* char list to string *)
+let string_of_chars chars = 
+  let buf = Buffer.create 16 in
+  List.iter (Buffer.add_char buf) chars;
+  Buffer.contents buf
+
+let rec string_of_Expr e =
+  match e with
+  | Expr_VarLiteral x -> string_of_chars x
+  (* | Expr_EnumVarLiteral t m -> "" *)
+  | Expr_VarFun x es -> x ++ "(" ++ (fold_left (fun s e -> s ++ ", " ++ (string_of_Expr e)) es "") ++ ")"
+  (* | Expr_ActionApplication x es -> x ++ "(" ++ (fold_left (fun s e -> s ++ ", " ++ (string_of_Expr e)) es "") ++ ")" *)
+  | Expr_True -> "true"
+  | Expr_False -> "false"
+  | Expr_Not e -> "!" ++ (string_of_Expr e)
+  | Expr_And e1 e2 -> "(" ++ (string_of_Expr e1) ++ " && " ++ (string_of_Expr e2) ++ ")"
+  | Expr_Or e1 e2 -> "(" ++ (string_of_Expr e1) ++ " || " ++ (string_of_Expr e2) ++ ")"
+  | Expr_Eq e1 e2 -> "(" ++ (string_of_Expr e1) ++ " == " ++ (string_of_Expr e2) ++ ")"
+  | Expr_Implies e1 e2 -> "(" ++ (string_of_Expr e1) ++ " =-> " ++ (string_of_Expr e2) ++ ")"
+  | Expr_Iff e1 e2 -> "(" ++ (string_of_Expr e1) ++ " <=-> " ++ (string_of_Expr e2) ++ ")"
+  | Expr_Forall x t e -> "(forall " ++ x ++ " : " ++ (string_of_Ivytype t) ++ ". " ++ (string_of_Expr e) ++ ")"
+  | Expr_Exists x t e -> "(exists " ++ x ++ " : " ++ (string_of_Ivytype t) ++ ". " ++ (string_of_Expr e) ++ ")"
+  | Expr_Nondet t -> "nondet(" ++ (string_of_Ivytype t) ++ ")"
+  | Expr_Cond e1 e2 e3 -> "(" ++ (string_of_Expr e1) ++ " ? " ++ (string_of_Expr e2) ++ " : " ++ (string_of_Expr e3) ++ ")"
+  | Expr_Error -> "error"
+  
+let rec string_of_Com (c : Com) : string :=
+  match c with 
+  | Com_Assign x e -> x ++ " := " ++ (string_of_Expr e)
+  | Com_AssignFun x xs e -> x ++ "(" ++ (string_of_list (fun a -> a) xs) ++ ") := " ++ (string_of_Expr e)
+  | Com_Seq c1 c2 -> (string_of_Com c1) ++ " ; " ++ (string_of_Com c2)
+  | Com_If e c -> "if " ++ (string_of_Expr e) ++ " then " ++ (string_of_Com c)
+  | Com_IfElse e c1 c2 -> "if " ++ (string_of_Expr e) ++ " then " ++ (string_of_Com c1) ++ " else " ++ (string_of_Com c2)
+  | Com_For x t c -> "for " ++ x ++ " : " ++ (string_of_Ivytype t) ++ " do " ++ (string_of_Com c)
+  | Com_While e c -> "while " ++ (string_of_Expr e) ++ " do " ++ (string_of_Com c)
+  (* | Com_Call x es -> x ++ "(" ++ (string_of_list string_of_Expr es) ++ ")" *)
+  | Com_LocalVarDecl x t -> "var " ++ x ++ " : " ++ (string_of_Ivytype t)
+  | Com_GlobalVarDecl x t -> "global var " ++ x ++ " : " ++ (string_of_Ivytype t)
+  | Com_GlobalFuncVarDecl x xs t -> "global var " ++ x ++ "(" ++ (string_of_list string_of_Ivytype xs) ++ ") : " ++ (string_of_Ivytype t)
+  | Com_TypeDecl x n -> "type " ++ x ++ " = " ++ (string_of_nat n)
+  (* | Com_EnumTypeDecl x xs -> "type " ++ x ++ " = " ++ (string_of_list (fun x -> x) xs) *)
+  | Com_ActionDecl x xs t c -> "action " ++ x ++ "(" ++ (string_of_list string_of_Ivytype (map snd xs)) ++ ") : " ++ (string_of_Ivytype t) ++ " = " ++ (string_of_Com c)
+  | Com_Skip -> "skip"
+  
+
+let rec string_of_Ivytype (t : Ivytype) : string :=
+  match t with
+  | Ivytype_Bool -> "bool"
+  | Ivytype_User_Defined s -> s
+  | Ivytype_Fun ts t' -> "(" ++ (fold_right (fun s t'' -> s ++ "," ++ (string_of_Ivytype t'')) ts "") ++ ") -> " ++ (string_of_Ivytype t')
+  | Ivytype_Void -> "void"
+      
+      
+
 let rec check_command_helper p var_ctx fun_var_ctx act_ctx declared_types type_sizes =
+  print_endline ("check_command_helper: " ^ (string_of_Com p));
   match p with
   | Com_Assign (x, e) ->
     let e_type =
