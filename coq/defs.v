@@ -76,11 +76,11 @@ Fixpoint eqb_Expr (e1 e2 : Expr) : bool :=
 
 Inductive Com : Type :=
   | Com_Assign : string -> Expr -> Com
-  | Com_AssignFun : string -> list string -> Expr -> Com
+  (* | Com_AssignFun : string -> list string -> Expr -> Com *)
   | Com_Seq : Com -> Com -> Com
   | Com_If : Expr -> Com -> Com
   | Com_IfElse : Expr -> Com -> Com -> Com
-  | Com_For : string -> Ivytype -> Com -> Com
+  (* | Com_For : string -> Ivytype -> Com -> Com *)
   | Com_While : Expr -> Com -> Com
   (* | Com_Call : string -> list Expr -> Com *)
   | Com_LocalVarDecl : string -> Ivytype -> Com
@@ -163,11 +163,11 @@ Fixpoint subst (e : Expr) (v : Expr) (x : string) : Expr :=
 Fixpoint subst_com (p : Com) (v : Expr) (x : string) : Com :=
   match p with 
   | Com_Assign y e => (Com_Assign y (subst e v x))
-  | Com_AssignFun f args e => (Com_AssignFun f (map (fun g => if eqb x g then fromMaybe "ERROR" (unpack_id_under_expr v) else g) args) (subst e v x))
+  (* | Com_AssignFun f args e => (Com_AssignFun f (map (fun g => if eqb x g then fromMaybe "ERROR" (unpack_id_under_expr v) else g) args) (subst e v x)) *)
   | Com_Seq p1 p2 => (Com_Seq (subst_com p1 v x) (subst_com p2 v x))
   | Com_If e p => (Com_If (subst e v x) (subst_com p v x))
   | Com_IfElse e p1 p2 => (Com_IfElse (subst e v x) (subst_com p1 v x) (subst_com p2 v x))
-  | Com_For y t p => (Com_For y t (subst_com p v x))
+  (* | Com_For y t p => (Com_For y t (subst_com p v x)) *)
   | Com_While e p => (Com_While (subst e v x) (subst_com p v x))
   (* | Com_Call f es => (Com_Call f (map (fun e => subst e v x) es)) *)
   | Com_Skip => Com_Skip

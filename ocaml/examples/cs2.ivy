@@ -22,8 +22,3 @@ for y:server {
         link(x, y) := false;
     }
 }
-
-call connect(client1, server1);
-call disconnect(client1, server1);
-
-

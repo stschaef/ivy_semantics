@@ -3,6 +3,8 @@ type nat =
 | O
 | S of nat
 
+val fst : ('a1 * 'a2) -> 'a1
+
 val snd : ('a1 * 'a2) -> 'a2
 
 
@@ -12,12 +14,10 @@ module Nat :
   val eqb : nat -> nat -> bool
  end
 
-val map :
-  ('a1 -> 'a2) -> 'a1 list -> 'a2 list
+val map : ('a1 -> 'a2) -> 'a1 list -> 'a2 list
 
 val fold_left :
-  ('a1 -> 'a2 -> 'a1) -> 'a2 list -> 'a1
-  -> 'a1
+  ('a1 -> 'a2 -> 'a1) -> 'a2 list -> 'a1 -> 'a1
 
 val seq : nat -> nat -> nat list
 
@@ -28,16 +28,20 @@ type 'a total_map = char list -> 'a
 val t_empty : 'a1 -> 'a1 total_map
 
 val t_update :
-  'a1 total_map -> char list -> 'a1 ->
-  char list -> 'a1
+  'a1 total_map -> char list -> 'a1 -> char list
+  -> 'a1
 
 type 'a partial_map = 'a option total_map
 
 val empty : 'a1 partial_map
 
+val update :
+  'a1 partial_map -> char list -> 'a1 ->
+  char list -> 'a1 option
+
 val list_beq :
-  ('a1 -> 'a1 -> bool) -> 'a1 list ->
-  'a1 list -> bool
+  ('a1 -> 'a1 -> bool) -> 'a1 list -> 'a1 list
+  -> bool
 
 type ivytype =
 | Ivytype_Bool
@@ -45,8 +49,7 @@ type ivytype =
 | Ivytype_Fun of ivytype list * ivytype
 | Ivytype_Void
 
-val eqb_Ivytype :
-  ivytype -> ivytype -> bool
+val eqb_Ivytype : ivytype -> ivytype -> bool
 
 type expr =
 | Expr_VarLiteral of char list
@@ -60,10 +63,8 @@ type expr =
 | Expr_Eq of expr * expr
 | Expr_Implies of expr * expr
 | Expr_Iff of expr * expr
-| Expr_Forall of char list * ivytype
-   * expr
-| Expr_Exists of char list * ivytype
-   * expr
+| Expr_Forall of char list * ivytype * expr
+| Expr_Exists of char list * ivytype * expr
 | Expr_Cond of expr * expr * expr
 | Expr_Error
 
@@ -71,23 +72,18 @@ val eqb_Expr : expr -> expr -> bool
 
 type com =
 | Com_Assign of char list * expr
-| Com_AssignFun of char list
-   * char list list * expr
 | Com_Seq of com * com
 | Com_If of expr * com
 | Com_IfElse of expr * com * com
-| Com_For of char list * ivytype * com
 | Com_While of expr * com
 | Com_LocalVarDecl of char list * ivytype
-| Com_GlobalVarDecl of char list
-   * ivytype
+| Com_GlobalVarDecl of char list * ivytype
 | Com_GlobalFuncVarDecl of char list
-   * (char list * ivytype) list * 
-   ivytype
+   * (char list * ivytype) list * ivytype
 | Com_TypeDecl of char list * nat
 | Com_ActionDecl of char list
-   * (char list * ivytype) list
-   * ivytype * com
+   * (char list * ivytype) list * ivytype * 
+   com
 | Com_Skip
 
 val is_value : expr -> bool
@@ -95,35 +91,41 @@ val is_value : expr -> bool
 type context = ivytype partial_map
 
 val update_context :
-  context -> char list -> ivytype ->
-  context
+  context -> char list -> ivytype -> context
 
 type enumTypeSizes = ivytype -> nat
 
 type action_context =
-  (((char list * ivytype)
-  list * ivytype) * com) partial_map
+  (((char list * ivytype) list * ivytype) * com)
+  partial_map
 
 val fromMaybe : 'a1 -> 'a1 option -> 'a1
 
-val subst :
-  expr -> expr -> char list -> expr
+val subst : expr -> expr -> char list -> expr
 
 val type_expr :
-  expr -> context -> context ->
-  action_context -> (ivytype -> bool) ->
-  enumTypeSizes -> ivytype option
+  expr -> context -> context -> action_context
+  -> (ivytype -> bool) -> enumTypeSizes ->
+  ivytype option
 
 val check_command_helper :
-  com -> context -> context ->
-  action_context -> (ivytype -> bool) ->
-  enumTypeSizes ->
+  com -> context -> context -> action_context ->
+  (ivytype -> bool) -> enumTypeSizes ->
   ((((context * context) * action_context) * (ivytype
   -> bool)) * enumTypeSizes) option
 
 val check : com -> bool
 
 val small_step_Expr :
-  expr -> context -> context ->
+  expr -> expr partial_map -> (expr list ->
+  expr) partial_map -> context -> context ->
   action_context -> (ivytype -> bool) ->
   enumTypeSizes -> expr option
+
+val small_step_Com :
+  com -> expr partial_map -> (expr list -> expr)
+  partial_map -> context -> context ->
+  action_context -> (ivytype -> bool) ->
+  enumTypeSizes -> ((com * expr
+  partial_map) * (expr list -> expr)
+  partial_map) option

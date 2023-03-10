@@ -3,6 +3,11 @@ type nat =
 | O
 | S of nat
 
+(** val fst : ('a1 * 'a2) -> 'a1 **)
+
+let fst = function
+| (x, _) -> x
+
 (** val snd : ('a1 * 'a2) -> 'a2 **)
 
 let snd = function
@@ -34,8 +39,7 @@ let rec map f = function
 | a :: t -> (f a) :: (map f t)
 
 (** val fold_left :
-    ('a1 -> 'a2 -> 'a1) -> 'a2 list ->
-    'a1 -> 'a1 **)
+    ('a1 -> 'a2 -> 'a1) -> 'a2 list -> 'a1 -> 'a1 **)
 
 let rec fold_left f l a0 =
   match l with
@@ -48,8 +52,7 @@ let rec seq start = function
 | O -> []
 | S len0 -> start :: (seq (S start) len0)
 
-(** val eqb0 :
-    char list -> char list -> bool **)
+(** val eqb0 : char list -> char list -> bool **)
 
 let rec eqb0 s1 s2 =
   match s1 with
@@ -61,14 +64,11 @@ let rec eqb0 s1 s2 =
     (match s2 with
      | [] -> false
      | c2::s2' ->
-       if (=) c1 c2
-       then eqb0 s1' s2'
-       else false)
+       if (=) c1 c2 then eqb0 s1' s2' else false)
 
 type 'a total_map = char list -> 'a
 
-(** val t_empty :
-    'a1 -> 'a1 total_map **)
+(** val t_empty : 'a1 -> 'a1 total_map **)
 
 let t_empty v _ =
   v
@@ -87,9 +87,16 @@ type 'a partial_map = 'a option total_map
 let empty x =
   t_empty None x
 
+(** val update :
+    'a1 partial_map -> char list -> 'a1 ->
+    char list -> 'a1 option **)
+
+let update m x v =
+  t_update m x (Some v)
+
 (** val list_beq :
-    ('a1 -> 'a1 -> bool) -> 'a1 list ->
-    'a1 list -> bool **)
+    ('a1 -> 'a1 -> bool) -> 'a1 list -> 'a1 list
+    -> bool **)
 
 let rec list_beq eq_A x y =
   match x with
@@ -101,8 +108,7 @@ let rec list_beq eq_A x y =
     (match y with
      | [] -> false
      | x2 :: x3 ->
-       (&&) (eq_A x0 x2)
-         (list_beq eq_A x1 x3))
+       (&&) (eq_A x0 x2) (list_beq eq_A x1 x3))
 
 type ivytype =
 | Ivytype_Bool
@@ -121,14 +127,12 @@ let rec eqb_Ivytype t1 t2 =
      | _ -> false)
   | Ivytype_User_Defined s1 ->
     (match t2 with
-     | Ivytype_User_Defined s2 ->
-       eqb0 s1 s2
+     | Ivytype_User_Defined s2 -> eqb0 s1 s2
      | _ -> false)
   | Ivytype_Fun (ts1, t3) ->
     (match t2 with
      | Ivytype_Fun (ts2, t4) ->
-       (&&)
-         (list_beq eqb_Ivytype ts1 ts2)
+       (&&) (list_beq eqb_Ivytype ts1 ts2)
          (eqb_Ivytype t3 t4)
      | _ -> false)
   | Ivytype_Void ->
@@ -148,15 +152,12 @@ type expr =
 | Expr_Eq of expr * expr
 | Expr_Implies of expr * expr
 | Expr_Iff of expr * expr
-| Expr_Forall of char list * ivytype
-   * expr
-| Expr_Exists of char list * ivytype
-   * expr
+| Expr_Forall of char list * ivytype * expr
+| Expr_Exists of char list * ivytype * expr
 | Expr_Cond of expr * expr * expr
 | Expr_Error
 
-(** val eqb_Expr :
-    expr -> expr -> bool **)
+(** val eqb_Expr : expr -> expr -> bool **)
 
 let rec eqb_Expr e1 e2 =
   match e1 with
@@ -167,8 +168,7 @@ let rec eqb_Expr e1 e2 =
   | Expr_EnumVarLiteral (t1, n1) ->
     (match e2 with
      | Expr_EnumVarLiteral (t2, n2) ->
-       (&&) (eqb_Ivytype t1 t2)
-         (Nat.eqb n1 n2)
+       (&&) (eqb_Ivytype t1 t2) (Nat.eqb n1 n2)
      | _ -> false)
   | Expr_VarFun (x1, es1) ->
     (match e2 with
@@ -191,32 +191,27 @@ let rec eqb_Expr e1 e2 =
   | Expr_And (e11, e12) ->
     (match e2 with
      | Expr_And (e21, e22) ->
-       (&&) (eqb_Expr e11 e21)
-         (eqb_Expr e12 e22)
+       (&&) (eqb_Expr e11 e21) (eqb_Expr e12 e22)
      | _ -> false)
   | Expr_Or (e11, e12) ->
     (match e2 with
      | Expr_Or (e21, e22) ->
-       (&&) (eqb_Expr e11 e21)
-         (eqb_Expr e12 e22)
+       (&&) (eqb_Expr e11 e21) (eqb_Expr e12 e22)
      | _ -> false)
   | Expr_Eq (e11, e12) ->
     (match e2 with
      | Expr_Eq (e21, e22) ->
-       (&&) (eqb_Expr e11 e21)
-         (eqb_Expr e12 e22)
+       (&&) (eqb_Expr e11 e21) (eqb_Expr e12 e22)
      | _ -> false)
   | Expr_Implies (e11, e12) ->
     (match e2 with
      | Expr_Implies (e21, e22) ->
-       (&&) (eqb_Expr e11 e21)
-         (eqb_Expr e12 e22)
+       (&&) (eqb_Expr e11 e21) (eqb_Expr e12 e22)
      | _ -> false)
   | Expr_Iff (e11, e12) ->
     (match e2 with
      | Expr_Iff (e21, e22) ->
-       (&&) (eqb_Expr e11 e21)
-         (eqb_Expr e12 e22)
+       (&&) (eqb_Expr e11 e21) (eqb_Expr e12 e22)
      | _ -> false)
   | Expr_Cond (e11, e12, e13) ->
     (match e2 with
@@ -229,23 +224,18 @@ let rec eqb_Expr e1 e2 =
 
 type com =
 | Com_Assign of char list * expr
-| Com_AssignFun of char list
-   * char list list * expr
 | Com_Seq of com * com
 | Com_If of expr * com
 | Com_IfElse of expr * com * com
-| Com_For of char list * ivytype * com
 | Com_While of expr * com
 | Com_LocalVarDecl of char list * ivytype
-| Com_GlobalVarDecl of char list
-   * ivytype
+| Com_GlobalVarDecl of char list * ivytype
 | Com_GlobalFuncVarDecl of char list
-   * (char list * ivytype) list * 
-   ivytype
+   * (char list * ivytype) list * ivytype
 | Com_TypeDecl of char list * nat
 | Com_ActionDecl of char list
-   * (char list * ivytype) list
-   * ivytype * com
+   * (char list * ivytype) list * ivytype * 
+   com
 | Com_Skip
 
 (** val is_value : expr -> bool **)
@@ -253,8 +243,8 @@ type com =
 let rec is_value = function
 | Expr_VarLiteral _ -> true
 | Expr_VarFun (_, es) ->
-  fold_left (fun b e0 ->
-    (&&) b (is_value e0)) es true
+  fold_left (fun b e0 -> (&&) b (is_value e0))
+    es true
 | Expr_True -> true
 | Expr_False -> true
 | _ -> false
@@ -262,8 +252,7 @@ let rec is_value = function
 type context = ivytype partial_map
 
 (** val update_context :
-    context -> char list -> ivytype ->
-    context **)
+    context -> char list -> ivytype -> context **)
 
 let update_context c x t =
   t_update c x (Some t)
@@ -271,11 +260,10 @@ let update_context c x t =
 type enumTypeSizes = ivytype -> nat
 
 type action_context =
-  (((char list * ivytype)
-  list * ivytype) * com) partial_map
+  (((char list * ivytype) list * ivytype) * com)
+  partial_map
 
-(** val fromMaybe :
-    'a1 -> 'a1 option -> 'a1 **)
+(** val fromMaybe : 'a1 -> 'a1 option -> 'a1 **)
 
 let fromMaybe x = function
 | Some z -> z
@@ -291,36 +279,30 @@ let rec subst e v x =
   | Expr_VarFun (y, es) ->
     Expr_VarFun (y,
       (map (fun e0 -> subst e0 v x) es))
-  | Expr_Not e0 ->
-    Expr_Not (subst e0 v x)
+  | Expr_Not e0 -> Expr_Not (subst e0 v x)
   | Expr_And (e1, e2) ->
-    Expr_And ((subst e1 v x),
-      (subst e2 v x))
+    Expr_And ((subst e1 v x), (subst e2 v x))
   | Expr_Or (e1, e2) ->
-    Expr_Or ((subst e1 v x),
-      (subst e2 v x))
+    Expr_Or ((subst e1 v x), (subst e2 v x))
   | Expr_Eq (e1, e2) ->
-    Expr_Eq ((subst e1 v x),
-      (subst e2 v x))
+    Expr_Eq ((subst e1 v x), (subst e2 v x))
   | Expr_Implies (e1, e2) ->
-    Expr_Implies ((subst e1 v x),
-      (subst e2 v x))
+    Expr_Implies ((subst e1 v x), (subst e2 v x))
   | Expr_Iff (e1, e2) ->
-    Expr_Iff ((subst e1 v x),
-      (subst e2 v x))
+    Expr_Iff ((subst e1 v x), (subst e2 v x))
   | Expr_Forall (y, t, e0) ->
     Expr_Forall (y, t, (subst e0 v x))
   | Expr_Exists (y, t, e0) ->
     Expr_Exists (y, t, (subst e0 v x))
   | Expr_Cond (e1, e2, e3) ->
-    Expr_Cond ((subst e1 v x),
-      (subst e2 v x), (subst e3 v x))
+    Expr_Cond ((subst e1 v x), (subst e2 v x),
+      (subst e3 v x))
   | x0 -> x0
 
 (** val type_expr :
-    expr -> context -> context ->
-    action_context -> (ivytype -> bool)
-    -> enumTypeSizes -> ivytype option **)
+    expr -> context -> context -> action_context
+    -> (ivytype -> bool) -> enumTypeSizes ->
+    ivytype option **)
 
 let rec type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes =
   match e with
@@ -336,8 +318,7 @@ let rec type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes =
               fromMaybe Ivytype_Void
                 (type_expr e0 var_ctx
                   fun_var_ctx act_ctx
-                  declared_types
-                  type_sizes)) es
+                  declared_types type_sizes)) es
           in
           if list_beq eqb_Ivytype arg_ts
                decl_arg_ts
@@ -346,61 +327,51 @@ let rec type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes =
         | _ -> None)
      | None -> None)
   | Expr_Not e0 ->
-    (match type_expr e0 var_ctx
-             fun_var_ctx act_ctx
-             declared_types type_sizes with
+    (match type_expr e0 var_ctx fun_var_ctx
+             act_ctx declared_types type_sizes with
      | Some i ->
        (match i with
-        | Ivytype_Bool ->
-          Some Ivytype_Bool
+        | Ivytype_Bool -> Some Ivytype_Bool
         | _ -> None)
      | None -> None)
   | Expr_And (e1, e2) ->
-    (match type_expr e1 var_ctx
-             fun_var_ctx act_ctx
-             declared_types type_sizes with
+    (match type_expr e1 var_ctx fun_var_ctx
+             act_ctx declared_types type_sizes with
      | Some i ->
        (match i with
         | Ivytype_Bool ->
           (match type_expr e2 var_ctx
                    fun_var_ctx act_ctx
-                   declared_types
-                   type_sizes with
+                   declared_types type_sizes with
            | Some i0 ->
              (match i0 with
-              | Ivytype_Bool ->
-                Some Ivytype_Bool
+              | Ivytype_Bool -> Some Ivytype_Bool
               | _ -> None)
            | None -> None)
         | _ -> None)
      | None -> None)
   | Expr_Or (e1, e2) ->
-    (match type_expr e1 var_ctx
-             fun_var_ctx act_ctx
-             declared_types type_sizes with
+    (match type_expr e1 var_ctx fun_var_ctx
+             act_ctx declared_types type_sizes with
      | Some i ->
        (match i with
         | Ivytype_Bool ->
           (match type_expr e2 var_ctx
                    fun_var_ctx act_ctx
-                   declared_types
-                   type_sizes with
+                   declared_types type_sizes with
            | Some i0 ->
              (match i0 with
-              | Ivytype_Bool ->
-                Some Ivytype_Bool
+              | Ivytype_Bool -> Some Ivytype_Bool
               | _ -> None)
            | None -> None)
         | _ -> None)
      | None -> None)
   | Expr_Eq (e1, e2) ->
-    (match type_expr e1 var_ctx
-             fun_var_ctx act_ctx
-             declared_types type_sizes with
+    (match type_expr e1 var_ctx fun_var_ctx
+             act_ctx declared_types type_sizes with
      | Some t1 ->
-       (match type_expr e2 var_ctx
-                fun_var_ctx act_ctx
-                declared_types type_sizes with
+       (match type_expr e2 var_ctx fun_var_ctx
+                act_ctx declared_types type_sizes with
         | Some t2 ->
           if eqb_Ivytype t1 t2
           then Some Ivytype_Bool
@@ -408,72 +379,60 @@ let rec type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes =
         | None -> None)
      | None -> None)
   | Expr_Implies (e1, e2) ->
-    (match type_expr e1 var_ctx
-             fun_var_ctx act_ctx
-             declared_types type_sizes with
+    (match type_expr e1 var_ctx fun_var_ctx
+             act_ctx declared_types type_sizes with
      | Some i ->
        (match i with
         | Ivytype_Bool ->
           (match type_expr e2 var_ctx
                    fun_var_ctx act_ctx
-                   declared_types
-                   type_sizes with
+                   declared_types type_sizes with
            | Some i0 ->
              (match i0 with
-              | Ivytype_Bool ->
-                Some Ivytype_Bool
+              | Ivytype_Bool -> Some Ivytype_Bool
               | _ -> None)
            | None -> None)
         | _ -> None)
      | None -> None)
   | Expr_Iff (e1, e2) ->
-    (match type_expr e1 var_ctx
-             fun_var_ctx act_ctx
-             declared_types type_sizes with
+    (match type_expr e1 var_ctx fun_var_ctx
+             act_ctx declared_types type_sizes with
      | Some i ->
        (match i with
         | Ivytype_Bool ->
           (match type_expr e2 var_ctx
                    fun_var_ctx act_ctx
-                   declared_types
-                   type_sizes with
+                   declared_types type_sizes with
            | Some i0 ->
              (match i0 with
-              | Ivytype_Bool ->
-                Some Ivytype_Bool
+              | Ivytype_Bool -> Some Ivytype_Bool
               | _ -> None)
            | None -> None)
         | _ -> None)
      | None -> None)
   | Expr_Forall (_, t, e0) ->
     if declared_types t
-    then type_expr e0 var_ctx
-           fun_var_ctx act_ctx
-           declared_types type_sizes
+    then type_expr e0 var_ctx fun_var_ctx
+           act_ctx declared_types type_sizes
     else None
   | Expr_Exists (_, t, e0) ->
     if declared_types t
-    then type_expr e0 var_ctx
-           fun_var_ctx act_ctx
-           declared_types type_sizes
+    then type_expr e0 var_ctx fun_var_ctx
+           act_ctx declared_types type_sizes
     else None
   | Expr_Cond (e1, e2, e3) ->
-    (match type_expr e1 var_ctx
-             fun_var_ctx act_ctx
-             declared_types type_sizes with
+    (match type_expr e1 var_ctx fun_var_ctx
+             act_ctx declared_types type_sizes with
      | Some i ->
        (match i with
         | Ivytype_Bool ->
           (match type_expr e2 var_ctx
                    fun_var_ctx act_ctx
-                   declared_types
-                   type_sizes with
+                   declared_types type_sizes with
            | Some t2 ->
              (match type_expr e3 var_ctx
-                      fun_var_ctx
-                      act_ctx
-                      declared_types
-                      type_sizes with
+                      fun_var_ctx act_ctx
+                      declared_types type_sizes with
               | Some t3 ->
                 if eqb_Ivytype t2 t3
                 then Some t2
@@ -486,213 +445,100 @@ let rec type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes =
   | _ -> Some Ivytype_Bool
 
 (** val check_command_helper :
-    com -> context -> context ->
-    action_context -> (ivytype -> bool)
-    -> enumTypeSizes ->
+    com -> context -> context -> action_context
+    -> (ivytype -> bool) -> enumTypeSizes ->
     ((((context * context) * action_context) * (ivytype
     -> bool)) * enumTypeSizes) option **)
 
-(* char list to string *)
-let string_of_chars chars = 
-  let buf = Buffer.create 16 in
-  List.iter (Buffer.add_char buf) chars;
-  Buffer.contents buf
-
-let rec string_of_Expr e =
-  match e with
-  | Expr_VarLiteral x -> string_of_chars x
-  (* | Expr_EnumVarLiteral t m -> "" *)
-  | Expr_VarFun x es -> x ++ "(" ++ (fold_left (fun s e -> s ++ ", " ++ (string_of_Expr e)) es "") ++ ")"
-  (* | Expr_ActionApplication x es -> x ++ "(" ++ (fold_left (fun s e -> s ++ ", " ++ (string_of_Expr e)) es "") ++ ")" *)
-  | Expr_True -> "true"
-  | Expr_False -> "false"
-  | Expr_Not e -> "!" ++ (string_of_Expr e)
-  | Expr_And e1 e2 -> "(" ++ (string_of_Expr e1) ++ " && " ++ (string_of_Expr e2) ++ ")"
-  | Expr_Or e1 e2 -> "(" ++ (string_of_Expr e1) ++ " || " ++ (string_of_Expr e2) ++ ")"
-  | Expr_Eq e1 e2 -> "(" ++ (string_of_Expr e1) ++ " == " ++ (string_of_Expr e2) ++ ")"
-  | Expr_Implies e1 e2 -> "(" ++ (string_of_Expr e1) ++ " =-> " ++ (string_of_Expr e2) ++ ")"
-  | Expr_Iff e1 e2 -> "(" ++ (string_of_Expr e1) ++ " <=-> " ++ (string_of_Expr e2) ++ ")"
-  | Expr_Forall x t e -> "(forall " ++ x ++ " : " ++ (string_of_Ivytype t) ++ ". " ++ (string_of_Expr e) ++ ")"
-  | Expr_Exists x t e -> "(exists " ++ x ++ " : " ++ (string_of_Ivytype t) ++ ". " ++ (string_of_Expr e) ++ ")"
-  | Expr_Nondet t -> "nondet(" ++ (string_of_Ivytype t) ++ ")"
-  | Expr_Cond e1 e2 e3 -> "(" ++ (string_of_Expr e1) ++ " ? " ++ (string_of_Expr e2) ++ " : " ++ (string_of_Expr e3) ++ ")"
-  | Expr_Error -> "error"
-  
-let rec string_of_Com (c : Com) : string :=
-  match c with 
-  | Com_Assign x e -> x ++ " := " ++ (string_of_Expr e)
-  | Com_AssignFun x xs e -> x ++ "(" ++ (string_of_list (fun a -> a) xs) ++ ") := " ++ (string_of_Expr e)
-  | Com_Seq c1 c2 -> (string_of_Com c1) ++ " ; " ++ (string_of_Com c2)
-  | Com_If e c -> "if " ++ (string_of_Expr e) ++ " then " ++ (string_of_Com c)
-  | Com_IfElse e c1 c2 -> "if " ++ (string_of_Expr e) ++ " then " ++ (string_of_Com c1) ++ " else " ++ (string_of_Com c2)
-  | Com_For x t c -> "for " ++ x ++ " : " ++ (string_of_Ivytype t) ++ " do " ++ (string_of_Com c)
-  | Com_While e c -> "while " ++ (string_of_Expr e) ++ " do " ++ (string_of_Com c)
-  (* | Com_Call x es -> x ++ "(" ++ (string_of_list string_of_Expr es) ++ ")" *)
-  | Com_LocalVarDecl x t -> "var " ++ x ++ " : " ++ (string_of_Ivytype t)
-  | Com_GlobalVarDecl x t -> "global var " ++ x ++ " : " ++ (string_of_Ivytype t)
-  | Com_GlobalFuncVarDecl x xs t -> "global var " ++ x ++ "(" ++ (string_of_list string_of_Ivytype xs) ++ ") : " ++ (string_of_Ivytype t)
-  | Com_TypeDecl x n -> "type " ++ x ++ " = " ++ (string_of_nat n)
-  (* | Com_EnumTypeDecl x xs -> "type " ++ x ++ " = " ++ (string_of_list (fun x -> x) xs) *)
-  | Com_ActionDecl x xs t c -> "action " ++ x ++ "(" ++ (string_of_list string_of_Ivytype (map snd xs)) ++ ") : " ++ (string_of_Ivytype t) ++ " = " ++ (string_of_Com c)
-  | Com_Skip -> "skip"
-  
-
-let rec string_of_Ivytype (t : Ivytype) : string :=
-  match t with
-  | Ivytype_Bool -> "bool"
-  | Ivytype_User_Defined s -> s
-  | Ivytype_Fun ts t' -> "(" ++ (fold_right (fun s t'' -> s ++ "," ++ (string_of_Ivytype t'')) ts "") ++ ") -> " ++ (string_of_Ivytype t')
-  | Ivytype_Void -> "void"
-      
-      
-
 let rec check_command_helper p var_ctx fun_var_ctx act_ctx declared_types type_sizes =
-  print_endline ("check_command_helper: " ^ (string_of_Com p));
   match p with
   | Com_Assign (x, e) ->
     let e_type =
-      type_expr e var_ctx fun_var_ctx
-        act_ctx declared_types type_sizes
+      type_expr e var_ctx fun_var_ctx act_ctx
+        declared_types type_sizes
     in
     let t = var_ctx x in
     if eqb_Ivytype
          (fromMaybe Ivytype_Void e_type)
          (fromMaybe Ivytype_Void t)
     then Some ((((var_ctx, fun_var_ctx),
-           act_ctx), declared_types),
-           type_sizes)
+           act_ctx), declared_types), type_sizes)
     else None
-  | Com_AssignFun (f, arg_ids, e) ->
-    let e_type =
-      type_expr e var_ctx fun_var_ctx
-        act_ctx declared_types type_sizes
-    in
-    let t = fun_var_ctx f in
-    (match t with
-     | Some i ->
-       (match i with
-        | Ivytype_Fun (arg_ts, ret_t) ->
-          let arg_ts' =
-            map (fun x ->
-              fromMaybe Ivytype_Void
-                (var_ctx x)) arg_ids
-          in
-          if list_beq eqb_Ivytype arg_ts
-               arg_ts'
-          then if eqb_Ivytype
-                    (fromMaybe
-                      Ivytype_Void
-                      e_type)
-                    (fromMaybe
-                      Ivytype_Void (Some
-                      ret_t))
-               then Some ((((var_ctx,
-                      fun_var_ctx),
-                      act_ctx),
-                      declared_types),
-                      type_sizes)
-               else None
-          else None
-        | _ -> None)
-     | None -> None)
   | Com_Seq (p1, p2) ->
-    (match check_command_helper p1
-             var_ctx fun_var_ctx act_ctx
-             declared_types type_sizes with
+    (match check_command_helper p1 var_ctx
+             fun_var_ctx act_ctx declared_types
+             type_sizes with
      | Some p0 ->
        let (p3, type_sizes') = p0 in
        let (p4, declared_types') = p3 in
        let (p5, act_ctx') = p4 in
-       let (var_ctx', fun_var_ctx') = p5
-       in
+       let (var_ctx', fun_var_ctx') = p5 in
        check_command_helper p2 var_ctx'
-         fun_var_ctx' act_ctx'
-         declared_types' type_sizes'
+         fun_var_ctx' act_ctx' declared_types'
+         type_sizes'
      | None -> None)
   | Com_If (e, p') ->
-    (match type_expr e var_ctx
-             fun_var_ctx act_ctx
-             declared_types type_sizes with
+    (match type_expr e var_ctx fun_var_ctx
+             act_ctx declared_types type_sizes with
      | Some i ->
        (match i with
         | Ivytype_Bool ->
-          check_command_helper p'
-            var_ctx fun_var_ctx act_ctx
-            declared_types type_sizes
+          check_command_helper p' var_ctx
+            fun_var_ctx act_ctx declared_types
+            type_sizes
         | _ -> None)
      | None -> None)
   | Com_IfElse (e, p1, p2) ->
-    (match type_expr e var_ctx
-             fun_var_ctx act_ctx
-             declared_types type_sizes with
+    (match type_expr e var_ctx fun_var_ctx
+             act_ctx declared_types type_sizes with
      | Some i ->
        (match i with
         | Ivytype_Bool ->
-          (match check_command_helper p1
-                   var_ctx fun_var_ctx
-                   act_ctx
-                   declared_types
-                   type_sizes with
+          (match check_command_helper p1 var_ctx
+                   fun_var_ctx act_ctx
+                   declared_types type_sizes with
            | Some p0 ->
-             let (p3, type_sizes') = p0
-             in
-             let (p4, declared_types') =
-               p3
-             in
+             let (p3, type_sizes') = p0 in
+             let (p4, declared_types') = p3 in
              let (p5, act_ctx') = p4 in
-             let (var_ctx', fun_var_ctx') =
-               p5
-             in
-             check_command_helper p2
-               var_ctx' fun_var_ctx'
-               act_ctx' declared_types'
-               type_sizes'
+             let (var_ctx', fun_var_ctx') = p5 in
+             check_command_helper p2 var_ctx'
+               fun_var_ctx' act_ctx'
+               declared_types' type_sizes'
            | None -> None)
         | _ -> None)
      | None -> None)
-  | Com_For (_, t, p') ->
-    if declared_types t
-    then check_command_helper p' var_ctx
-           fun_var_ctx act_ctx
-           declared_types type_sizes
-    else None
   | Com_While (e, p') ->
-    (match type_expr e var_ctx
-             fun_var_ctx act_ctx
-             declared_types type_sizes with
+    (match type_expr e var_ctx fun_var_ctx
+             act_ctx declared_types type_sizes with
      | Some i ->
        (match i with
         | Ivytype_Bool ->
-          check_command_helper p'
-            var_ctx fun_var_ctx act_ctx
-            declared_types type_sizes
+          check_command_helper p' var_ctx
+            fun_var_ctx act_ctx declared_types
+            type_sizes
         | _ -> None)
      | None -> None)
   | Com_LocalVarDecl (var_id, t) ->
     if declared_types t
     then let var_ctx' =
-           update_context var_ctx var_id
-             t
+           update_context var_ctx var_id t
          in
-         Some ((((var_ctx',
-         fun_var_ctx), act_ctx),
-         declared_types), type_sizes)
+         Some ((((var_ctx', fun_var_ctx),
+         act_ctx), declared_types), type_sizes)
     else None
   | Com_GlobalVarDecl (var_id, t) ->
     if declared_types t
     then let var_ctx' =
-           update_context var_ctx var_id
-             t
+           update_context var_ctx var_id t
          in
-         Some ((((var_ctx',
-         fun_var_ctx), act_ctx),
-         declared_types), type_sizes)
+         Some ((((var_ctx', fun_var_ctx),
+         act_ctx), declared_types), type_sizes)
     else None
   | Com_GlobalFuncVarDecl (var_id,
                            arg_names_and_ts,
                            ret_type) ->
-    let arg_ts = map snd arg_names_and_ts
-    in
+    let arg_ts = map snd arg_names_and_ts in
     if declared_types ret_type
     then let arg_ts_declared =
            fold_left (fun acc t ->
@@ -702,14 +548,12 @@ let rec check_command_helper p var_ctx fun_var_ctx act_ctx declared_types type_s
          in
          if arg_ts_declared
          then let fun_var_ctx' =
-                update_context
-                  fun_var_ctx var_id
-                  (Ivytype_Fun (arg_ts,
+                update_context fun_var_ctx
+                  var_id (Ivytype_Fun (arg_ts,
                   ret_type))
               in
-              Some ((((var_ctx,
-              fun_var_ctx'), act_ctx),
-              declared_types),
+              Some ((((var_ctx, fun_var_ctx'),
+              act_ctx), declared_types),
               type_sizes)
          else None
     else None
@@ -728,10 +572,8 @@ let rec check_command_helper p var_ctx fun_var_ctx act_ctx declared_types type_s
            else type_sizes t'
          in
          Some ((((var_ctx, fun_var_ctx),
-         act_ctx), declared_types'),
-         type_sizes')
-  | Com_ActionDecl (act_id,
-                    arg_ids_and_types,
+         act_ctx), declared_types'), type_sizes')
+  | Com_ActionDecl (act_id, arg_ids_and_types,
                     ret_type, p') ->
     (match act_ctx act_id with
      | Some _ -> None
@@ -748,88 +590,56 @@ let rec check_command_helper p var_ctx fun_var_ctx act_ctx declared_types type_s
             in
             if arg_ts_declared
             then let act_ctx' =
-                   t_update act_ctx
-                     act_id (Some
+                   t_update act_ctx act_id (Some
                      ((arg_ids_and_types,
                      ret_type), p'))
                  in
-                 (match check_command_helper
-                          p' var_ctx
-                          fun_var_ctx
+                 let var_ctx' =
+                   fold_left (fun acc x ->
+                     update_context acc 
+                       (fst x) (snd x))
+                     arg_ids_and_types var_ctx
+                 in
+                 (match check_command_helper p'
+                          var_ctx' fun_var_ctx
                           act_ctx'
                           declared_types
                           type_sizes with
-                  | Some p0 ->
-                    let (p1, type_sizes') =
-                      p0
-                    in
-                    let (p2,
-                         declared_types') =
-                      p1
-                    in
-                    let (p3, _) = p2 in
-                    Some (((p3,
-                    act_ctx'),
-                    declared_types'),
-                    type_sizes')
+                  | Some _ ->
+                    Some ((((var_ctx,
+                      fun_var_ctx), act_ctx'),
+                      declared_types),
+                      type_sizes)
                   | None -> None)
             else None
        else None)
   | Com_Skip ->
-    Some ((((var_ctx, fun_var_ctx),
-      act_ctx), declared_types),
-      type_sizes)
+    Some ((((var_ctx, fun_var_ctx), act_ctx),
+      declared_types), type_sizes)
 
 (** val check : com -> bool **)
 
 let check p =
-  match check_command_helper p empty
-          empty empty (fun _ -> false)
-          (fun _ -> O) with
-  | Some _ -> true
-  | None -> false
+  let initial_types = fun t' ->
+    (||)
+      ((||) (eqb_Ivytype t' Ivytype_Void)
+        (eqb_Ivytype t' Ivytype_Bool))
+      (eqb_Ivytype t' Ivytype_Void)
+  in
+  (match check_command_helper p empty empty
+           empty initial_types (fun _ -> O) with
+   | Some _ -> true
+   | None -> false)
 
 (** val small_step_Expr :
-    expr -> context -> context ->
-    action_context -> (ivytype -> bool)
-    -> enumTypeSizes -> expr option **)
+    expr -> expr partial_map -> (expr list ->
+    expr) partial_map -> context -> context ->
+    action_context -> (ivytype -> bool) ->
+    enumTypeSizes -> expr option **)
 
-let rec small_step_Expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes =
+let rec small_step_Expr e var_store fun_var_store var_ctx fun_var_ctx act_ctx declared_types type_sizes =
   match e with
-  | Expr_VarFun (x, es) ->
-    (match fun_var_ctx x with
-     | Some i ->
-       (match i with
-        | Ivytype_Fun (_, _) ->
-          (match es with
-           | [] -> None
-           | e0 :: es' ->
-             (match small_step_Expr e0
-                      var_ctx
-                      fun_var_ctx
-                      act_ctx
-                      declared_types
-                      type_sizes with
-              | Some e' ->
-                Some (Expr_VarFun (x,
-                  (e' :: es')))
-              | None ->
-                (match es' with
-                 | [] -> None
-                 | e' :: es'' ->
-                   (match small_step_Expr
-                            e' var_ctx
-                            fun_var_ctx
-                            act_ctx
-                            declared_types
-                            type_sizes with
-                    | Some e'' ->
-                      Some (Expr_VarFun
-                        (x,
-                        (e0 :: (e'' :: es''))))
-                    | None -> None))))
-        | _ -> None)
-     | None -> None)
+  | Expr_VarLiteral x -> var_store x
   | Expr_Not e' ->
     if is_value e'
     then (match e' with
@@ -837,9 +647,9 @@ let rec small_step_Expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes 
           | Expr_False -> Some Expr_True
           | _ -> None)
     else let e'' =
-           small_step_Expr e' var_ctx
-             fun_var_ctx act_ctx
-             declared_types type_sizes
+           small_step_Expr e' var_store
+             fun_var_store var_ctx fun_var_ctx
+             act_ctx declared_types type_sizes
          in
          Some (Expr_Not
          (fromMaybe Expr_Error e''))
@@ -849,64 +659,54 @@ let rec small_step_Expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes 
          then (match e1 with
                | Expr_True ->
                  (match e2 with
-                  | Expr_True ->
-                    Some Expr_True
-                  | Expr_False ->
-                    Some Expr_False
+                  | Expr_True -> Some Expr_True
+                  | Expr_False -> Some Expr_False
                   | _ -> None)
                | Expr_False ->
                  (match e2 with
-                  | Expr_True ->
-                    Some Expr_False
-                  | Expr_False ->
-                    Some Expr_False
+                  | Expr_True -> Some Expr_False
+                  | Expr_False -> Some Expr_False
                   | _ -> None)
                | _ -> None)
          else Some (Expr_And (e1,
                 (fromMaybe Expr_Error
-                  (small_step_Expr e2
-                    var_ctx fun_var_ctx
-                    act_ctx
-                    declared_types
-                    type_sizes))))
+                  (small_step_Expr e2 var_store
+                    fun_var_store var_ctx
+                    fun_var_ctx act_ctx
+                    declared_types type_sizes))))
     else Some (Expr_And
            ((fromMaybe Expr_Error
-              (small_step_Expr e1
-                var_ctx fun_var_ctx
-                act_ctx declared_types
-                type_sizes)), e2))
+              (small_step_Expr e1 var_store
+                fun_var_store var_ctx
+                fun_var_ctx act_ctx
+                declared_types type_sizes)), e2))
   | Expr_Or (e1, e2) ->
     if is_value e1
     then if is_value e2
          then (match e1 with
                | Expr_True ->
                  (match e2 with
-                  | Expr_True ->
-                    Some Expr_True
-                  | Expr_False ->
-                    Some Expr_True
+                  | Expr_True -> Some Expr_True
+                  | Expr_False -> Some Expr_True
                   | _ -> None)
                | Expr_False ->
                  (match e2 with
-                  | Expr_True ->
-                    Some Expr_True
-                  | Expr_False ->
-                    Some Expr_False
+                  | Expr_True -> Some Expr_True
+                  | Expr_False -> Some Expr_False
                   | _ -> None)
                | _ -> None)
          else Some (Expr_Or (e1,
                 (fromMaybe Expr_Error
-                  (small_step_Expr e2
-                    var_ctx fun_var_ctx
-                    act_ctx
-                    declared_types
-                    type_sizes))))
+                  (small_step_Expr e2 var_store
+                    fun_var_store var_ctx
+                    fun_var_ctx act_ctx
+                    declared_types type_sizes))))
     else Some (Expr_Or
            ((fromMaybe Expr_Error
-              (small_step_Expr e1
-                var_ctx fun_var_ctx
-                act_ctx declared_types
-                type_sizes)), e2))
+              (small_step_Expr e1 var_store
+                fun_var_store var_ctx
+                fun_var_ctx act_ctx
+                declared_types type_sizes)), e2))
   | Expr_Eq (e1, e2) ->
     if is_value e1
     then if is_value e2
@@ -915,49 +715,43 @@ let rec small_step_Expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes 
               else Some Expr_False
          else Some (Expr_Eq (e1,
                 (fromMaybe Expr_Error
-                  (small_step_Expr e2
-                    var_ctx fun_var_ctx
-                    act_ctx
-                    declared_types
-                    type_sizes))))
+                  (small_step_Expr e2 var_store
+                    fun_var_store var_ctx
+                    fun_var_ctx act_ctx
+                    declared_types type_sizes))))
     else Some (Expr_Eq
            ((fromMaybe Expr_Error
-              (small_step_Expr e1
-                var_ctx fun_var_ctx
-                act_ctx declared_types
-                type_sizes)), e2))
+              (small_step_Expr e1 var_store
+                fun_var_store var_ctx
+                fun_var_ctx act_ctx
+                declared_types type_sizes)), e2))
   | Expr_Implies (e1, e2) ->
     if is_value e1
     then if is_value e2
          then (match e1 with
                | Expr_True ->
                  (match e2 with
-                  | Expr_True ->
-                    Some Expr_True
-                  | Expr_False ->
-                    Some Expr_False
+                  | Expr_True -> Some Expr_True
+                  | Expr_False -> Some Expr_False
                   | _ -> None)
                | Expr_False ->
                  (match e2 with
-                  | Expr_True ->
-                    Some Expr_True
-                  | Expr_False ->
-                    Some Expr_True
+                  | Expr_True -> Some Expr_True
+                  | Expr_False -> Some Expr_True
                   | _ -> None)
                | _ -> None)
          else Some (Expr_Implies (e1,
                 (fromMaybe Expr_Error
-                  (small_step_Expr e2
-                    var_ctx fun_var_ctx
-                    act_ctx
-                    declared_types
-                    type_sizes))))
+                  (small_step_Expr e2 var_store
+                    fun_var_store var_ctx
+                    fun_var_ctx act_ctx
+                    declared_types type_sizes))))
     else Some (Expr_Implies
            ((fromMaybe Expr_Error
-              (small_step_Expr e1
-                var_ctx fun_var_ctx
-                act_ctx declared_types
-                type_sizes)), e2))
+              (small_step_Expr e1 var_store
+                fun_var_store var_ctx
+                fun_var_ctx act_ctx
+                declared_types type_sizes)), e2))
   | Expr_Iff (e1, e2) ->
     if is_value e1
     then if is_value e2
@@ -966,32 +760,28 @@ let rec small_step_Expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes 
               else Some Expr_False
          else Some (Expr_Iff (e1,
                 (fromMaybe Expr_Error
-                  (small_step_Expr e2
-                    var_ctx fun_var_ctx
-                    act_ctx
-                    declared_types
-                    type_sizes))))
+                  (small_step_Expr e2 var_store
+                    fun_var_store var_ctx
+                    fun_var_ctx act_ctx
+                    declared_types type_sizes))))
     else Some (Expr_Iff
            ((fromMaybe Expr_Error
-              (small_step_Expr e1
-                var_ctx fun_var_ctx
-                act_ctx declared_types
-                type_sizes)), e2))
+              (small_step_Expr e1 var_store
+                fun_var_store var_ctx
+                fun_var_ctx act_ctx
+                declared_types type_sizes)), e2))
   | Expr_Forall (x, t, e') ->
     let nums = seq O (type_sizes t) in
     let out =
-      fold_left (fun acc y -> Expr_And
-        (acc,
-        (subst e' (Expr_EnumVarLiteral
-          (t, y)) x))) nums Expr_True
+      fold_left (fun acc y -> Expr_And (acc,
+        (subst e' (Expr_EnumVarLiteral (t, y)) x)))
+        nums Expr_True
     in
     Some out
   | Expr_Exists (x, t, e') ->
     let out =
-      fold_left (fun acc y -> Expr_Or
-        (acc,
-        (subst e' (Expr_EnumVarLiteral
-          (t, y)) x)))
+      fold_left (fun acc y -> Expr_Or (acc,
+        (subst e' (Expr_EnumVarLiteral (t, y)) x)))
         (seq O (type_sizes t)) Expr_False
     in
     Some out
@@ -1003,8 +793,86 @@ let rec small_step_Expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes 
           | _ -> None)
     else Some (Expr_Cond
            ((fromMaybe Expr_Error
-              (small_step_Expr e1
-                var_ctx fun_var_ctx
-                act_ctx declared_types
-                type_sizes)), e2, e3))
+              (small_step_Expr e1 var_store
+                fun_var_store var_ctx
+                fun_var_ctx act_ctx
+                declared_types type_sizes)), e2,
+           e3))
   | _ -> None
+
+(** val small_step_Com :
+    com -> expr partial_map -> (expr list ->
+    expr) partial_map -> context -> context ->
+    action_context -> (ivytype -> bool) ->
+    enumTypeSizes -> ((com * expr
+    partial_map) * (expr list -> expr)
+    partial_map) option **)
+
+let rec small_step_Com p var_store fun_var_store var_ctx fun_var_ctx act_ctx declared_types type_sizes =
+  match p with
+  | Com_Assign (x, e) ->
+    if is_value e
+    then Some ((Com_Skip,
+           (update var_store x e)),
+           fun_var_store)
+    else (match small_step_Expr e var_store
+                  fun_var_store var_ctx
+                  fun_var_ctx act_ctx
+                  declared_types type_sizes with
+          | Some e' ->
+            Some (((Com_Assign (x, e')),
+              var_store), fun_var_store)
+          | None -> None)
+  | Com_Seq (p1, p2) ->
+    (match small_step_Com p1 var_store
+             fun_var_store var_ctx fun_var_ctx
+             act_ctx declared_types type_sizes with
+     | Some p0 ->
+       let (p3, fun_var_store') = p0 in
+       let (p1', var_store') = p3 in
+       Some (((Com_Seq (p1', p2)), var_store'),
+       fun_var_store')
+     | None ->
+       (match p1 with
+        | Com_Skip ->
+          Some ((p2, var_store), fun_var_store)
+        | _ -> None))
+  | Com_If (e, c) ->
+    if is_value e
+    then (match e with
+          | Expr_True ->
+            Some ((c, var_store), fun_var_store)
+          | Expr_False ->
+            Some ((Com_Skip, var_store),
+              fun_var_store)
+          | _ -> None)
+    else (match small_step_Expr e var_store
+                  fun_var_store var_ctx
+                  fun_var_ctx act_ctx
+                  declared_types type_sizes with
+          | Some e' ->
+            Some (((Com_If (e', c)), var_store),
+              fun_var_store)
+          | None -> None)
+  | Com_IfElse (e, c, c') ->
+    if is_value e
+    then (match e with
+          | Expr_True ->
+            Some ((c, var_store), fun_var_store)
+          | Expr_False ->
+            Some ((c', var_store), fun_var_store)
+          | _ -> None)
+    else (match small_step_Expr e var_store
+                  fun_var_store var_ctx
+                  fun_var_ctx act_ctx
+                  declared_types type_sizes with
+          | Some e' ->
+            Some (((Com_IfElse (e', c, c')),
+              var_store), fun_var_store)
+          | None -> None)
+  | Com_While (e, c) ->
+    Some (((Com_IfElse (e, (Com_Seq (c,
+      (Com_While (e, c)))), Com_Skip)),
+      var_store), fun_var_store)
+  | _ ->
+    Some ((Com_Skip, var_store), fun_var_store)
