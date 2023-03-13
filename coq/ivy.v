@@ -2,93 +2,119 @@
 Require Import Coq.Lists.List Coq.Bool.Bool.
 Import Coq.Lists.List.ListNotations.
 Require Import String.
+Require Import Coq.Arith.PeanoNat.
 Open Scope string_scope.
 Load defs.
 
 (* Get the type of an expression *)
-Fixpoint type_expr 
-(e : Expr) (var_ctx fun_var_ctx : context) 
-(act_ctx : action_context) 
-(declared_types : Ivytype -> bool) (type_sizes : EnumTypeSizes) {struct e} : option Ivytype := 
+Fixpoint type_expr (e : Expr) (Gamma : context) {struct e} : option Ivytype := 
   match e with
-  | Expr_VarLiteral x => var_ctx x
-  | Expr_EnumVarLiteral t n => Some t
-  | Expr_VarFun x es => 
-    match fun_var_ctx x with
-    | Some (Ivytype_Fun decl_arg_ts ret_t) =>
-      let arg_ts := map (fun e => fromMaybe Ivytype_Void (type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes)) es in
-      if (list_beq Ivytype eqb_Ivytype arg_ts decl_arg_ts) then Some ret_t else None
+  | Expr_VarLiteral x => lookup_variable Gamma x
+  | Expr_EnumVarLiteral t n => 
+    match t with 
+    | Ivytype_UserDefined x l =>  
+      match lookup_type Gamma x with 
+      | Some m => if andb (ltb m n) (beq_nat l m) then Some t else None
+      | None => None
+      end
     | _ => None
     end
-  (* | Expr_ActionApplication x es =>
-    match act_ctx x with
-      | Some (_, Ivytype_Fun t1 t2, _) => 
-        let arg_ts := map (fun e => fromMaybe Ivytype_Void (type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes)) es in
-        if (list_beq Ivytype eqb_Ivytype arg_ts t1) then Some t2 else None
-      | _ => None
-      end *)
+  | Expr_FunctionSymbol x es => 
+    match lookup_variable Gamma x with
+    | Some (Ivytype_Function ts ret_t) => 
+      let calculated_type_options := map (fun e => type_expr e Gamma) es in
+      if (list_beq (option Ivytype) (eqb_OptionIvytype) (map Some ts) calculated_type_options) 
+      then Some ret_t
+      else None
+    | _ => None
+    end
   | Expr_True => Some Ivytype_Bool
   | Expr_False => Some Ivytype_Bool
-  | Expr_Not e => 
-    match type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes with
+  | Expr_Not e' => 
+    match type_expr e' Gamma with
     | Some Ivytype_Bool => Some Ivytype_Bool
     | _ => None
     end
   | Expr_And e1 e2 =>
-    match type_expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes with
+    match type_expr e1 Gamma with
     | Some Ivytype_Bool => 
-    match type_expr e2 var_ctx fun_var_ctx act_ctx declared_types type_sizes with
-    | Some Ivytype_Bool => Some Ivytype_Bool
-    | _ => None
-    end
+      match type_expr e2 Gamma with
+        | Some Ivytype_Bool => Some Ivytype_Bool
+        | _ => None
+      end
     | _ => None
     end
   | Expr_Or e1 e2 =>
-    match type_expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes with
+    match type_expr e1 Gamma with
     | Some Ivytype_Bool => 
-    match type_expr e2 var_ctx fun_var_ctx act_ctx declared_types type_sizes with
-    | Some Ivytype_Bool => Some Ivytype_Bool
-    | _ => None
-    end
+      match type_expr e2 Gamma with
+        | Some Ivytype_Bool => Some Ivytype_Bool
+        | _ => None
+      end
     | _ => None
     end
   | Expr_Eq e1 e2 =>
-    match type_expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes with
+    match type_expr e1 Gamma with
     | Some t1 => 
-    match type_expr e2 var_ctx fun_var_ctx act_ctx declared_types type_sizes with
-    | Some t2 => 
-    if (eqb_Ivytype t1 t2) then Some Ivytype_Bool else None
-    | _ => None
-    end
+      match type_expr e2 Gamma with
+        | Some t2 => if (eqb_Ivytype t1 t2) then Some Ivytype_Bool else None
+        | _ => None
+      end
     | _ => None
     end
   | Expr_Implies e1 e2 =>
-    match type_expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes with
+    match type_expr e1 Gamma with
     | Some Ivytype_Bool => 
-    match type_expr e2 var_ctx fun_var_ctx act_ctx declared_types type_sizes with
-    | Some Ivytype_Bool => Some Ivytype_Bool
-    | _ => None
-    end
-    | _ => None
+      match type_expr e2 Gamma with
+      | Some Ivytype_Bool => Some Ivytype_Bool
+      | _ => None
+      end
+      | _ => None
     end
   | Expr_Iff e1 e2 =>
-    match type_expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes with
+    match type_expr e1 Gamma with
     | Some Ivytype_Bool => 
-    match type_expr e2 var_ctx fun_var_ctx act_ctx declared_types type_sizes with
-    | Some Ivytype_Bool => Some Ivytype_Bool
+      match type_expr e2 Gamma with
+      | Some Ivytype_Bool => Some Ivytype_Bool
+      | _ => None
+      end
+      | _ => None
+    end
+  | Expr_Forall x t e' =>
+    match t with
+    | Ivytype_UserDefined x n =>
+      match lookup_type Gamma x  with
+      | Some _ => 
+        match type_expr e' Gamma with
+        | Some Ivytype_Bool => Some Ivytype_Bool
+        | _ => None
+        end
+      | _ => None
+      end
+    | Ivytype_Bool => 
+      match type_expr e' Gamma with
+      | Some Ivytype_Bool => Some Ivytype_Bool
+      | _ => None
+      end
     | _ => None
     end
+  | Expr_Exists x t e' =>
+    match t with
+    | Ivytype_UserDefined x n =>
+      match lookup_type Gamma x  with
+      | Some _ => 
+        match type_expr e' Gamma with
+        | Some Ivytype_Bool => Some Ivytype_Bool
+        | _ => None
+        end
+      | _ => None
+      end
+    | Ivytype_Bool => 
+      match type_expr e' Gamma with
+      | Some Ivytype_Bool => Some Ivytype_Bool
+      | _ => None
+      end
     | _ => None
-    end
-  | Expr_Forall x t e =>
-    match declared_types t with
-    | true => type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes
-    | false => None
-    end
-  | Expr_Exists x t e =>
-    match declared_types t with
-    | true => type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes
-    | false => None
     end
   (* | Expr_Nondet t => 
     match declared_types t with
@@ -96,11 +122,11 @@ Fixpoint type_expr
     | false => None
     end *)
   | Expr_Cond e1 e2 e3 =>
-    match type_expr e1 var_ctx fun_var_ctx act_ctx declared_types type_sizes with
+    match type_expr e2 Gamma with
     | Some Ivytype_Bool => 
-      match type_expr e2 var_ctx fun_var_ctx act_ctx declared_types type_sizes with
+      match type_expr e1 Gamma with
       | Some t2 => 
-        match type_expr e3 var_ctx fun_var_ctx act_ctx declared_types type_sizes with
+        match type_expr e3 Gamma with
         | Some t3 => 
           if (eqb_Ivytype t2 t3) then Some t2 else None
         | _ => None

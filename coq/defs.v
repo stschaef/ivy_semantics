@@ -1,32 +1,37 @@
 (* Definitions of the Ivy language and some useful helper functions *)
 
-(* Desktop *)
-(* Add LoadPath "/home/stschaef/ivy_semantics/coq" as coq. *)
-(* Add LoadPath "/Users/stevenschaefer/ivy_semantics/coq" as coq. *)
 Require Import Coq.Lists.List Coq.Bool.Bool.
 Import Coq.Lists.List.ListNotations.
 Require Import String.
-Declare Scope string_scope.
-Delimit Scope string_scope with string.
-Bind Scope string_scope with string.
-Local Open Scope string_scope.
+
+Require Import Nat.
 Load Maps.
 Scheme Equality for list.
+Scheme Equality for nat.
 
 (* Types *)
 
 Inductive Ivytype : Type :=
   | Ivytype_Bool : Ivytype 
-  | Ivytype_User_Defined : string -> Ivytype
-  | Ivytype_Fun : list Ivytype -> Ivytype -> Ivytype
+  | Ivytype_UserDefined : string -> nat -> Ivytype
+  | Ivytype_Function : list Ivytype -> Ivytype -> Ivytype
   | Ivytype_Void.
+
+
 
 Fixpoint eqb_Ivytype (t1 t2 : Ivytype) : bool :=
   match t1, t2 with
   | Ivytype_Bool, Ivytype_Bool => true
-  | Ivytype_User_Defined s1, Ivytype_User_Defined s2 => eqb s1 s2
-  | Ivytype_Fun ts1 t1, Ivytype_Fun ts2 t2 => andb (list_beq Ivytype eqb_Ivytype ts1 ts2) (eqb_Ivytype t1 t2)
+  | Ivytype_UserDefined s1 n1, Ivytype_UserDefined s2 n2 => andb (eqb s1 s2) (beq_nat n1 n2)
+  | Ivytype_Function ts1 t1, Ivytype_Function ts2 t2 => andb (list_beq Ivytype eqb_Ivytype ts1 ts2) (eqb_Ivytype t1 t2)
   | Ivytype_Void, Ivytype_Void => true
+  | _, _ => false
+  end.
+
+Fixpoint eqb_OptionIvytype (t1 t2 : option Ivytype) : bool :=
+  match t1, t2 with
+  | Some t1, Some t2 => eqb_Ivytype t1 t2
+  | None, None => true
   | _, _ => false
   end.
 
@@ -35,8 +40,7 @@ Fixpoint eqb_Ivytype (t1 t2 : Ivytype) : bool :=
 Inductive Expr : Type :=
   | Expr_VarLiteral : string -> Expr
   | Expr_EnumVarLiteral : Ivytype -> nat -> Expr
-  | Expr_VarFun : string -> list Expr -> Expr
-  (* | Expr_ActionApplication : string -> list Expr -> Expr *)
+  | Expr_FunctionSymbol : string -> list Expr -> Expr 
   | Expr_True
   | Expr_False
   | Expr_Not : Expr -> Expr
@@ -51,7 +55,7 @@ Inductive Expr : Type :=
   | Expr_Cond : Expr -> Expr -> Expr -> Expr
   | Expr_Error.
 
-Fixpoint eqb_Expr (e1 e2 : Expr) : bool :=
+(* Fixpoint eqb_Expr (e1 e2 : Expr) : bool :=
   match e1, e2 with
   | Expr_VarLiteral x1, Expr_VarLiteral x2 => eqb x1 x2
   | Expr_EnumVarLiteral t1 n1, Expr_EnumVarLiteral t2 n2 => andb (eqb_Ivytype t1 t2) (Nat.eqb n1 n2)
@@ -70,7 +74,7 @@ Fixpoint eqb_Expr (e1 e2 : Expr) : bool :=
   (* | Expr_Nondet t1, Expr_Nondet t2 => eqb_Ivytype t1 t2 *)
   | Expr_Cond e11 e12 e13, Expr_Cond e21 e22 e23 => andb (eqb_Expr e11 e21) (andb (eqb_Expr e12 e22) (eqb_Expr e13 e23))
   | _, _ => false
-  end.
+  end. *)
 
 (* Commands *)
 
@@ -93,49 +97,39 @@ Inductive Com : Type :=
 
 (* Values *)
 
-Inductive Value_Expr : Expr -> Prop := 
-  | Value_Expr_VarLiteral : forall x, Value_Expr (Expr_VarLiteral x)
-  | Value_Expr_EnumVarLiteral : forall n t, Value_Expr (Expr_EnumVarLiteral t n)
-  | Value_Expr_True : Value_Expr Expr_True
-  | Value_Expr_False : Value_Expr Expr_False
-  | Value_Expr_Var_Fun : forall x es, (forall e, In e es -> Value_Expr e) -> Value_Expr (Expr_VarFun x es).
-
-Definition value (e : Expr) : Prop := Value_Expr e.
-
-Fixpoint is_value (e : Expr) : bool :=
-  match e with
-  | Expr_VarLiteral x => true
-  | Expr_VarFun x es => fold_left (fun b e => b && is_value e) es true
-  | Expr_True => true
-  | Expr_False => true
-  | _ => false
-  end.
+Inductive value : Expr -> Prop :=
+  | value_VarLiteral : forall x, value (Expr_VarLiteral x)
+  | value_EnumVarLiteral : forall t n, value (Expr_EnumVarLiteral t n)
+  | value_True : value Expr_True
+  | value_False : value Expr_False.
 
 (* Stores/Contexts *)
 
-(* TODO: This is maybe a lil redundant *)
-Definition context := partial_map Ivytype. (* string -> option Ivytype *)
-Definition update_context (c : context) (x : string) (t : Ivytype) : context := t_update c x (Some t).
-Definition store (A : Type) := partial_map A.
-Definition store_lookup {A} (s : store A) (x : string) : option A := s x.
-Definition store_update {A} (s : store A) (x : string) (v : A) : store A := t_update s x (Some v).
-Definition EnumTypeSizes := Ivytype -> nat.
-Definition action_context := partial_map (list (string * Ivytype) * Ivytype * Com).
+Definition variable_context := prod (string -> option Ivytype) (list string).
+Definition type_context := prod (string -> option nat) (list string).
+Definition action_context := prod (string -> option (list (string * Ivytype) * list (string * Ivytype) * Com)) (list string).
 
-(* TODO: Can I get away with not using maybes? *)
-Definition unpack_id_under_expr (e : Expr) : option string :=
-  match e with
-  | Expr_VarLiteral x => Some x
-  | Expr_VarFun x es => Some x
-  (* | Expr_ActionApplication x es => Some x *)
-  | _ => None (* Shouldn't be able to extract id from anything else *)
-  end.
-  
-Definition fromMaybe {A : Type} (x : A) (y : option A) : A :=
-  match y with
-  | Some z => z
-  | None => x
-  end.
+(* The attached lists may be a little redundant, but it's a quick and easy way
+to get ahold of the names of things that have been declared. 
+
+Else we would have to get the preimage of the non-None elements in each
+context, which I don't think is possible. *)
+
+Definition context := prod (variable_context) (prod (type_context) (action_context)).
+Definition build_context 
+(vc : variable_context) 
+(tc : type_context) 
+(ac : action_context) := (vc, (tc, ac)).
+
+Definition get_variable_context (c : context) := fst c.
+Definition get_type_context (c : context) := fst (snd c).
+Definition get_action_context (c : context) := snd (snd c).
+
+Definition lookup_variable (c : context) (x : string) : option Ivytype := fst (get_variable_context c) x.
+Definition lookup_type (c : context) (x : string) : option nat := fst (get_type_context c) x.
+Definition lookup_action (c : context) (x : string) : option (list (string * Ivytype) * list (string * Ivytype) * Com) := fst (get_action_context c) x.
+
+Definition state := forall (e : Expr), (value e -> option (value e)).
 
 (* Substitutions *)
 
@@ -143,8 +137,7 @@ Fixpoint subst (e : Expr) (v : Expr) (x : string) : Expr :=
   match e with 
   | Expr_VarLiteral y => if eqb x y then v else e
   | Expr_EnumVarLiteral y n => Expr_EnumVarLiteral y n
-  | Expr_VarFun y es => Expr_VarFun y (map (fun e => subst e v x) es)
-  (* | Expr_ActionApplication y es => Expr_ActionApplication y (map (fun e => subst e v x) es) *)
+  | Expr_FunctionSymbol x es => Expr_FunctionSymbol x (map (fun e => subst e v x) es)
   | Expr_True => Expr_True
   | Expr_False => Expr_False
   | Expr_Not e => Expr_Not (subst e v x)
@@ -173,71 +166,3 @@ Fixpoint subst_com (p : Com) (v : Expr) (x : string) : Com :=
   | Com_Skip => Com_Skip
   | _ => p (* declarations *)
   end.
-
-(* String Utilities *)
-(* TODO: Some of these don't typecheck. 
-Either fix or move into OCaml. Shouldn't have to do string processing in coq
-*)
-
-Fixpoint string_of_list {A} (f : A -> string) (l : list A) : string :=
-  match l with
-  | [] => ""
-  | [x] => f x
-  | x :: xs => (f x) ++ ", " ++ (string_of_list f xs)
-  end.
-
-Fixpoint string_of_nat (n : nat) : string :=
-  match n with
-  | 0 => "0"
-  | S n' => (string_of_nat n') ++ "1"
-  end.
-
-(* Fixpoint string_of_Expr (e : Expr) : string :=
-  match e with
-  | Expr_VarLiteral x => x
-  | Expr_EnumVarLiteral t n => "TODO"
-  | Expr_VarFun x es => x ++ "(" ++ (fold_left (fun s e => s ++ ", " ++ (string_of_Expr e)) es "") ++ ")"
-  (* | Expr_ActionApplication x es => x ++ "(" ++ (fold_left (fun s e => s ++ ", " ++ (string_of_Expr e)) es "") ++ ")" *)
-  | Expr_True => "true"
-  | Expr_False => "false"
-  | Expr_Not e => "!" ++ (string_of_Expr e)
-  | Expr_And e1 e2 => "(" ++ (string_of_Expr e1) ++ " && " ++ (string_of_Expr e2) ++ ")"
-  | Expr_Or e1 e2 => "(" ++ (string_of_Expr e1) ++ " || " ++ (string_of_Expr e2) ++ ")"
-  | Expr_Eq e1 e2 => "(" ++ (string_of_Expr e1) ++ " == " ++ (string_of_Expr e2) ++ ")"
-  | Expr_Implies e1 e2 => "(" ++ (string_of_Expr e1) ++ " ==> " ++ (string_of_Expr e2) ++ ")"
-  | Expr_Iff e1 e2 => "(" ++ (string_of_Expr e1) ++ " <==> " ++ (string_of_Expr e2) ++ ")"
-  | Expr_Forall x t e => "(forall " ++ x ++ " : " ++ (string_of_Ivytype t) ++ ". " ++ (string_of_Expr e) ++ ")"
-  | Expr_Exists x t e => "(exists " ++ x ++ " : " ++ (string_of_Ivytype t) ++ ". " ++ (string_of_Expr e) ++ ")"
-  | Expr_Nondet t => "nondet(" ++ (string_of_Ivytype t) ++ ")"
-  | Expr_Cond e1 e2 e3 => "(" ++ (string_of_Expr e1) ++ " ? " ++ (string_of_Expr e2) ++ " : " ++ (string_of_Expr e3) ++ ")"
-  | Expr_Error => "error"
-  end. *)
-
-  
-(* Fixpoint string_of_Com (c : Com) : string :=
-  match c with 
-  | Com_Assign x e => x ++ " := " ++ (string_of_Expr e)
-  | Com_AssignFun x xs e => x ++ "(" ++ (string_of_list (fun a => a) xs) ++ ") := " ++ (string_of_Expr e)
-  | Com_Seq c1 c2 => (string_of_Com c1) ++ " ; " ++ (string_of_Com c2)
-  | Com_If e c => "if " ++ (string_of_Expr e) ++ " then " ++ (string_of_Com c)
-  | Com_IfElse e c1 c2 => "if " ++ (string_of_Expr e) ++ " then " ++ (string_of_Com c1) ++ " else " ++ (string_of_Com c2)
-  | Com_For x t c => "for " ++ x ++ " : " ++ (string_of_Ivytype t) ++ " do " ++ (string_of_Com c)
-  | Com_While e c => "while " ++ (string_of_Expr e) ++ " do " ++ (string_of_Com c)
-  (* | Com_Call x es => x ++ "(" ++ (string_of_list string_of_Expr es) ++ ")" *)
-  | Com_LocalVarDecl x t => "var " ++ x ++ " : " ++ (string_of_Ivytype t)
-  | Com_GlobalVarDecl x t => "global var " ++ x ++ " : " ++ (string_of_Ivytype t)
-  | Com_GlobalFuncVarDecl x xs t => "global var " ++ x ++ "(" ++ (string_of_list string_of_Ivytype xs) ++ ") : " ++ (string_of_Ivytype t)
-  | Com_TypeDecl x n => "type " ++ x ++ " = " ++ (string_of_nat n)
-  (* | Com_EnumTypeDecl x xs => "type " ++ x ++ " = " ++ (string_of_list (fun x => x) xs) *)
-  | Com_ActionDecl x xs t c => "action " ++ x ++ "(" ++ (string_of_list string_of_Ivytype (map snd xs)) ++ ") : " ++ (string_of_Ivytype t) ++ " = " ++ (string_of_Com c)
-  | Com_Skip => "skip"
-  end. *)
-
-(* Fixpoint string_of_Ivytype (t : Ivytype) : string :=
-  match t with
-  | Ivytype_Bool => "bool"
-  | Ivytype_User_Defined s => s
-  | Ivytype_Fun ts t' => "(" ++ (fold_right (fun s t'' => s ++ "," ++ (string_of_Ivytype t'')) ts "") ++ ") -> " ++ (string_of_Ivytype t')
-  | Ivytype_Void => "void"
-  end. *)
-  

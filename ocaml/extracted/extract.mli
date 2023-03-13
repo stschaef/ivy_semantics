@@ -16,8 +16,7 @@ module Nat :
 
 val map : ('a1 -> 'a2) -> 'a1 list -> 'a2 list
 
-val fold_left :
-  ('a1 -> 'a2 -> 'a1) -> 'a2 list -> 'a1 -> 'a1
+val fold_left : ('a1 -> 'a2 -> 'a1) -> 'a2 list -> 'a1 -> 'a1
 
 val seq : nat -> nat -> nat list
 
@@ -27,21 +26,15 @@ type 'a total_map = char list -> 'a
 
 val t_empty : 'a1 -> 'a1 total_map
 
-val t_update :
-  'a1 total_map -> char list -> 'a1 -> char list
-  -> 'a1
+val t_update : 'a1 total_map -> char list -> 'a1 -> char list -> 'a1
 
 type 'a partial_map = 'a option total_map
 
 val empty : 'a1 partial_map
 
-val update :
-  'a1 partial_map -> char list -> 'a1 ->
-  char list -> 'a1 option
+val update : 'a1 partial_map -> char list -> 'a1 -> char list -> 'a1 option
 
-val list_beq :
-  ('a1 -> 'a1 -> bool) -> 'a1 list -> 'a1 list
-  -> bool
+val list_beq : ('a1 -> 'a1 -> bool) -> 'a1 list -> 'a1 list -> bool
 
 type ivytype =
 | Ivytype_Bool
@@ -78,54 +71,43 @@ type com =
 | Com_While of expr * com
 | Com_LocalVarDecl of char list * ivytype
 | Com_GlobalVarDecl of char list * ivytype
-| Com_GlobalFuncVarDecl of char list
-   * (char list * ivytype) list * ivytype
+| Com_GlobalFuncVarDecl of char list * (char list * ivytype) list * ivytype
 | Com_TypeDecl of char list * nat
-| Com_ActionDecl of char list
-   * (char list * ivytype) list * ivytype * 
-   com
+| Com_ActionDecl of char list * (char list * ivytype) list * ivytype * com
 | Com_Skip
 
 val is_value : expr -> bool
 
 type context = ivytype partial_map
 
-val update_context :
-  context -> char list -> ivytype -> context
+val update_context : context -> char list -> ivytype -> context
 
 type enumTypeSizes = ivytype -> nat
 
 type action_context =
-  (((char list * ivytype) list * ivytype) * com)
-  partial_map
+  (((char list * ivytype) list * ivytype) * com) partial_map
 
 val fromMaybe : 'a1 -> 'a1 option -> 'a1
 
 val subst : expr -> expr -> char list -> expr
 
 val type_expr :
-  expr -> context -> context -> action_context
-  -> (ivytype -> bool) -> enumTypeSizes ->
-  ivytype option
+  expr -> context -> context -> action_context -> (ivytype -> bool) ->
+  enumTypeSizes -> ivytype option
 
 val check_command_helper :
-  com -> context -> context -> action_context ->
-  (ivytype -> bool) -> enumTypeSizes ->
-  ((((context * context) * action_context) * (ivytype
-  -> bool)) * enumTypeSizes) option
+  com -> context -> context -> action_context -> (ivytype -> bool) ->
+  enumTypeSizes -> ((((context * context) * action_context) * (ivytype ->
+  bool)) * enumTypeSizes) option
 
 val check : com -> bool
 
 val small_step_Expr :
-  expr -> expr partial_map -> (expr list ->
-  expr) partial_map -> context -> context ->
-  action_context -> (ivytype -> bool) ->
-  enumTypeSizes -> expr option
+  expr -> expr partial_map -> (expr list -> expr) partial_map -> context ->
+  context -> action_context -> (ivytype -> bool) -> enumTypeSizes -> expr
+  option
 
 val small_step_Com :
-  com -> expr partial_map -> (expr list -> expr)
-  partial_map -> context -> context ->
-  action_context -> (ivytype -> bool) ->
-  enumTypeSizes -> ((com * expr
-  partial_map) * (expr list -> expr)
-  partial_map) option
+  com -> expr partial_map -> (expr list -> expr) partial_map -> context ->
+  context -> action_context -> (ivytype -> bool) -> enumTypeSizes ->
+  ((com * expr partial_map) * (expr list -> expr) partial_map) option
