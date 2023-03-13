@@ -84,12 +84,12 @@ Inductive Com : Type :=
   | Com_Seq : Com -> Com -> Com
   | Com_If : Expr -> Com -> Com
   | Com_IfElse : Expr -> Com -> Com -> Com
-  (* | Com_For : string -> Ivytype -> Com -> Com *)
+  | Com_For : string -> Ivytype -> Com -> Com
   | Com_While : Expr -> Com -> Com
   (* | Com_Call : string -> list Expr -> Com *)
   | Com_LocalVarDecl : string -> Ivytype -> Com
   | Com_GlobalVarDecl : string -> Ivytype -> Com
-  | Com_GlobalFuncVarDecl : string -> list (string * Ivytype) -> Ivytype -> Com
+  (* | Com_GlobalFuncVarDecl : string -> list (string * Ivytype) -> Ivytype -> Com *)
   | Com_TypeDecl : string -> nat -> Com 
   (* | Com_EnumTypeDecl : string -> list string -> Com *)
   | Com_ActionDecl : string -> list (string * Ivytype) -> Ivytype -> Com -> Com
@@ -107,7 +107,7 @@ Inductive value : Expr -> Prop :=
 
 Definition variable_context := prod (string -> option Ivytype) (list string).
 Definition type_context := prod (string -> option nat) (list string).
-Definition action_context := prod (string -> option (list (string * Ivytype) * list (string * Ivytype) * Com)) (list string).
+Definition action_context := prod (string -> option (list (string * Ivytype) * Ivytype * Com)) (list string).
 
 (* The attached lists may be a little redundant, but it's a quick and easy way
 to get ahold of the names of things that have been declared. 
@@ -127,7 +127,34 @@ Definition get_action_context (c : context) := snd (snd c).
 
 Definition lookup_variable (c : context) (x : string) : option Ivytype := fst (get_variable_context c) x.
 Definition lookup_type (c : context) (x : string) : option nat := fst (get_type_context c) x.
-Definition lookup_action (c : context) (x : string) : option (list (string * Ivytype) * list (string * Ivytype) * Com) := fst (get_action_context c) x.
+Definition lookup_action (c : context) (x : string) : option (list (string * Ivytype) * Ivytype * Com) := fst (get_action_context c) x.
+
+Definition get_variable_names (c : context) := snd (get_variable_context c).
+Definition get_type_names (c : context) := snd (get_type_context c).
+Definition get_action_names (c : context) := snd (get_action_context c).
+
+Definition update_variable_context (c : context) (x : string) (t : Ivytype) : context :=
+  let vc := get_variable_context c in
+  let tc := get_type_context c in
+  let ac := get_action_context c in
+  build_context (fun y => if eqb x y then Some t else fst vc y, x :: snd vc) tc ac.
+
+Definition update_type_context (c : context) (x : string) (n : nat) : context :=
+  let vc := get_variable_context c in
+  let tc := get_type_context c in
+  let ac := get_action_context c in
+  build_context vc (fun y => if eqb x y then Some n else fst tc y, x :: snd tc) ac.
+
+Definition update_action_context (c : context) (x : string) (params : list (string * Ivytype)) (ret_type : Ivytype) (body : Com) : context :=
+  let vc := get_variable_context c in
+  let tc := get_type_context c in
+  let ac := get_action_context c in
+  build_context vc tc (fun y => if eqb x y then Some (params, ret_type, body) else fst ac y, x :: snd ac).
+
+Definition empty_context : context := 
+  build_context (fun x => None, nil) (fun x => None, nil) (fun x => None, nil).
+
+(* Definitions *)
 
 Definition state := forall (e : Expr), (value e -> option (value e)).
 

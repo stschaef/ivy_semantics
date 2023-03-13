@@ -14,7 +14,7 @@ Fixpoint type_expr (e : Expr) (Gamma : context) {struct e} : option Ivytype :=
     match t with 
     | Ivytype_UserDefined x l =>  
       match lookup_type Gamma x with 
-      | Some m => if andb (ltb m n) (beq_nat l m) then Some t else None
+      | Some m => if andb (Nat.ltb m n) (beq_nat l m) then Some t else None
       | None => None
       end
     | _ => None
@@ -139,18 +139,14 @@ Fixpoint type_expr (e : Expr) (Gamma : context) {struct e} : option Ivytype :=
   end.
 
 (* Recursively check that a command is well-formed *)
-Fixpoint check_command_helper (p : Com) 
-(var_ctx fun_var_ctx : context) 
-(act_ctx : action_context) 
-(declared_types: Ivytype -> bool) 
-(type_sizes : EnumTypeSizes) {struct p} : 
-option (context * context * action_context * (Ivytype -> bool) * EnumTypeSizes) :=
+Fixpoint check_command_helper (p : Com) (Gamma : context) {struct p} : 
+option context :=
   match p with
   | Com_Assign x e => 
-    let e_type := type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes in
-    let t := var_ctx x in
-      if (eqb_Ivytype (fromMaybe Ivytype_Void e_type) (fromMaybe Ivytype_Void t)) 
-      then Some (var_ctx, fun_var_ctx, act_ctx, declared_types, type_sizes) 
+    let e_type := type_expr e Gamma in
+    let t := lookup_variable Gamma x in
+      if (eqb_OptionIvytype (e_type) (t)) 
+      then Some Gamma 
       else None
   (* | Com_AssignFun f arg_ids e =>
     let e_type := type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes in
@@ -166,38 +162,47 @@ option (context * context * action_context * (Ivytype -> bool) * EnumTypeSizes) 
       | _ => None
       end *)
   | Com_Seq p1 p2 =>
-    match check_command_helper p1 var_ctx fun_var_ctx act_ctx declared_types type_sizes with
-    | Some (var_ctx', fun_var_ctx', act_ctx', declared_types', type_sizes') => 
-      check_command_helper p2 var_ctx' fun_var_ctx' act_ctx' declared_types' type_sizes'
+    match check_command_helper p1 Gamma with
+    | Some Gamma' => check_command_helper p2 Gamma'
     | None => None
     end
   | Com_If e p' =>
-    match type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes with
-    | Some Ivytype_Bool => 
-      check_command_helper p' var_ctx fun_var_ctx act_ctx declared_types type_sizes
+    match type_expr e Gamma with
+    | Some Ivytype_Bool => check_command_helper p' Gamma
     | _ => None
     end
   | Com_IfElse e p1 p2 => 
-    match type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes with
+    match type_expr e Gamma with
     | Some Ivytype_Bool => 
-      match check_command_helper p1 var_ctx fun_var_ctx act_ctx declared_types type_sizes with
-      | Some (var_ctx', fun_var_ctx', act_ctx', declared_types', type_sizes') => 
-        check_command_helper p2 var_ctx' fun_var_ctx' act_ctx' declared_types' type_sizes'
+      match check_command_helper p1 Gamma with
+      | Some Gamma' => check_command_helper p2 Gamma'
       | None => None
       end
     | _ => None
     end
-  (* | Com_For x t p' =>
-  (* TODO this is bad, I really just want a set of types rather than this partial map of strings to types *)
-    match declared_types t with
-    | true => 
-      check_command_helper p' var_ctx fun_var_ctx act_ctx declared_types type_sizes
-    | false => None
-    end *)
+  | Com_For x t p' =>
+    match t with
+    | Ivytype_Bool => 
+      match check_command_helper p' (update_variable_context Gamma x Ivytype_Bool) with
+      | Some Gamma' => Some Gamma'
+      | None => None
+      end
+    | Ivytype_UserDefined x n =>
+      match lookup_type Gamma x  with
+      | Some m =>
+        if (beq_nat n m) then 
+        match check_command_helper p' (update_variable_context Gamma x t) with
+        | Some Gamma' => Some Gamma'
+        | None => None
+        end
+        else None
+      | _ => None
+      end
+    | _ => None
+    end
   | Com_While e p' =>
-    match type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes with
-    | Some Ivytype_Bool => 
-      check_command_helper p' var_ctx fun_var_ctx act_ctx declared_types type_sizes
+    match type_expr e Gamma with
+    | Some Ivytype_Bool => check_command_helper p' Gamma
     | _ => None
     end
   (* | Com_Call f arg_ids =>
@@ -210,21 +215,39 @@ option (context * context * action_context * (Ivytype -> bool) * EnumTypeSizes) 
         else None
       | _ => None
       end *)
-  | Com_LocalVarDecl var_id t =>
-    match declared_types t with
-    | true => 
-      let var_ctx' := update_context var_ctx var_id t in
-      Some (var_ctx', fun_var_ctx, act_ctx, declared_types, type_sizes)
-    | false => None
+  | Com_LocalVarDecl var_id t => 
+    if (eqb_OptionIvytype (lookup_variable Gamma var_id) None) then
+    match t with
+    (* Check that type is declared *)
+    | Ivytype_UserDefined x n =>
+      match lookup_type Gamma x  with
+      | Some m =>
+        if (beq_nat n m) then (* declared type and type used in var def should have same size *)
+          Some (update_variable_context Gamma var_id t)
+        else None
+      | _ => None
+      end
+    | Ivytype_Bool => Some (update_variable_context Gamma var_id t)
+    | _ => None
     end
-  | Com_GlobalVarDecl var_id t =>
-    match declared_types t with
-    | true => 
-      let var_ctx' := update_context var_ctx var_id t in
-      Some (var_ctx', fun_var_ctx, act_ctx, declared_types, type_sizes)
-    | false => None
-    end
-  | Com_GlobalFuncVarDecl var_id arg_names_and_ts ret_type =>
+    else None
+  | Com_GlobalVarDecl var_id t => 
+    if (eqb_OptionIvytype (lookup_variable Gamma var_id) None) then
+      match t with
+      (* Check that type is declared *)
+      | Ivytype_UserDefined x n =>
+        match lookup_type Gamma x  with
+        | Some m =>
+          if (beq_nat n m) then (* declared type and type used in var def should have same size *)
+            Some (update_variable_context Gamma var_id t)
+          else None
+        | _ => None
+        end
+      | Ivytype_Bool => Some (update_variable_context Gamma var_id t)
+      | _ => None
+      end
+      else None
+  (* | Com_GlobalFuncVarDecl var_id arg_names_and_ts ret_type =>
     let arg_ts := map snd arg_names_and_ts in
     match declared_types ret_type with
     | true =>
@@ -240,42 +263,73 @@ option (context * context * action_context * (Ivytype -> bool) * EnumTypeSizes) 
         Some (var_ctx, fun_var_ctx', act_ctx, declared_types, type_sizes)
       else None
     | false => None
-    end
+    end *)
   | Com_TypeDecl t_id n =>
-    let t := Ivytype_User_Defined t_id in
-    match declared_types t with
-    | true => None
-    | false => 
-      let declared_types' := (fun t' => if eqb_Ivytype t t' then true else declared_types t') in
-      let type_sizes' := (fun t' => if eqb_Ivytype t t' then n else type_sizes t') in
-      Some (var_ctx, fun_var_ctx, act_ctx, declared_types', type_sizes')
+    match lookup_type Gamma t_id with
+    | Some _ => None
+    | None => Some (update_type_context Gamma t_id n)
     end
   | Com_ActionDecl act_id arg_ids_and_types ret_type p' =>
-    match act_ctx act_id with
+    match lookup_action Gamma act_id with
     | Some _ => None
     | None =>
-      match declared_types ret_type with
-      | true =>
+      (* Check that return type exists *)
+      match ret_type with
+      | Ivytype_Bool => 
         let arg_ts := map snd arg_ids_and_types in
+        (* Check that the type of each argument exists *)
         let arg_ts_declared := 
           fold_left (fun acc t => 
-            match declared_types t with
-            | true => acc
-            | false => false
+            match t with 
+            | Ivytype_Bool => acc
+            | Ivytype_UserDefined x n =>
+              match lookup_type Gamma x with
+              | Some m =>
+                if (beq_nat n m) then acc
+                else false
+              | None => false
+              end
+            | _ => false
             end) arg_ts true in
         if arg_ts_declared then 
-          let act_ctx' := t_update act_ctx act_id (Some (arg_ids_and_types, ret_type, p')) in
-          let var_ctx' := fold_left (fun acc x => update_context acc (fst x) (snd x)) arg_ids_and_types var_ctx in
-          match check_command_helper p' var_ctx' fun_var_ctx act_ctx' declared_types type_sizes with
-          | Some _ => 
-            Some (var_ctx, fun_var_ctx, act_ctx', declared_types, type_sizes)
+          (* TODO: updating the action context here allows us to do action recursion, which seems bad *)
+          match check_command_helper p' (update_action_context Gamma act_id arg_ids_and_types ret_type p') with
+          | Some Gamma' => Some Gamma'
           | None => None
           end
         else None
-      | false => None
+      | Ivytype_UserDefined x n =>
+        match lookup_type Gamma x  with
+        | Some m =>
+          if (beq_nat n m) then 
+          let arg_ts := map snd arg_ids_and_types in
+          (* Check that the type of each argument exists *)
+          let arg_ts_declared := 
+            fold_left (fun acc t => 
+              match t with 
+              | Ivytype_Bool => acc
+              | Ivytype_UserDefined x n =>
+                match lookup_type Gamma x with
+                | Some m =>
+                  if (beq_nat n m) then acc
+                  else false
+                | None => false
+                end
+              | _ => false
+              end) arg_ts true in
+            if arg_ts_declared then 
+              match check_command_helper p' (update_action_context Gamma act_id arg_ids_and_types ret_type p') with
+              | Some Gamma' => Some Gamma'
+              | None => None
+              end
+          else None
+          else None
+        | _ => None
+        end
+      | _ => None
       end
     end
-  | Com_Skip => Some (var_ctx, fun_var_ctx, act_ctx, declared_types, type_sizes)
+  | Com_Skip => Some Gamma
 end.
 
 (* Check that a command is well-formed. 
@@ -284,14 +338,7 @@ Note, the parameters to check_command_helper are defaults values for contexts, e
 In addition to well-formedness, we also gather declaration information and populate 
 these contexts by treating declarations as commands.
 *)
-Definition check (p : Com) : bool :=
-  let initial_types := fun t' => if (eqb_Ivytype t' Ivytype_Void) || 
-                                   (eqb_Ivytype t' Ivytype_Bool) || 
-                                   (eqb_Ivytype t' Ivytype_Void) then true else false in
-  match check_command_helper p empty empty empty initial_types (fun _ => 0) with
-  | Some _ => true
-  | None => false
-  end.
+Definition check (p : Com) : option context := check_command_helper p empty_context.
 
 (* (* Want to show that a command is well-formed (i.e. check = true) implies
  that all of the expression that show up in the command are well-typed (type to 
@@ -310,27 +357,10 @@ Admitted. *)
 (* TODO: Make this cleaner so I don't carry around a bunch of different context that mostly don't change.
 Something, something use a monad? *)
 Fixpoint small_step_Expr 
-(e : Expr)
-(var_store : partial_map Expr)
-(fun_var_store : partial_map (list Expr -> Expr))
-(var_ctx fun_var_ctx : context)
-(act_ctx : action_context)
-(declared_types : Ivytype -> bool)
-(type_sizes : EnumTypeSizes)
-: option Expr :=
+(e : Expr) (Gamma : context) (s : state) : option Expr :=
   match e with
-  | Expr_VarLiteral x => var_store x
+  | Expr_VarLiteral _ => state e
   | Expr_EnumVarLiteral _ _ => None
-  | Expr_VarFun x es => None
-  (* TODO *)
-    (* match fun_var_ctx x with
-    | Some (Ivytype_Fun arg_ts ret_type) =>
-      match es with
-      | [] => None (* TODO: this should act as a valid constant *)
-      | 
-      end
-    | _ => None
-    end *)
   (* | Expr_ActionApplication *)
   | Expr_True => None
   | Expr_False => None
