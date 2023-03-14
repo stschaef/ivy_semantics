@@ -38,7 +38,7 @@ Fixpoint eqb_OptionIvytype (t1 t2 : option Ivytype) : bool :=
 Inductive Expr : Type :=
   | Expr_VarLiteral : string -> Expr
   | Expr_EnumVarLiteral : Ivytype -> nat -> Expr
-  (* | Expr_FunctionSymbol : string -> list Expr -> Expr  *)
+  | Expr_FunctionSymbol : string -> list Expr -> Expr 
   | Expr_True
   | Expr_False
   | Expr_Not : Expr -> Expr
@@ -85,7 +85,7 @@ Fixpoint eqb_Expr (e1 e2 : Expr) : bool :=
 
 Inductive Com : Type :=
   | Com_Assign : string -> Expr -> Com
-  (* | Com_AssignFun : string -> list string -> Expr -> Com *)
+  | Com_AssignFun : string -> list string -> Expr -> Com
   | Com_Seq : Com -> Com -> Com
   | Com_If : Expr -> Com -> Com
   | Com_IfElse : Expr -> Com -> Com -> Com
@@ -94,7 +94,7 @@ Inductive Com : Type :=
   (* | Com_Call : string -> list Expr -> Com *)
   | Com_LocalVarDecl : string -> Ivytype -> Com
   | Com_GlobalVarDecl : string -> Ivytype -> Com
-  (* | Com_GlobalFuncVarDecl : string -> list (string * Ivytype) -> Ivytype -> Com *)
+  | Com_GlobalFuncVarDecl : string -> list (string * Ivytype) -> Ivytype -> Com
   | Com_TypeDecl : string -> nat -> Com 
   (* | Com_EnumTypeDecl : string -> list string -> Com *)
   | Com_ActionDecl : string -> list (string * Ivytype) -> Ivytype -> Com -> Com
@@ -181,7 +181,7 @@ Fixpoint subst (e : Expr) (v : Expr) (x : string) : Expr :=
   match e with 
   | Expr_VarLiteral y => if eqb x y then v else e
   | Expr_EnumVarLiteral y n => Expr_EnumVarLiteral y n
-  (* | Expr_FunctionSymbol x es => Expr_FunctionSymbol x (map (fun e => subst e v x) es) *)
+  | Expr_FunctionSymbol x es => Expr_FunctionSymbol x (map (fun e => subst e v x) es)
   | Expr_True => Expr_True
   | Expr_False => Expr_False
   | Expr_Not e => Expr_Not (subst e v x)

@@ -32,6 +32,7 @@ let rec string_of_ivytype = function
         match e with
         | Expr_VarLiteral id -> (string_of_chars id)
         | Expr_EnumVarLiteral (t, n) -> string_of_ivytype t ^ ";element " ^ string_of_int (nat_to_int n)
+        | Expr_FunctionSymbol (id, args) -> (string_of_chars id) ^ "(" ^ String.concat "," (List.map string_of_expr args) ^ ")"
         (* | Expr_VarFun (id, args) -> (string_of_chars id) ^ "(" ^ String.concat "," (List.map string_of_expr args) ^ ")" *)
         (* | Expr_ActionApplication (id, args) -> id ^ "(" ^ String.concat "," (List.map string_of_expr args) ^ ")" *)
         | Expr_True -> "true"
@@ -58,6 +59,7 @@ let rec string_of_com (p : com) : string =
   | Com_While (e, p) -> "while " ^ string_of_expr e ^ " do " ^ string_of_com p
   | Com_LocalVarDecl (id, t) -> "var " ^ (string_of_chars id) ^ " : " ^ string_of_ivytype t
   | Com_GlobalVarDecl (id, t) -> "global " ^ (string_of_chars id) ^ " : " ^ string_of_ivytype t
+  | Com_GlobalFuncVarDecl (id, arg_ids_and_ts, ret_type) -> "global " ^ (string_of_chars id) ^ " : " ^ string_of_ivytype (Ivytype_Function (map (snd) arg_ids_and_ts, ret_type))
   | Com_TypeDecl (id, n) -> "type " ^ (string_of_chars id) ^ " of size " ^ string_of_int (nat_to_int n)
   | Com_ActionDecl (id, arg_ids_and_ts, ret, p') -> "action " ^ (string_of_chars id) ^ " : " ^ string_of_ivytype (Ivytype_Function (map (snd) arg_ids_and_ts, ret))
   | Com_Skip -> "skip"

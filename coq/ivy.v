@@ -19,7 +19,7 @@ Fixpoint type_expr (e : Expr) (Gamma : context) {struct e} : option Ivytype :=
       end
     | _ => None
     end
-  (* | Expr_FunctionSymbol x es => 
+  | Expr_FunctionSymbol x es => 
     match lookup_variable Gamma x with
     | Some (Ivytype_Function ts ret_t) => 
       let calculated_type_options := map (fun e => type_expr e Gamma) es in
@@ -27,7 +27,7 @@ Fixpoint type_expr (e : Expr) (Gamma : context) {struct e} : option Ivytype :=
       then Some ret_t
       else None
     | _ => None
-    end *)
+    end
   | Expr_True => Some Ivytype_Bool
   | Expr_False => Some Ivytype_Bool
   | Expr_Not e' => 
@@ -148,19 +148,19 @@ option context :=
       if (eqb_OptionIvytype (e_type) (t)) 
       then Some Gamma 
       else None
-  (* | Com_AssignFun f arg_ids e =>
-    let e_type := type_expr e var_ctx fun_var_ctx act_ctx declared_types type_sizes in
-    let t := fun_var_ctx f in
-      match t with
-      | Some (Ivytype_Fun arg_ts ret_t) =>
-        let arg_ts' := map (fun x => fromMaybe Ivytype_Void (var_ctx x)) arg_ids in
-        if (list_beq Ivytype eqb_Ivytype arg_ts arg_ts') 
-        then if (eqb_Ivytype (fromMaybe Ivytype_Void e_type) (fromMaybe Ivytype_Void (Some ret_t))) 
-            then Some (var_ctx, fun_var_ctx, act_ctx, declared_types, type_sizes) 
-            else None
-        else None
-      | _ => None
-      end *)
+  | Com_AssignFun f arg_ids e =>
+    let e_type := type_expr e Gamma in
+    match lookup_variable Gamma f with
+    | Some(Ivytype_Function arg_ts ret_t) =>
+      let option_arg_ts := map (fun x => Some x) arg_ts in
+      let arg_ts' := map (fun x => lookup_variable Gamma x) arg_ids in
+      if (list_beq (option Ivytype) eqb_OptionIvytype option_arg_ts arg_ts') 
+      then if (eqb_OptionIvytype (e_type) (Some ret_t)) 
+          then Some Gamma 
+          else None
+      else None
+    | _ => None
+    end
   | Com_Seq p1 p2 =>
     match check_command_helper p1 Gamma with
     | Some Gamma' => check_command_helper p2 Gamma'
@@ -239,23 +239,48 @@ option context :=
       | _ => None
       end
       else None
-  (* | Com_GlobalFuncVarDecl var_id arg_names_and_ts ret_type =>
+  | Com_GlobalFuncVarDecl var_id arg_names_and_ts ret_type =>
+    if (eqb_OptionIvytype (lookup_variable Gamma var_id) None) then
     let arg_ts := map snd arg_names_and_ts in
-    match declared_types ret_type with
-    | true =>
-      (* check that each of arg_ts is declared *)
-      let arg_ts_declared := 
-        fold_left (fun acc t => 
-          match declared_types t with
-          | true => acc
-          | false => false
-          end) arg_ts true in
-      if arg_ts_declared then 
-        let fun_var_ctx' := update_context fun_var_ctx var_id (Ivytype_Fun arg_ts ret_type) in
-        Some (var_ctx, fun_var_ctx', act_ctx, declared_types, type_sizes)
-      else None
-    | false => None
-    end *)
+    match ret_type with
+    | Ivytype_UserDefined x n =>
+      match lookup_type Gamma x  with
+      | Some _ => 
+        (* check that each of arg_ts is declared *)
+        let arg_ts_declared := 
+          fold_left (fun acc t => 
+            match t with
+            | Ivytype_UserDefined x n =>
+              match lookup_type Gamma x  with
+              | Some _ => acc
+              | _ => false
+              end
+            | Ivytype_Bool => acc
+            | _ => false
+            end) arg_ts true in
+        if arg_ts_declared then 
+          Some (update_variable_context Gamma var_id (Ivytype_Function arg_ts ret_type))
+        else None
+      | _ => None
+      end
+    | Ivytype_Bool => 
+    let arg_ts_declared := 
+    fold_left (fun acc t => 
+      match t with
+      | Ivytype_UserDefined x n =>
+        match lookup_type Gamma x  with
+        | Some _ => acc
+        | _ => false
+        end
+      | Ivytype_Bool => acc
+      | _ => false
+      end) arg_ts true in
+  if arg_ts_declared then 
+    Some (update_variable_context Gamma var_id (Ivytype_Function arg_ts ret_type))
+  else None
+    | _ => None
+    end
+    else None
   | Com_TypeDecl t_id n =>
     match lookup_type Gamma t_id with
     | Some _ => None
@@ -331,9 +356,14 @@ Fixpoint small_step_Expr
   match e with
   | Expr_VarLiteral _ => s e
   | Expr_EnumVarLiteral _ _ => None
-  (* | Expr_FunctionSymbol x es => 
+  | Expr_FunctionSymbol x es => 
     let args_are_values := fold_left (fun acc e' => acc && is_value e') es true in
-    if args_are_values then (s (lookup_variable x )) *)
+    if args_are_values then (s e) else
+    let es' := map (fun e' => match small_step_Expr e' Gamma s with
+                              | Some e'' => e''
+                              | None => e'
+                              end) es in
+    Some (Expr_FunctionSymbol x es')
   (* | Expr_ActionApplication *)
   | Expr_True => None
   | Expr_False => None
@@ -485,7 +515,7 @@ Fixpoint small_step_Com
       | Some e' => Some (Com_Assign x e', s)
       | None => None
       end
-  (* | Com_AssignFun x args e => if is_value e then Some (Com_Skip, var_store, update fun_var_store x args e) else
+  (* | Com_AssignFun x args e => if is_value e then Some (Com_Skip, update_state ) else
                                 match small_step_Expr e var_store fun_var_store act_ctx declared_types type_sizes with
                                 | Some e' => Some (Com_AssignFun x args e', var_store, fun_var_store)
                                 | None => None

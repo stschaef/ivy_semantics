@@ -66,7 +66,7 @@ comlist:
 com:
   | FOR ID COLON ID LBRACE comlist RBRACE { let a = Com_For ($2, Ivytype_UserDefined($4, int_to_nat 0), $6) in a}
   | FOR ID COLON BOOL LBRACE comlist RBRACE { let a = Com_For ($2, Ivytype_Bool, $6) in a}
-  // | ID LPAREN varlist RPAREN ASSG exp { let a = Com_AssignFun ($1, $3, $6) in a}
+  | ID LPAREN varlist RPAREN ASSG exp { let a = Com_AssignFun ($1, $3, $6) in a}
   | ID ASSG exp { let a = Com_Assign ($1, $3) in a}
   | IF exp LBRACE comlist RBRACE { let a = Com_If($2, $4) in a}
   | IF exp LBRACE comlist RBRACE ELSE LBRACE comlist RBRACE { let a = Com_IfElse ($2, $4, $8) in a}
@@ -100,10 +100,10 @@ decl:
   | INDIVIDUAL ID COLON BOOL { Com_GlobalVarDecl ($2, Ivytype_Bool) }
   | VAR_DECL ID COLON ID { Com_LocalVarDecl ($2, Ivytype_UserDefined($4, int_to_nat 0)) }
   | VAR_DECL ID COLON BOOL { Com_LocalVarDecl ($2, Ivytype_Bool) }
-  // | FUNCTION ID LPAREN typed_varlist RPAREN COLON ID { Com_GlobalFuncVarDecl ($2, $4, Ivytype_UserDefined($7, int_to_nat 0)) }
-  // | FUNCTION ID LPAREN typed_varlist RPAREN COLON BOOL {Com_GlobalFuncVarDecl ($2, $4, Ivytype_Bool) }
-  // | RELATION ID LPAREN typed_varlist RPAREN { Com_GlobalFuncVarDecl ($2, $4, Ivytype_Bool) }
-  /* | TYPE ID EQ LBRACE varlist RBRACE { Com_EnumTypeDecl($2, $5) } */
+  | FUNCTION ID LPAREN typed_varlist RPAREN COLON ID { Com_GlobalFuncVarDecl ($2, $4, Ivytype_UserDefined($7, int_to_nat 0)) }
+  | FUNCTION ID LPAREN typed_varlist RPAREN COLON BOOL {Com_GlobalFuncVarDecl ($2, $4, Ivytype_Bool) }
+  | RELATION ID LPAREN typed_varlist RPAREN { Com_GlobalFuncVarDecl ($2, $4, Ivytype_Bool) }
+  // | TYPE ID EQ LBRACE varlist RBRACE { Com_EnumTypeDecl($2, $5) }
 ;
 
 decllist:
@@ -136,7 +136,7 @@ typed_varlist :
 ;
 
 exp:
-  // | ID LPAREN explist RPAREN { let a = Expr_VarFun ($1, $3) in a}
+  | ID LPAREN explist RPAREN { let a = Expr_FunctionSymbl ($1, $3) in a}
   | ID { let a = Expr_VarLiteral $1 in a}
   | exp EQ exp { let a = Expr_Eq ($1, $3) in a}
   | exp IMPL exp { let a = Expr_Implies ($1, $3) in a}
