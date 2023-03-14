@@ -5,12 +5,10 @@ This repository contains some small-step structural operational semantics of the
 ## Setup
 To make imports work using `coqtop` inside VSCode I had to adjust my `coq.coqProjectRoot` and `coqtop.binPath` settings.
 
-For instance on my laptop, I have the following settings:
+For instance on my laptop, I have the following settings added to my `settings.json`:
 ```json
-settings.json
-...
 "coqtop.binPath": "/opt/homebrew/bin",
-    "coq.coqProjectRoot": "/Users/stevenschaefer/ivy_semantics/coq",
+"coq.coqProjectRoot": "/Users/stevenschaefer/ivy_semantics/coq",
 ```
 
 ## So Far
