@@ -26,5 +26,7 @@ This is still very much a work in progress and does not fully work. However, the
 - Incorporate assertions (axioms and pre-/post-conditions) into the interpreter
 - Properly scope variables
 - Actions need to be implemented. For now we are only handling void actions; however, at some point it might be worth working in (multiple) return types. There is a decent argument to be made that these multiple return types are just syntactic sugar anyway, and they don't seem to show up in the code we care about (say Aman's [ivybench](https://github.com/aman-goel/ivybench))
-- Probably separate the use of a function as a location and as an actual function   
+- Probably separate the use of a function as a location and as an actual function
+- In the parser, add the syntactic sugar where capital letters are implicitly quantified. Ideally add enough sugar to be able to run all of the benchmarks without too much headache.
+- Implement modules to serve as axiom schemas.
 
