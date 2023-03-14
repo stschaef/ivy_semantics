@@ -1,7 +1,10 @@
 type client 2
 type server 2
 
-relation link(X: client, Y: server)
-relation semaphore(X: server)
+individual x : bool
+individual y : bool
+individual z : client
+individual w : server
 
-skip
+x := true;
+y := false

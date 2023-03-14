@@ -1,6 +1,7 @@
 (* A main read-eval-print loop for the IMP interpreter. *)
 
 open Extract
+open Helper
 
 exception Quit
 
@@ -50,13 +51,17 @@ let check () : unit =
   match !program with
   (* | Some p -> (try Ivy.check p with _ -> failwith "check failed")
    *)
-  | Some p -> if Extract.check p then () else failwith "check failed"
+  | Some p -> 
+    begin match Extract.check p with
+    | Some _ -> ()
+    | None -> failwith "check failed"
+    end
   | None -> failwith "No program loaded"
 
-(* let run () : unit =
+let run () : unit =
   match !program with
-  | Some p -> Extract.run p
-  | None -> failwith "No program loaded" *)
+  | Some p -> Helper.run p
+  | None -> failwith "No program loaded"
 
 let help () : unit =
   print_endline "Available commands are:";
@@ -76,7 +81,7 @@ let read_eval_print () : unit =
     begin match cmd, args with
     | "load", [filename] -> load filename
     | "check", [] -> check ()
-    (* | "run", [] -> run() *)
+    | "run", [] -> run()
     | "list", [] -> list ()
     | "quit", [] -> quit ()
     | _ -> help ()

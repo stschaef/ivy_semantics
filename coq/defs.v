@@ -17,8 +17,6 @@ Inductive Ivytype : Type :=
   | Ivytype_Function : list Ivytype -> Ivytype -> Ivytype
   | Ivytype_Void.
 
-
-
 Fixpoint eqb_Ivytype (t1 t2 : Ivytype) : bool :=
   match t1, t2 with
   | Ivytype_Bool, Ivytype_Bool => true
@@ -63,11 +61,10 @@ Definition eqb_value (e1 e2 : Expr) : bool :=
   | _, _ => false
   end.
 
-(* Fixpoint eqb_Expr (e1 e2 : Expr) : bool :=
+Fixpoint eqb_Expr (e1 e2 : Expr) : bool :=
   match e1, e2 with
   | Expr_VarLiteral x1, Expr_VarLiteral x2 => eqb x1 x2
   | Expr_EnumVarLiteral t1 n1, Expr_EnumVarLiteral t2 n2 => andb (eqb_Ivytype t1 t2) (Nat.eqb n1 n2)
-  | Expr_VarFun x1 es1, Expr_VarFun x2 es2 => andb (eqb x1 x2) (list_beq Expr eqb_Expr es1 es2)
   (* | Expr_ActionApplication x1 es1, Expr_ActionApplication x2 es2 => andb (eqb x1 x2) (list_beq Expr eqb_Expr es1 es2) *)
   | Expr_True, Expr_True => true
   | Expr_False, Expr_False => true
@@ -82,7 +79,7 @@ Definition eqb_value (e1 e2 : Expr) : bool :=
   (* | Expr_Nondet t1, Expr_Nondet t2 => eqb_Ivytype t1 t2 *)
   | Expr_Cond e11 e12 e13, Expr_Cond e21 e22 e23 => andb (eqb_Expr e11 e21) (andb (eqb_Expr e12 e22) (eqb_Expr e13 e23))
   | _, _ => false
-  end. *)
+  end.
 
 (* Commands *)
 
@@ -171,7 +168,12 @@ Definition empty_context : context :=
   build_context (fun x => None, nil) (fun x => None, nil) (fun x => None, nil).
 
 (* Definition state := forall (e : Expr), exists (e' : Expr), (value e -> option (value e')). *)
+
 Definition state := Expr -> option Expr.
+Definition empty_state : state := fun e => None.
+Definition update_state (s : state) (e1 e2 : Expr) : state :=
+  fun e => if eqb_Expr e e1 then Some e2 else s e.
+
 
 (* Substitutions *)
 

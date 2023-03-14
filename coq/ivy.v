@@ -189,13 +189,11 @@ option context :=
       end
     | Ivytype_UserDefined x n =>
       match lookup_type Gamma x  with
-      | Some m =>
-        if (beq_nat n m) then 
+      | Some _ =>
         match check_command_helper p' (update_variable_context Gamma x t) with
         | Some Gamma' => Some Gamma'
         | None => None
         end
-        else None
       | _ => None
       end
     | _ => None
@@ -221,10 +219,7 @@ option context :=
     (* Check that type is declared *)
     | Ivytype_UserDefined x n =>
       match lookup_type Gamma x  with
-      | Some m =>
-        if (beq_nat n m) then (* declared type and type used in var def should have same size *)
-          Some (update_variable_context Gamma var_id t)
-        else None
+      | Some _ => Some (update_variable_context Gamma var_id t)
       | _ => None
       end
     | Ivytype_Bool => Some (update_variable_context Gamma var_id t)
@@ -237,10 +232,7 @@ option context :=
       (* Check that type is declared *)
       | Ivytype_UserDefined x n =>
         match lookup_type Gamma x  with
-        | Some m =>
-          if (beq_nat n m) then (* declared type and type used in var def should have same size *)
-            Some (update_variable_context Gamma var_id t)
-          else None
+        | Some _ => Some (update_variable_context Gamma var_id t)
         | _ => None
         end
       | Ivytype_Bool => Some (update_variable_context Gamma var_id t)
@@ -284,9 +276,7 @@ option context :=
             | Ivytype_Bool => acc
             | Ivytype_UserDefined x n =>
               match lookup_type Gamma x with
-              | Some m =>
-                if (beq_nat n m) then acc
-                else false
+              | Some _ => acc
               | None => false
               end
             | _ => false
@@ -300,8 +290,7 @@ option context :=
         else None
       | Ivytype_UserDefined x n =>
         match lookup_type Gamma x  with
-        | Some m =>
-          if (beq_nat n m) then 
+        | Some _ =>
           let arg_ts := map snd arg_ids_and_types in
           (* Check that the type of each argument exists *)
           let arg_ts_declared := 
@@ -310,9 +299,7 @@ option context :=
               | Ivytype_Bool => acc
               | Ivytype_UserDefined x n =>
                 match lookup_type Gamma x with
-                | Some m =>
-                  if (beq_nat n m) then acc
-                  else false
+                | Some _ => acc
                 | None => false
                 end
               | _ => false
@@ -322,8 +309,7 @@ option context :=
               | Some Gamma' => Some Gamma'
               | None => None
               end
-          else None
-          else None
+            else None
         | _ => None
         end
       | _ => None
@@ -491,64 +477,65 @@ Fixpoint small_step_Expr
 end.
 
 Fixpoint small_step_Com
-  (p : Com)
-  (var_store : partial_map Expr)
-  (fun_var_store : partial_map (list Expr -> Expr))
-  (var_ctx fun_var_ctx: context)
-  (act_ctx : action_context)
-  (declared_types : Ivytype -> bool)
-  (type_sizes : EnumTypeSizes)
-  : option (Com * 
-            partial_map Expr * 
-            partial_map (list Expr -> Expr)) :=
-match p with
-| Com_Assign x e => if is_value e then Some (Com_Skip, update var_store x e, fun_var_store) else
-                      match small_step_Expr e var_store fun_var_store var_ctx fun_var_ctx act_ctx declared_types type_sizes with
-                      | Some e' => Some (Com_Assign x e', var_store, fun_var_store)
-                      | None => None
+  (p : Com) (Gamma : context) (s : state) : option (Com * state) :=
+  match p with
+  | Com_Assign x e => 
+    if is_value e then Some (Com_Skip, update_state s (Expr_VarLiteral x) e) else
+      match small_step_Expr e Gamma s with
+      | Some e' => Some (Com_Assign x e', s)
+      | None => None
+      end
+  (* | Com_AssignFun x args e => if is_value e then Some (Com_Skip, var_store, update fun_var_store x args e) else
+                                match small_step_Expr e var_store fun_var_store act_ctx declared_types type_sizes with
+                                | Some e' => Some (Com_AssignFun x args e', var_store, fun_var_store)
+                                | None => None
+                                end *)
+  | Com_Seq p1 p2 => match small_step_Com p1 Gamma s with
+                    | Some (p1', s') =>
+                      match p1' with
+                      | Com_Skip => Some (p2, s')
+                      | _ => Some (Com_Seq p1' p2, s')
                       end
-(* | Com_AssignFun x args e => if is_value e then Some (Com_Skip, var_store, update fun_var_store x args e) else
-                              match small_step_Expr e var_store fun_var_store act_ctx declared_types type_sizes with
-                              | Some e' => Some (Com_AssignFun x args e', var_store, fun_var_store)
-                              | None => None
-                              end *)
-| Com_Seq p1 p2 => match small_step_Com p1 var_store fun_var_store var_ctx fun_var_ctx act_ctx declared_types type_sizes with
-                  | Some (p1', var_store', fun_var_store') => Some (Com_Seq p1' p2, var_store', fun_var_store')
-                  | None => match p1 with
-                            | Com_Skip => Some (p2, var_store, fun_var_store)
-                            | _ => None
-                            end
-                  end
-| Com_If e c => if is_value e then
-                  match e with
-                  | Expr_True => Some (c, var_store, fun_var_store)
-                  | Expr_False => Some (Com_Skip, var_store, fun_var_store)
-                  | _ => None
-                  end
-                else match small_step_Expr e var_store fun_var_store var_ctx fun_var_ctx act_ctx declared_types type_sizes with
-                    | Some e' => Some (Com_If e' c, var_store, fun_var_store)
                     | None => None
                     end
-| Com_IfElse e c c' => if is_value e then
+  | Com_If e c => if is_value e then
                     match e with
-                    | Expr_True => Some (c, var_store, fun_var_store)
-                    | Expr_False => Some (c', var_store, fun_var_store)
+                    | Expr_True => Some (c, s)
+                    | Expr_False => Some (Com_Skip, s)
                     | _ => None
                     end
-                  else match small_step_Expr e var_store fun_var_store var_ctx fun_var_ctx act_ctx declared_types type_sizes with
-                      | Some e' => Some (Com_IfElse e' c c', var_store, fun_var_store)
+                  else match small_step_Expr e Gamma s with
+                      | Some e' => Some (Com_If e' c, s)
                       | None => None
                       end
-(* | Com_For x t c => Some (fold_left (fun acc y => Com_Seq (acc, (subst_com c (Expr_EnumVarLiteral t y) x))) (seq 0 (type_sizes t)) Com_Skip, var_store, fun_var_store) *)
-| Com_While e c => Some (Com_IfElse e (Com_Seq c (Com_While e c)) Com_Skip, var_store, fun_var_store)
-(* | Com_Call *)
-(* Note that declarations are handled during typechecking, so we elide them here *)
-| _ => Some( Com_Skip, var_store, fun_var_store)
-end.
+  | Com_IfElse e c c' => if is_value e then
+                      match e with
+                      | Expr_True => Some (c, s)
+                      | Expr_False => Some (c', s)
+                      | _ => None
+                      end
+                    else match small_step_Expr e Gamma s with
+                        | Some e' => Some (Com_IfElse e' c c', s)
+                        | None => None
+                        end
+  | Com_For x t c => 
+    match t with
+    | Ivytype_Bool => Some (fold_left (fun acc y => Com_Seq (acc) (subst_com c y x)) [Expr_True;Expr_False] Com_Skip, s)
+    | Ivytype_UserDefined x n => 
+      let nums := seq 0 (n) in
+      let out := fold_left (fun acc y => Com_Seq (acc) (subst_com c (Expr_EnumVarLiteral t y) x)) nums Com_Skip in
+      Some (out, s)
+    | _ => None
+    end
+  | Com_While e c => Some (Com_IfElse e (Com_Seq c (Com_While e c)) Com_Skip, s)
+  (* | Com_Call *)
+  (* Note that declarations are handled during typechecking, so we elide them here *)
+  | _ => Some(Com_Skip, s)
+  end.
 
 Require Import ExtrOcamlBasic.
 Require Import ExtrOcamlString.
-Extraction "../ocaml/extracted/extract.ml" small_step_Com check.
+Extraction "../ocaml/extracted/extract.ml" small_step_Com check empty_state get_variable_names get_type_names get_action_names.
 
 (* Theorem preservation_Expr :
   forall e e' t var_ctx fun_var_ctx act_ctx declared_types type_sizes,

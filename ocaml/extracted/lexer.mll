@@ -60,7 +60,7 @@ rule token = parse
   | '#'     { COMMENT }
   | whitespace {  token lexbuf }
   | number as int { NUM (int_of_string int) }
-  | alph rest as id { ID (explode id)}
+  | alph rest as id { ID (string_to_char_list id)}
   | newline { next_line lexbuf; token lexbuf }
   | eof    { EOF }
   | _ {raise (SyntaxError ("Lexer - Illegal character: " ^ Lexing.lexeme lexbuf))}
