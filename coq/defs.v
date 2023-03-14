@@ -40,7 +40,7 @@ Fixpoint eqb_OptionIvytype (t1 t2 : option Ivytype) : bool :=
 Inductive Expr : Type :=
   | Expr_VarLiteral : string -> Expr
   | Expr_EnumVarLiteral : Ivytype -> nat -> Expr
-  | Expr_FunctionSymbol : string -> list Expr -> Expr 
+  (* | Expr_FunctionSymbol : string -> list Expr -> Expr  *)
   | Expr_True
   | Expr_False
   | Expr_Not : Expr -> Expr
@@ -54,6 +54,14 @@ Inductive Expr : Type :=
   (* | Expr_Nondet : Ivytype -> Expr *) (* These should be refactored to be polymorphic maps out of unit?*)
   | Expr_Cond : Expr -> Expr -> Expr -> Expr
   | Expr_Error.
+
+Definition eqb_value (e1 e2 : Expr) : bool :=
+  match e1, e2 with
+  | Expr_True, Expr_True => true
+  | Expr_False, Expr_False => true
+  | Expr_EnumVarLiteral t1 n1, Expr_EnumVarLiteral t2 n2 => andb (eqb_Ivytype t1 t2) (Nat.eqb n1 n2)
+  | _, _ => false
+  end.
 
 (* Fixpoint eqb_Expr (e1 e2 : Expr) : bool :=
   match e1, e2 with
@@ -102,6 +110,14 @@ Inductive value : Expr -> Prop :=
   | value_EnumVarLiteral : forall t n, value (Expr_EnumVarLiteral t n)
   | value_True : value Expr_True
   | value_False : value Expr_False.
+
+Fixpoint is_value (e : Expr) : bool :=
+  match e with
+  | Expr_EnumVarLiteral t n => true
+  | Expr_True => true
+  | Expr_False => true
+  | _ => false
+  end.
 
 (* Stores/Contexts *)
 
@@ -154,9 +170,8 @@ Definition update_action_context (c : context) (x : string) (params : list (stri
 Definition empty_context : context := 
   build_context (fun x => None, nil) (fun x => None, nil) (fun x => None, nil).
 
-(* Definitions *)
-
-Definition state := forall (e : Expr), (value e -> option (value e)).
+(* Definition state := forall (e : Expr), exists (e' : Expr), (value e -> option (value e')). *)
+Definition state := Expr -> option Expr.
 
 (* Substitutions *)
 
@@ -164,7 +179,7 @@ Fixpoint subst (e : Expr) (v : Expr) (x : string) : Expr :=
   match e with 
   | Expr_VarLiteral y => if eqb x y then v else e
   | Expr_EnumVarLiteral y n => Expr_EnumVarLiteral y n
-  | Expr_FunctionSymbol x es => Expr_FunctionSymbol x (map (fun e => subst e v x) es)
+  (* | Expr_FunctionSymbol x es => Expr_FunctionSymbol x (map (fun e => subst e v x) es) *)
   | Expr_True => Expr_True
   | Expr_False => Expr_False
   | Expr_Not e => Expr_Not (subst e v x)
