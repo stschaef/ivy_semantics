@@ -7,7 +7,7 @@ To make imports work using `coqtop` inside VSCode I had to adjust my `coq.coqPro
 
 For instance on my laptop, I have the following settings:
 ```json
-// settings.json
+settings.json
 ...
 "coqtop.binPath": "/opt/homebrew/bin",
     "coq.coqProjectRoot": "/Users/stevenschaefer/ivy_semantics/coq",
@@ -16,16 +16,17 @@ For instance on my laptop, I have the following settings:
 ## So Far
 A slimmed down typechecker and small step interpreter has been implemented so far in Coq. To execute this, I extract OCaml from the Coq code and then connect this to a parser made via `ocamlyacc`.
 
-This is still very much a work in progress and does not fully work. However, typechecking with this should work.
+This is still very much a work in progress and does not fully work. However, the typechecker currently works. Additionally, a slimmed down interpreter with only variables and type declarations currently works.
 
 ## TODOs
-- **Get rid of parser errors**
+- Get rid of `Maps.v` import. It is only useful for ensuring `eqb` works as expected. This should be easily fixable with the proper imports.
+- Get rid of double import warning.
+- Implement function symbols properly.
 - Prove type preservation/progress for expressions and commands
 - Prove that commands are well-formed if the underlying expressions are well-typed, and vice versa
 - Need to refactor nondeterminism. Probably as maps out of the unit type?
-- For clarity of code, I don't want to carry around 5+ types of contexts. Either package these into one large context or do something with a monad (or both).
-- Look over the data structures used again. I currently have a mess of different flavors of maps (some from `Maps.v` and some written by me). These can likely be optimized.
 - Incorporate assertions (axioms and pre-/post-conditions) into the interpreter
-- Actions need to be implemented
-- probably separate the use of a function as a location and as an actual function   
-- decide is_value as a boolean, not a proposition. This should be doable
+- Properly scope variables
+- Actions need to be implemented. For now we are only handling void actions; however, at some point it might be worth working in (multiple) return types. There is a decent argument to be made that these multiple return types are just syntactic sugar anyway, and they don't seem to show up in the code we care about (say Aman's [ivybench](https://github.com/aman-goel/ivybench))
+- Probably separate the use of a function as a location and as an actual function   
+
