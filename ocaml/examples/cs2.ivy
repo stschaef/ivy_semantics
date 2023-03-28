@@ -5,15 +5,13 @@ relation link(X: client, Y: server)
 relation semaphore(X: server)
 
 action connect(c: client, s: server) = {
-    require semaphore(s);
     link(c, s) := true;
-    semaphore(s) := false;
+    semaphore(s) := false
 }
 
 action disconnect(c: client, s: server) = {
-    require link(c, s);
     link(c, s) := false;
-    semaphore(s) := true;
+    semaphore(s) := true
 }
 
 for y:server {

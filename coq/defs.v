@@ -65,6 +65,7 @@ Fixpoint eqb_Expr (e1 e2 : Expr) : bool :=
   match e1, e2 with
   | Expr_VarLiteral x1, Expr_VarLiteral x2 => eqb x1 x2
   | Expr_EnumVarLiteral t1 n1, Expr_EnumVarLiteral t2 n2 => andb (eqb_Ivytype t1 t2) (Nat.eqb n1 n2)
+  | Expr_FunctionSymbol x1 es1, Expr_FunctionSymbol x2 es2 => andb (eqb x1 x2) (list_beq Expr eqb_Expr es1 es2)
   (* | Expr_ActionApplication x1 es1, Expr_ActionApplication x2 es2 => andb (eqb x1 x2) (list_beq Expr eqb_Expr es1 es2) *)
   | Expr_True, Expr_True => true
   | Expr_False, Expr_False => true
@@ -219,7 +220,7 @@ Fixpoint subst_com (p : Com) (v : Expr) (x : string) : Com :=
   | Com_Seq p1 p2 => (Com_Seq (subst_com p1 v x) (subst_com p2 v x))
   | Com_If e p => (Com_If (subst e v x) (subst_com p v x))
   | Com_IfElse e p1 p2 => (Com_IfElse (subst e v x) (subst_com p1 v x) (subst_com p2 v x))
-  (* | Com_For y t p => (Com_For y t (subst_com p v x)) *)
+  | Com_For y t p => (Com_For y t (subst_com p v x))
   | Com_While e p => (Com_While (subst e v x) (subst_com p v x))
   (* | Com_Call f es => (Com_Call f (map (fun e => subst e v x) es)) *)
   | Com_Skip => Com_Skip

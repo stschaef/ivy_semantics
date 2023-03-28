@@ -31,7 +31,7 @@ let rec string_of_ivytype = function
       let rec string_of_expr (e : expr) : string =
         match e with
         | Expr_VarLiteral id -> (string_of_chars id)
-        | Expr_EnumVarLiteral (t, n) -> string_of_ivytype t ^ ";element " ^ string_of_int (nat_to_int n)
+        | Expr_EnumVarLiteral (t, n) -> string_of_ivytype t ^ ";" ^ string_of_int (nat_to_int n)
         | Expr_FunctionSymbol (id, args) -> (string_of_chars id) ^ "(" ^ String.concat "," (List.map string_of_expr args) ^ ")"
         (* | Expr_VarFun (id, args) -> (string_of_chars id) ^ "(" ^ String.concat "," (List.map string_of_expr args) ^ ")" *)
         (* | Expr_ActionApplication (id, args) -> id ^ "(" ^ String.concat "," (List.map string_of_expr args) ^ ")" *)
@@ -97,7 +97,6 @@ let rec get_all_instances_of_fun_sym (gamma : context) (s : state) (t : ivytype)
   | _ -> []
 
 let print_function_symbol (gamma : context) (s : state) (f : char list): unit =
-  print_endline "Function Symbols:";
   List.iter (fun e -> print_endline (string_of_expr e ^ " = " ^ string_of_expr (safely_get (s e)))) (get_all_instances_of_fun_sym gamma s (Option.get (lookup_variable gamma f)) f)
 
 let print_helper (gamma : context) (s : state) (x : char list): unit =
@@ -107,22 +106,19 @@ let print_helper (gamma : context) (s : state) (x : char list): unit =
     
 
 let print_state (gamma : context) (s : state) : unit =
-  print_endline "State:";
   List.iter (print_helper gamma s) (get_variable_names gamma)
   
 let print_context (gamma : context) : unit =
-  print_endline "Context:";
   List.iter (fun x -> print_endline (string_of_chars x ^ " : " ^ string_of_ivytype (Option.get (lookup_variable gamma x)))) (get_variable_names gamma)
   (* print_endline "Function Context:";
   List.iter (fun x -> print_endline (string_of_expr x ))(get_function_variable_context gamma) *)
 
 let print_types (gamma : context) : unit =
-  print_endline "Types:";
   List.iter (fun x -> print_endline ((string_of_ivytype (Ivytype_UserDefined(x, Option.get (lookup_type gamma x)))) ^ " of size " ^ string_of_int (nat_to_int (Option.get (lookup_type gamma x))) )) (get_type_names gamma)
 
-(* let print_actions (gamma : context) : unit =
-  print_endline "Actions:";
-  List.iter (fun x -> print_endline (string_of_chars x ^ " : " ^ string_of_ivytype (Option.get (snd(fst(lookup_action gamma x)))))) (get_action_names gamma) *)
+let print_actions (gamma : context) : unit =
+  List.iter (fun x -> print_endline (string_of_chars x ^ " : " ^ string_of_ivytype  (snd(fst(Option.get (lookup_action gamma x)))))) (get_action_names gamma);
+  List.iter (fun x -> print_endline (string_of_chars x ^ " :=\n" ^ string_of_com (snd(Option.get (lookup_action gamma x))))) (get_action_names gamma)
 
 let run (p : com) : unit =
   print_endline "-------------------------------";
@@ -139,13 +135,18 @@ let run (p : com) : unit =
   print_endline "-------------------------------";
   print_context gamma;
   print_endline "-------------------------------";
+  print_endline "         Action Context        ";
+  print_endline "-------------------------------";
+  print_actions gamma;
+  print_endline "-------------------------------";
+  print_endline "-------------------------------";
   print_endline "      Starting evaluation      ";
   print_endline "-------------------------------";
   (* Perform a full evaluation of the program by repeatedly calling small_step_com *)
   let rec eval (p : com) (delta : context) (s : state)
   : state =
     print_endline ("______________________________________");
-    print_endline ("Running " ^ string_of_com p);
+    print_endline ("\tRunning " ^ string_of_com p);
     print_endline ("______________________________________");
     print_endline "Current State:";
     print_state gamma s;

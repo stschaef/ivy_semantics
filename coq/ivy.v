@@ -311,7 +311,8 @@ option context :=
             end) arg_ts true in
         if arg_ts_declared then 
           (* TODO: updating the action context here allows us to do action recursion, which seems bad *)
-          match check_command_helper p' (update_action_context Gamma act_id arg_ids_and_types ret_type p') with
+          let Gamma' := fold_left (fun acc z => update_variable_context acc (fst z) (snd z)) arg_ids_and_types Gamma in
+          match check_command_helper p' (update_action_context Gamma' act_id arg_ids_and_types ret_type p') with
           | Some Gamma' => Some Gamma'
           | None => None
           end
@@ -333,13 +334,36 @@ option context :=
               | _ => false
               end) arg_ts true in
             if arg_ts_declared then 
-              match check_command_helper p' (update_action_context Gamma act_id arg_ids_and_types ret_type p') with
+              let Gamma' := fold_left (fun acc z => update_variable_context acc (fst z) (snd z)) arg_ids_and_types Gamma in
+              match check_command_helper p' (update_action_context Gamma' act_id arg_ids_and_types ret_type p') with
               | Some Gamma' => Some Gamma'
               | None => None
               end
             else None
         | _ => None
         end
+      | Ivytype_Void =>
+        let arg_ts := map snd arg_ids_and_types in
+        (* Check that the type of each argument exists *)
+        let arg_ts_declared := 
+          fold_left (fun acc t => 
+            match t with 
+            | Ivytype_Bool => acc
+            | Ivytype_UserDefined x n =>
+              match lookup_type Gamma x with
+              | Some _ => acc
+              | None => false
+              end
+            | _ => false
+            end) arg_ts true in
+        if arg_ts_declared then 
+          (* TODO: updating the action context here allows us to do action recursion, which seems bad *)
+          let Gamma' := fold_left (fun acc z => update_variable_context acc (fst z) (snd z)) arg_ids_and_types Gamma in
+          match check_command_helper p' (update_action_context Gamma' act_id arg_ids_and_types ret_type p') with
+          | Some Gamma' => Some Gamma'
+          | None => None
+          end
+        else None
       | _ => None
       end
     end
