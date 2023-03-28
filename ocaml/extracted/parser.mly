@@ -66,7 +66,7 @@ comlist:
 com:
   | FOR ID COLON ID LBRACE comlist RBRACE { let a = Com_For ($2, Ivytype_UserDefined($4, int_to_nat 0), $6) in a}
   | FOR ID COLON BOOL LBRACE comlist RBRACE { let a = Com_For ($2, Ivytype_Bool, $6) in a}
-  | ID LPAREN varlist RPAREN ASSG exp { let a = Com_AssignFun ($1, $3, $6) in a}
+  | ID LPAREN explist RPAREN ASSG exp { let a = Com_AssignFun ($1, $3, $6) in a}
   | ID ASSG exp { let a = Com_Assign ($1, $3) in a}
   | IF exp LBRACE comlist RBRACE { let a = Com_If($2, $4) in a}
   | IF exp LBRACE comlist RBRACE ELSE LBRACE comlist RBRACE { let a = Com_IfElse ($2, $4, $8) in a}

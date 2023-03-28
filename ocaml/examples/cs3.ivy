@@ -5,12 +5,10 @@ individual user: client
 
 function link(X: client, Y: server) : bool
 relation semaphore(X: server)
-
 for y:server {
     semaphore(y) := true;
     for x:client {
         link(x, y) := false;
     }
 };
-semaphore(server1) := false;
-link(client1, server1) := false;
+

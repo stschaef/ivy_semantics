@@ -138,6 +138,7 @@ Fixpoint type_expr (e : Expr) (Gamma : context) {struct e} : option Ivytype :=
   | Expr_Error => None
   end.
 
+
 (* Recursively check that a command is well-formed *)
 Fixpoint check_command_helper (p : Com) (Gamma : context) {struct p} : 
 option context :=
@@ -148,19 +149,21 @@ option context :=
       if (eqb_OptionIvytype (e_type) (t)) 
       then Some Gamma 
       else None
-  | Com_AssignFun f arg_ids e =>
+  | Com_AssignFun f args e =>
     let e_type := type_expr e Gamma in
     match lookup_variable Gamma f with
     | Some(Ivytype_Function arg_ts ret_t) =>
       let option_arg_ts := map (fun x => Some x) arg_ts in
-      let arg_ts' := map (fun x => lookup_variable Gamma x) arg_ids in
+      let arg_ts' := map (fun x => type_expr x Gamma) args in
       if (list_beq (option Ivytype) eqb_OptionIvytype option_arg_ts arg_ts') 
       then if (eqb_OptionIvytype (e_type) (Some ret_t)) 
-          then Some Gamma 
+        then Some Gamma 
+      (* then Some (update_function_variable_context Gamma (Expr_FunctionSymbol f args))  *)
           else None
       else None
     | _ => None
     end
+  (* | Com_AssignFun _ _ _ => Some Gamma *)
   | Com_Seq p1 p2 =>
     match check_command_helper p1 Gamma with
     | Some Gamma' => check_command_helper p2 Gamma'
@@ -187,8 +190,8 @@ option context :=
       | Some Gamma' => Some Gamma'
       | None => None
       end
-    | Ivytype_UserDefined x n =>
-      match lookup_type Gamma x  with
+    | Ivytype_UserDefined y n =>
+      match lookup_type Gamma y  with
       | Some _ =>
         match check_command_helper p' (update_variable_context Gamma x t) with
         | Some Gamma' => Some Gamma'
@@ -506,6 +509,29 @@ Fixpoint small_step_Expr
   | Expr_Error => None
 end.
 
+Fixpoint small_step_Expr_list 
+(es: list Expr) (Gamma : context) (s : state) : option (list Expr) :=
+  match es with
+  | [] => None
+  | e :: es' => 
+    if is_value e then
+      match small_step_Expr_list es' Gamma s with
+      | Some e' => Some (e :: e')
+      | None => None
+      end
+    else
+      match small_step_Expr e Gamma s with
+      | Some e' => Some (e' :: es')
+      | None => None
+      end
+  end.
+
+Definition get_from_maybe_helper (x : option (list Expr)) : list Expr :=
+  match x with
+  | Some e => e
+  | None => [Expr_Error]
+  end.
+
 Fixpoint small_step_Com
   (p : Com) (Gamma : context) (s : state) : option (Com * state) :=
   match p with
@@ -515,11 +541,23 @@ Fixpoint small_step_Com
       | Some e' => Some (Com_Assign x e', s)
       | None => None
       end
-  (* | Com_AssignFun x args e => if is_value e then Some (Com_Skip, update_state ) else
-                                match small_step_Expr e var_store fun_var_store act_ctx declared_types type_sizes with
-                                | Some e' => Some (Com_AssignFun x args e', var_store, fun_var_store)
-                                | None => None
-                                end *)
+  | Com_AssignFun x args e => 
+    if is_value e then 
+      let fcn_sym := (Expr_FunctionSymbol x args) in
+      match is_value fcn_sym with
+      | true => Some (Com_Skip, update_state s (fcn_sym) e)
+      | false => 
+        let args' := small_step_Expr_list args Gamma s in
+        match args' with
+        | Some _ => Some (Com_AssignFun x ( get_from_maybe_helper args') fcn_sym, s)
+        | None => None
+        end
+        end
+      else
+      match small_step_Expr e Gamma s with
+      | Some e' => Some (Com_AssignFun x args e', s)
+      | None => None
+      end
   | Com_Seq p1 p2 => match small_step_Com p1 Gamma s with
                     | Some (p1', s') =>
                       match p1' with
@@ -551,10 +589,15 @@ Fixpoint small_step_Com
   | Com_For x t c => 
     match t with
     | Ivytype_Bool => Some (fold_left (fun acc y => Com_Seq (acc) (subst_com c y x)) [Expr_True;Expr_False] Com_Skip, s)
-    | Ivytype_UserDefined x n => 
-      let nums := seq 0 (n) in
-      let out := fold_left (fun acc y => Com_Seq (acc) (subst_com c (Expr_EnumVarLiteral t y) x)) nums Com_Skip in
-      Some (out, s)
+    | Ivytype_UserDefined z n =>
+      let m := lookup_type Gamma z in 
+      match m with
+      | Some m' =>
+        let nums := seq 0 (m') in
+        let out := fold_left (fun acc y => Com_Seq (acc) (subst_com c (Expr_EnumVarLiteral t y) x)) nums Com_Skip in
+        Some (out, s)
+      | None => None
+      end
     | _ => None
     end
   | Com_While e c => Some (Com_IfElse e (Com_Seq c (Com_While e c)) Com_Skip, s)
@@ -565,7 +608,7 @@ Fixpoint small_step_Com
 
 Require Import ExtrOcamlBasic.
 Require Import ExtrOcamlString.
-Extraction "../ocaml/extracted/extract.ml" small_step_Com check empty_state get_variable_names get_type_names get_action_names.
+Extraction "../ocaml/extracted/extract.ml" small_step_Com check empty_state get_variable_names get_type_names get_action_names get_function_variable_context seq.
 
 (* Theorem preservation_Expr :
   forall e e' t var_ctx fun_var_ctx act_ctx declared_types type_sizes,

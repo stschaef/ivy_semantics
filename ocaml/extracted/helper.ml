@@ -52,6 +52,7 @@ let rec string_of_ivytype = function
 let rec string_of_com (p : com) : string =
   match p with
   | Com_Assign (id, e) -> (string_of_chars id) ^ " := " ^ string_of_expr e
+  | Com_AssignFun (id, args, e) -> (string_of_chars id) ^ "(" ^ String.concat "," (List.map string_of_expr args) ^ ")" ^ " := " ^ string_of_expr e
   | Com_Seq (p1, p2) -> string_of_com p1 ^ ";\n" ^ string_of_com p2
   | Com_If (e, p1) -> "if " ^ string_of_expr e ^ " then " ^ string_of_com p1
   | Com_IfElse (e, p1, p2) -> "if " ^ string_of_expr e ^ " then " ^ string_of_com p1 ^ " else " ^ string_of_com p2
@@ -69,13 +70,51 @@ let safely_get (e : expr option) : expr =
   | Some e' -> e'
   | None -> Expr_VarLiteral (string_to_char_list "UNDEFINED")
 
+let product pools =
+  let result = ref [[]] in
+  List.iter (fun pool ->
+      result := List.concat_map (fun y ->
+          List.map (fun x ->
+              List.append x [y]
+            ) !result
+        ) pool
+    ) pools;
+  !result
+
+let inhabitants_of_type (gamma : context) (t : ivytype) : expr list =
+  match t with
+  | Ivytype_Bool -> [Expr_True; Expr_False]
+  | Ivytype_UserDefined (x, n) ->
+    map (fun i -> Expr_EnumVarLiteral (t, i)) (seq (int_to_nat 0) (Option.get (lookup_type gamma x)))
+  | _ -> []
+
+let rec get_all_instances_of_fun_sym (gamma : context) (s : state) (t : ivytype) (f : char list) : expr list =
+  match t with
+  | Ivytype_Function (arg_ts, ret_t) -> 
+    let arg_exprs = map (fun t' -> inhabitants_of_type gamma t') arg_ts in
+    let arg_exprs' = product arg_exprs in
+    map (fun a -> Expr_FunctionSymbol(f, a)) arg_exprs'
+  | _ -> []
+
+let print_function_symbol (gamma : context) (s : state) (f : char list): unit =
+  print_endline "Function Symbols:";
+  List.iter (fun e -> print_endline (string_of_expr e ^ " = " ^ string_of_expr (safely_get (s e)))) (get_all_instances_of_fun_sym gamma s (Option.get (lookup_variable gamma f)) f)
+
+let print_helper (gamma : context) (s : state) (x : char list): unit =
+  match Option.get (lookup_variable gamma x) with
+    | Ivytype_Function (arg_ts, ret_t) -> print_function_symbol gamma s x
+    | _ -> print_endline ((string_of_chars x) ^ " = " ^ (string_of_expr (safely_get (s (Expr_VarLiteral x)))))
+    
+
 let print_state (gamma : context) (s : state) : unit =
   print_endline "State:";
-  List.iter (fun x -> print_endline ((string_of_chars x) ^ " = " ^ (string_of_expr (safely_get (s (Expr_VarLiteral x)))))) (get_variable_names gamma)
-
+  List.iter (print_helper gamma s) (get_variable_names gamma)
+  
 let print_context (gamma : context) : unit =
   print_endline "Context:";
   List.iter (fun x -> print_endline (string_of_chars x ^ " : " ^ string_of_ivytype (Option.get (lookup_variable gamma x)))) (get_variable_names gamma)
+  (* print_endline "Function Context:";
+  List.iter (fun x -> print_endline (string_of_expr x ))(get_function_variable_context gamma) *)
 
 let print_types (gamma : context) : unit =
   print_endline "Types:";
@@ -86,6 +125,9 @@ let print_types (gamma : context) : unit =
   List.iter (fun x -> print_endline (string_of_chars x ^ " : " ^ string_of_ivytype (Option.get (snd(fst(lookup_action gamma x)))))) (get_action_names gamma) *)
 
 let run (p : com) : unit =
+  print_endline "-------------------------------";
+  print_endline "            Running            ";
+  print_endline "-------------------------------";
   let results = check p in
   let gamma = Option.get results in
   print_endline "-------------------------------";

@@ -85,7 +85,7 @@ Fixpoint eqb_Expr (e1 e2 : Expr) : bool :=
 
 Inductive Com : Type :=
   | Com_Assign : string -> Expr -> Com
-  | Com_AssignFun : string -> list string -> Expr -> Com
+  | Com_AssignFun : string -> list Expr -> Expr -> Com
   | Com_Seq : Com -> Com -> Com
   | Com_If : Expr -> Com -> Com
   | Com_IfElse : Expr -> Com -> Com -> Com
@@ -111,6 +111,7 @@ Inductive value : Expr -> Prop :=
 Fixpoint is_value (e : Expr) : bool :=
   match e with
   | Expr_EnumVarLiteral t n => true
+  | Expr_FunctionSymbol _ es => fold_left (fun b e => andb b (is_value e)) es true 
   | Expr_True => true
   | Expr_False => true
   | _ => false
@@ -121,6 +122,7 @@ Fixpoint is_value (e : Expr) : bool :=
 Definition variable_context := prod (string -> option Ivytype) (list string).
 Definition type_context := prod (string -> option nat) (list string).
 Definition action_context := prod (string -> option (list (string * Ivytype) * Ivytype * Com)) (list string).
+Definition function_variable_context := list Expr.
 
 (* The attached lists may be a little redundant, but it's a quick and easy way
 to get ahold of the names of things that have been declared. 
@@ -128,15 +130,16 @@ to get ahold of the names of things that have been declared.
 Else we would have to get the preimage of the non-None elements in each
 context, which I don't think is possible. *)
 
-Definition context := prod (variable_context) (prod (type_context) (action_context)).
+Definition context := prod (prod (variable_context) (prod (type_context) (action_context))) function_variable_context.
 Definition build_context 
 (vc : variable_context) 
 (tc : type_context) 
-(ac : action_context) := (vc, (tc, ac)).
+(ac : action_context)
+(fc: function_variable_context) := ((vc, (tc, ac)), fc).
 
-Definition get_variable_context (c : context) := fst c.
-Definition get_type_context (c : context) := fst (snd c).
-Definition get_action_context (c : context) := snd (snd c).
+Definition get_variable_context (c : context) := fst (fst c).
+Definition get_type_context (c : context) := fst (snd (fst c)).
+Definition get_action_context (c : context) := snd (snd (fst c)).
 
 Definition lookup_variable (c : context) (x : string) : option Ivytype := fst (get_variable_context c) x.
 Definition lookup_type (c : context) (x : string) : option nat := fst (get_type_context c) x.
@@ -146,26 +149,38 @@ Definition get_variable_names (c : context) := snd (get_variable_context c).
 Definition get_type_names (c : context) := snd (get_type_context c).
 Definition get_action_names (c : context) := snd (get_action_context c).
 
+Definition get_function_variable_context (c : context) := snd c.
+
 Definition update_variable_context (c : context) (x : string) (t : Ivytype) : context :=
   let vc := get_variable_context c in
   let tc := get_type_context c in
   let ac := get_action_context c in
-  build_context (fun y => if eqb x y then Some t else fst vc y, x :: snd vc) tc ac.
+  let fc := get_function_variable_context c in
+  build_context (fun y => if eqb x y then Some t else fst vc y, x :: snd vc) tc ac fc.
 
 Definition update_type_context (c : context) (x : string) (n : nat) : context :=
   let vc := get_variable_context c in
   let tc := get_type_context c in
   let ac := get_action_context c in
-  build_context vc (fun y => if eqb x y then Some n else fst tc y, x :: snd tc) ac.
+  let fc := get_function_variable_context c in
+  build_context vc (fun y => if eqb x y then Some n else fst tc y, x :: snd tc) ac fc.
 
 Definition update_action_context (c : context) (x : string) (params : list (string * Ivytype)) (ret_type : Ivytype) (body : Com) : context :=
   let vc := get_variable_context c in
   let tc := get_type_context c in
   let ac := get_action_context c in
-  build_context vc tc (fun y => if eqb x y then Some (params, ret_type, body) else fst ac y, x :: snd ac).
+  let fc := get_function_variable_context c in
+  build_context vc tc (fun y => if eqb x y then Some (params, ret_type, body) else fst ac y, x :: snd ac) fc.
+
+Definition update_function_variable_context (c : context) (e : Expr) : context :=
+  let vc := get_variable_context c in
+  let tc := get_type_context c in
+  let ac := get_action_context c in
+  let fc := get_function_variable_context c in
+  build_context vc tc ac (e :: fc).
 
 Definition empty_context : context := 
-  build_context (fun x => None, nil) (fun x => None, nil) (fun x => None, nil).
+  build_context (fun x => None, nil) (fun x => None, nil) (fun x => None, nil) (nil).
 
 (* Definition state := forall (e : Expr), exists (e' : Expr), (value e -> option (value e')). *)
 
@@ -200,7 +215,7 @@ Fixpoint subst (e : Expr) (v : Expr) (x : string) : Expr :=
 Fixpoint subst_com (p : Com) (v : Expr) (x : string) : Com :=
   match p with 
   | Com_Assign y e => (Com_Assign y (subst e v x))
-  (* | Com_AssignFun f args e => (Com_AssignFun f (map (fun g => if eqb x g then fromMaybe "ERROR" (unpack_id_under_expr v) else g) args) (subst e v x)) *)
+  | Com_AssignFun f es e => (Com_AssignFun f (map (fun e => subst e v x) es) (subst e v x))
   | Com_Seq p1 p2 => (Com_Seq (subst_com p1 v x) (subst_com p2 v x))
   | Com_If e p => (Com_If (subst e v x) (subst_com p v x))
   | Com_IfElse e p1 p2 => (Com_IfElse (subst e v x) (subst_com p1 v x) (subst_com p2 v x))
