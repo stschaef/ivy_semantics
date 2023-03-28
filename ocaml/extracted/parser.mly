@@ -136,7 +136,7 @@ typed_varlist :
 ;
 
 exp:
-  | ID LPAREN explist RPAREN { let a = Expr_FunctionSymbl ($1, $3) in a}
+  | ID LPAREN explist RPAREN { let a = Expr_FunctionSymbol ($1, $3) in a}
   | ID { let a = Expr_VarLiteral $1 in a}
   | exp EQ exp { let a = Expr_Eq ($1, $3) in a}
   | exp IMPL exp { let a = Expr_Implies ($1, $3) in a}
