@@ -92,7 +92,7 @@ Inductive Com : Type :=
   | Com_IfElse : Expr -> Com -> Com -> Com
   | Com_For : string -> Ivytype -> Com -> Com
   | Com_While : Expr -> Com -> Com
-  (* | Com_Call : string -> list Expr -> Com *)
+  | Com_Call : string -> list Expr -> Com
   | Com_LocalVarDecl : string -> Ivytype -> Com
   | Com_GlobalVarDecl : string -> Ivytype -> Com
   | Com_GlobalFuncVarDecl : string -> list (string * Ivytype) -> Ivytype -> Com
@@ -222,7 +222,7 @@ Fixpoint subst_com (p : Com) (v : Expr) (x : string) : Com :=
   | Com_IfElse e p1 p2 => (Com_IfElse (subst e v x) (subst_com p1 v x) (subst_com p2 v x))
   | Com_For y t p => (Com_For y t (subst_com p v x))
   | Com_While e p => (Com_While (subst e v x) (subst_com p v x))
-  (* | Com_Call f es => (Com_Call f (map (fun e => subst e v x) es)) *)
+  | Com_Call f es => (Com_Call f (map (fun e => subst e v x) es))
   | Com_Skip => Com_Skip
   | _ => p (* declarations *)
   end.

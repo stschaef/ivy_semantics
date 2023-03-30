@@ -64,6 +64,7 @@ let rec string_of_com (p : com) : string =
   | Com_TypeDecl (id, n) -> "type " ^ (string_of_chars id) ^ " of size " ^ string_of_int (nat_to_int n)
   | Com_ActionDecl (id, arg_ids_and_ts, ret, p') -> "action " ^ (string_of_chars id) ^ " : " ^ string_of_ivytype (Ivytype_Function (map (snd) arg_ids_and_ts, ret))
   | Com_Skip -> "skip"
+  | Com_Call (id, args) -> (string_of_chars id) ^ "(" ^ String.concat "," (List.map string_of_expr args) ^ ")"
 
 let safely_get (e : expr option) : expr =
   match e with

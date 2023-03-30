@@ -15,8 +15,7 @@ action disconnect(c: client, s: server) = {
 }
 
 for y:server {
-    semaphore(y) := true;
     for x:client {
-        link(x, y) := false;
+        call connect(x,y)
     }
 }

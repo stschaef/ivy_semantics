@@ -206,16 +206,17 @@ option context :=
     | Some Ivytype_Bool => check_command_helper p' Gamma
     | _ => None
     end
-  (* | Com_Call f arg_ids =>
-    let t := fun_var_ctx f in
-      match t with
-      | Some (Ivytype_Fun arg_ts ret_t) =>
-        let arg_ts' := map (fun x => fromMaybe Ivytype_Void (var_ctx x)) arg_ids in
-        if (list_beq Ivytype eqb_Ivytype arg_ts arg_ts') 
-        then Some (var_ctx, fun_var_ctx, act_ctx, declared_types, type_sizes) 
-        else None
-      | _ => None
-      end *)
+  | Com_Call f arg_ids =>
+    match lookup_action Gamma f with
+    | Some (arg_ids_and_ts, ret_t, p') =>
+      let option_arg_ts := map (fun x => Some (snd x)) arg_ids_and_ts in
+      let arg_ids := map (fun x => fst x) arg_ids_and_ts in
+      let arg_ts' := map (fun x => lookup_variable Gamma x) arg_ids in
+      if (list_beq (option Ivytype) eqb_OptionIvytype option_arg_ts arg_ts') 
+      then Some Gamma 
+      else None
+    | None => None
+    end
   | Com_LocalVarDecl var_id t => 
     if (eqb_OptionIvytype (lookup_variable Gamma var_id) None) then
     match t with
@@ -491,19 +492,29 @@ Fixpoint small_step_Expr
   | Expr_Forall x t e' =>
       match t with
       | Ivytype_Bool => Some (fold_left (fun acc y => Expr_And acc (subst e' y x)) [Expr_True;Expr_False] Expr_True)
-      | Ivytype_UserDefined x n => 
-        let nums := seq 0 (n) in
-        let out := fold_left (fun acc y => Expr_And acc (subst e' (Expr_EnumVarLiteral t y) x) ) nums Expr_True in
-        Some out
+      | Ivytype_UserDefined z n => 
+        let m := lookup_type Gamma z in
+        match m with
+        | Some m' =>
+          let nums := seq 0 (m') in
+          let out := fold_left (fun acc y => Expr_And acc (subst e' (Expr_EnumVarLiteral t y) x) ) nums Expr_True in
+          Some out
+        | None => None
+        end
       | _ => None
       end
   | Expr_Exists x t e' =>
     match t with
     | Ivytype_Bool => Some (fold_left (fun acc y => Expr_Or acc (subst e' y x)) [Expr_True;Expr_False] Expr_False)
-    | Ivytype_UserDefined x n => 
-      let nums := seq 0 (n) in
-      let out := fold_left (fun acc y => Expr_Or acc (subst e' (Expr_EnumVarLiteral t y) x) ) nums Expr_False in
-      Some out
+    | Ivytype_UserDefined z n => 
+      let m := lookup_type Gamma z in
+      match m with
+      | Some m' =>
+        let nums := seq 0 (m') in
+        let out := fold_left (fun acc y => Expr_Or acc (subst e' (Expr_EnumVarLiteral t y) x) ) nums Expr_False in
+        Some out
+      | None => None
+      end
     | _ => None
     end
   (* | Expr_Nondet t => Nondet_helper t type_sizes *)
@@ -557,7 +568,7 @@ Definition get_from_maybe_helper (x : option (list Expr)) : list Expr :=
   end.
 
 Fixpoint small_step_Com
-  (p : Com) (Gamma : context) (s : state) : option (Com * state) :=
+  (p : Com) (Gamma : context) (s : state) {struct p}: option (Com * state) :=
   match p with
   | Com_Assign x e => 
     if is_value e then Some (Com_Skip, update_state s (Expr_VarLiteral x) e) else
@@ -625,7 +636,24 @@ Fixpoint small_step_Com
     | _ => None
     end
   | Com_While e c => Some (Com_IfElse e (Com_Seq c (Com_While e c)) Com_Skip, s)
-  (* | Com_Call *)
+  | Com_Call x args => 
+    let args_are_values := List.forallb is_value args in
+    if args_are_values then
+    match lookup_action Gamma x with
+    | Some (arg_ids_and_ts, ret_t, p') => 
+      let arg_ids := List.map fst arg_ids_and_ts in
+      let substs := List.list_prod arg_ids args in
+      let p'' := fold_left (fun acc y => subst_com acc (snd y) (fst y)) substs p' in
+      Some (p'', s)
+      (* TODO: This doesn't actually execute p'' *)
+    | None => None
+    end
+    else 
+    let args' := small_step_Expr_list args Gamma s in
+    match args' with
+    | Some _ => Some (Com_Call x (get_from_maybe_helper args'), s)
+    | None => None
+    end
   (* Note that declarations are handled during typechecking, so we elide them here *)
   | _ => Some(Com_Skip, s)
   end.

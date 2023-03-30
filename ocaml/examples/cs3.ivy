@@ -12,3 +12,6 @@ for y:server {
     }
 };
 
+for z:server {
+    semaphore(z) := false;
+}

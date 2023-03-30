@@ -71,8 +71,8 @@ com:
   | IF exp LBRACE comlist RBRACE { let a = Com_If($2, $4) in a}
   | IF exp LBRACE comlist RBRACE ELSE LBRACE comlist RBRACE { let a = Com_IfElse ($2, $4, $8) in a}
   | WHILE exp LBRACE comlist RBRACE { let a = Com_While ($2, $4) in a}
-  /* | CALL ID { let a = Com_Call ($2, []) in a}
-  | CALL ID LPAREN explist RPAREN { let a = Com_Call ($2, $4) in a} */
+  | CALL ID { let a = Com_Call ($2, []) in a}
+  | CALL ID LPAREN explist RPAREN { let a = Com_Call ($2, $4) in a}
   | SKIP { let a = Com_Skip in a}
   | assertion { let a = $1 in a}
 ;
