@@ -11,9 +11,8 @@ val fst :
 val snd :
   ('a1 * 'a2) -> 'a2
 
-val app :
-  'a1 list -> 'a1 list
-  -> 'a1 list
+val length :
+  'a1 list -> nat
 
 module Nat :
  sig
@@ -40,7 +39,7 @@ val forallb :
   ('a1 -> bool) -> 'a1
   list -> bool
 
-val list_prod :
+val combine :
   'a1 list -> 'a2 list
   -> ('a1 * 'a2) list
 

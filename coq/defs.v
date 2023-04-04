@@ -64,7 +64,14 @@ Definition eqb_value (e1 e2 : Expr) : bool :=
 Fixpoint eqb_Expr (e1 e2 : Expr) : bool :=
   match e1, e2 with
   | Expr_VarLiteral x1, Expr_VarLiteral x2 => eqb x1 x2
-  | Expr_EnumVarLiteral t1 n1, Expr_EnumVarLiteral t2 n2 => andb (eqb_Ivytype t1 t2) (Nat.eqb n1 n2)
+  | Expr_EnumVarLiteral t1 n1, Expr_EnumVarLiteral t2 n2 =>
+    match t1 with
+    | Ivytype_UserDefined s1 m1 => match t2 with
+                                   | Ivytype_UserDefined s2 m2 => andb (eqb s1 s2) (Nat.eqb n1 n2)
+                                   | _ => false
+                                   end
+    | _ => false
+    end
   | Expr_FunctionSymbol x1 es1, Expr_FunctionSymbol x2 es2 => andb (eqb x1 x2) (list_beq Expr eqb_Expr es1 es2)
   (* | Expr_ActionApplication x1 es1, Expr_ActionApplication x2 es2 => andb (eqb x1 x2) (list_beq Expr eqb_Expr es1 es2) *)
   | Expr_True, Expr_True => true
@@ -197,17 +204,17 @@ Fixpoint subst (e : Expr) (v : Expr) (x : string) : Expr :=
   match e with 
   | Expr_VarLiteral y => if eqb x y then v else e
   | Expr_EnumVarLiteral y n => Expr_EnumVarLiteral y n
-  | Expr_FunctionSymbol x es => Expr_FunctionSymbol x (map (fun e => subst e v x) es)
+  | Expr_FunctionSymbol z es => Expr_FunctionSymbol z (map (fun e' => subst e' v x) es)
   | Expr_True => Expr_True
   | Expr_False => Expr_False
-  | Expr_Not e => Expr_Not (subst e v x)
+  | Expr_Not e' => Expr_Not (subst e' v x)
   | Expr_And e1 e2 => Expr_And (subst e1 v x) (subst e2 v x)
   | Expr_Or e1 e2 => Expr_Or (subst e1 v x) (subst e2 v x)
   | Expr_Eq e1 e2 => Expr_Eq (subst e1 v x) (subst e2 v x)
   | Expr_Implies e1 e2 => Expr_Implies (subst e1 v x) (subst e2 v x)
   | Expr_Iff e1 e2 => Expr_Iff (subst e1 v x) (subst e2 v x)
-  | Expr_Forall y t e => Expr_Forall y t (subst e v x)
-  | Expr_Exists y t e => Expr_Exists y t (subst e v x)
+  | Expr_Forall y t e' => Expr_Forall y t (subst e' v x)
+  | Expr_Exists y t e' => Expr_Exists y t (subst e' v x)
   (* | Expr_Nondet t => Expr_Nondet t *)
   | Expr_Cond e1 e2 e3 => Expr_Cond (subst e1 v x) (subst e2 v x) (subst e3 v x)
   | Expr_Error => Expr_Error

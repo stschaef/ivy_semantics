@@ -1,10 +1,9 @@
 type client 2
 type server 2
 
-individual x : bool
-individual y : bool
-individual z : client
-individual w : server
+relation a(q : bool, r:bool)
 
-x := true;
-y := false
+action set1(x:bool, y:bool) = {
+   a(x, y) := true;
+}
+call set1(true, false);

@@ -642,10 +642,11 @@ Fixpoint small_step_Com
     match lookup_action Gamma x with
     | Some (arg_ids_and_ts, ret_t, p') => 
       let arg_ids := List.map fst arg_ids_and_ts in
-      let substs := List.list_prod arg_ids args in
+      let substs := List.combine arg_ids args in
       let p'' := fold_left (fun acc y => subst_com acc (snd y) (fst y)) substs p' in
-      Some (p'', s)
-      (* TODO: This doesn't actually execute p'' *)
+      if beq_nat (length arg_ids) (length args) then
+        Some (p'', s)
+      else None
     | None => None
     end
     else 
@@ -660,6 +661,7 @@ Fixpoint small_step_Com
 
 Require Import ExtrOcamlBasic.
 Require Import ExtrOcamlString.
+Extraction "../ocaml/extracted/extract.ml" small_step_Com check empty_state get_variable_names get_type_names get_action_names get_function_variable_context seq.
 Extraction "../ocaml/extracted/extract.ml" small_step_Com check empty_state get_variable_names get_type_names get_action_names get_function_variable_context seq.
 
 (* Theorem preservation_Expr :

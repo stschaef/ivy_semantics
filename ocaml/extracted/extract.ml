@@ -22,15 +22,13 @@ let fst = function
 let snd = function
 | (_, y) -> y
 
-(** val app :
-    'a1 list -> 'a1
-    list -> 'a1 list **)
+(** val length :
+    'a1 list -> nat **)
 
-let rec app l m =
-  match l with
-  | [] -> m
-  | a :: l1 ->
-    a :: (app l1 m)
+let rec length = function
+| [] -> O
+| _ :: l' ->
+  S (length l')
 
 module Nat =
  struct
@@ -99,19 +97,22 @@ let rec forallb f = function
   (&&) (f a)
     (forallb f l0)
 
-(** val list_prod :
+(** val combine :
     'a1 list -> 'a2
     list -> ('a1 * 'a2)
     list **)
 
-let rec list_prod l l' =
+let rec combine l l' =
   match l with
   | [] -> []
-  | x :: t ->
-    app
-      (map (fun y ->
-        (x, y)) l')
-      (list_prod t l')
+  | x :: tl ->
+    (match l' with
+     | [] -> []
+     | y :: tl' ->
+       (x,
+         y) :: 
+         (combine tl
+           tl'))
 
 (** val seq :
     nat -> nat -> nat
@@ -298,10 +299,19 @@ let rec eqb_Expr e1 e2 =
     (match e2 with
      | Expr_EnumVarLiteral (
          t2, n2) ->
-       (&&)
-         (eqb_Ivytype
-           t1 t2)
-         (Nat.eqb n1 n2)
+       (match t1 with
+        | Ivytype_UserDefined (
+            s1, _) ->
+          (match t2 with
+           | Ivytype_UserDefined (
+              s2, _) ->
+             (&&)
+              (eqb0 s1
+              s2)
+              (Nat.eqb
+              n1 n2)
+           | _ -> false)
+        | _ -> false)
      | _ -> false)
   | Expr_FunctionSymbol (
       x1, es1) ->
@@ -699,15 +709,15 @@ let rec subst e v x =
     then v
     else e
   | Expr_FunctionSymbol (
-      x0, es) ->
+      z, es) ->
     Expr_FunctionSymbol
-      (x0,
-      (map (fun e0 ->
-        subst e0 v x0)
+      (z,
+      (map (fun e' ->
+        subst e' v x)
         es))
-  | Expr_Not e0 ->
+  | Expr_Not e' ->
     Expr_Not
-      (subst e0 v x)
+      (subst e' v x)
   | Expr_And (e1, e2) ->
     Expr_And
       ((subst e1 v x),
@@ -730,13 +740,13 @@ let rec subst e v x =
       ((subst e1 v x),
       (subst e2 v x))
   | Expr_Forall (
-      y, t, e0) ->
+      y, t, e') ->
     Expr_Forall (y, t,
-      (subst e0 v x))
+      (subst e' v x))
   | Expr_Exists (
-      y, t, e0) ->
+      y, t, e') ->
     Expr_Exists (y, t,
-      (subst e0 v x))
+      (subst e' v x))
   | Expr_Cond (
       e1, e2, e3) ->
     Expr_Cond
@@ -2050,7 +2060,7 @@ let rec small_step_Com p gamma s =
               arg_ids_and_ts
             in
             let substs =
-              list_prod
+              combine
               arg_ids
               args
             in
@@ -2063,8 +2073,16 @@ let rec small_step_Com p gamma s =
               (fst y))
               substs p'
             in
-            Some (p'',
-            s)
+            if 
+              Nat.eqb
+              (length
+              arg_ids)
+              (length
+              args)
+            then 
+              Some
+              (p'', s)
+            else None
           | None -> None)
     else let args' =
            small_step_Expr_list

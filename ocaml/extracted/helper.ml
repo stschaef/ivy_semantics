@@ -86,7 +86,8 @@ let inhabitants_of_type (gamma : context) (t : ivytype) : expr list =
   match t with
   | Ivytype_Bool -> [Expr_True; Expr_False]
   | Ivytype_UserDefined (x, n) ->
-    map (fun i -> Expr_EnumVarLiteral (t, i)) (seq (int_to_nat 0) (Option.get (lookup_type gamma x)))
+    let actual_size = Option.get (lookup_type gamma x) in
+    map (fun i -> Expr_EnumVarLiteral (Ivytype_UserDefined(x, actual_size), i)) (seq (int_to_nat 0) (actual_size))
   | _ -> []
 
 let rec get_all_instances_of_fun_sym (gamma : context) (s : state) (t : ivytype) (f : char list) : expr list =
@@ -94,11 +95,15 @@ let rec get_all_instances_of_fun_sym (gamma : context) (s : state) (t : ivytype)
   | Ivytype_Function (arg_ts, ret_t) -> 
     let arg_exprs = map (fun t' -> inhabitants_of_type gamma t') arg_ts in
     let arg_exprs' = product arg_exprs in
-    map (fun a -> Expr_FunctionSymbol(f, a)) arg_exprs'
+    let out = map (fun a -> Expr_FunctionSymbol(f, a)) arg_exprs' in
+    (* List.iter (fun e -> print_endline(string_of_expr(e) ^ " is value " ^ string_of_bool (is_value (e)))) out; *)
+    out
   | _ -> []
 
 let print_function_symbol (gamma : context) (s : state) (f : char list): unit =
-  List.iter (fun e -> print_endline (string_of_expr e ^ " = " ^ string_of_expr (safely_get (s e)))) (get_all_instances_of_fun_sym gamma s (Option.get (lookup_variable gamma f)) f)
+  List.iter (fun e ->
+    print_endline (string_of_expr e ^ " = " ^ string_of_expr (safely_get (s e)))
+  ) (get_all_instances_of_fun_sym gamma s (Option.get (lookup_variable gamma f)) f)
 
 let print_helper (gamma : context) (s : state) (x : char list): unit =
   match Option.get (lookup_variable gamma x) with
@@ -147,14 +152,14 @@ let run (p : com) : unit =
   let rec eval (p : com) (delta : context) (s : state)
   : state =
     print_endline ("______________________________________");
-    print_endline ("\tRunning " ^ string_of_com p);
+    print_endline ("Running\n " ^ string_of_com p);
     print_endline ("______________________________________");
     print_endline "Current State:";
     print_state gamma s;
     match p with
     | Com_Skip -> s
     | _ -> let (p', s') = Option.get (small_step_Com p gamma s) in
-      eval p' delta s'
+    eval p' delta s'
   in
   (* print_endline "type declarations:";
   List.iter (fun (t, ids) -> print_endline (string_of_ivytype t ^ " = " ^ (List.fold_left (fun acc x -> acc ^ "," ^ x) (List.hd ids) (List.tl ids)))) type_decls;
