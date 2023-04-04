@@ -197,10 +197,6 @@ int main(int argc, const char **argv) {
 
 	std::thread t(run_server, port, 10);
 
-	// if (run_server(port, 10) == -1) {
-	// 	return 1;
-	// }
-
 	return repl(hostname);
 }
 
