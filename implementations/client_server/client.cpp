@@ -91,8 +91,7 @@ int main(int argc, const char **argv) {
 		std::string command;
 		std::cin >> command >> port;
 		const char *message = command.c_str();
-		// int port = atoi(argv[2]);
-		// const char *message = argv[4];		
+	
 		if (strcmp(message, "connect") != 0 && strcmp(message, "disconnect") != 0) {
 			printf("Usage: <connect/disconnect> port_num\n");
 			return 1;
@@ -109,32 +108,4 @@ int main(int argc, const char **argv) {
 			}
 		}
 	}
-
-	// // Parse command line arguments
-	// if (argc != 5) {
-	// 	printf("Usage: ./client hostname port_num client_id <connect/disconnect>\n");
-	// 	return 1;
-	// }
-	// const char *hostname = argv[1];
-	// int port = atoi(argv[2]);
-	// const char *message = argv[4];
-    // const char *client_id = argv[3];
-
-    // if (strcmp(message, "connect") != 0 && strcmp(message, "disconnect") != 0) {
-    //     printf("Usage: ./client hostname port_num client_id <connect/disconnect>\n");
-    //     return 1;
-    // }
-    // if (strcmp(message, "connect") == 0) {
-    //     printf("Connecting to %s:%d\n", hostname, port);
-    //     if (connect(hostname, port, client_id) == -1) {
-    //         return 1;
-    //     }
-    // } else {
-    //     printf("Disconnecting from %s:%d\n", hostname, port);
-    //     if (disconnect(hostname, port, client_id) == -1) {
-    //         return 1;
-    //     }
-    // }
-
-	// return 0;
 }
