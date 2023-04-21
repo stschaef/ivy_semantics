@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNKSt3__19allocatorIcE8max_sizeEv' function" {
+	label="CFG for '_ZNKSt3__19allocatorIcE8max_sizeEv' function";
+
+	Node0x6000004ded80 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %this.addr = alloca %\"class.std::__1::allocator\"*, align 8\l  store %\"class.std::__1::allocator\"* %this, %\"class.std::__1::allocator\"**\l... %this.addr, align 8\l  %this1 = load %\"class.std::__1::allocator\"*, %\"class.std::__1::allocator\"**\l... %this.addr, align 8\l  ret i64 -1\l}"];
+}

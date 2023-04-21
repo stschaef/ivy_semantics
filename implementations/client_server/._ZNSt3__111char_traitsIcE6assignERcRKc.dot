@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__111char_traitsIcE6assignERcRKc' function" {
+	label="CFG for '_ZNSt3__111char_traitsIcE6assignERcRKc' function";
+
+	Node0x6000004de480 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %__c1.addr = alloca i8*, align 8\l  %__c2.addr = alloca i8*, align 8\l  store i8* %__c1, i8** %__c1.addr, align 8\l  store i8* %__c2, i8** %__c2.addr, align 8\l  %0 = load i8*, i8** %__c2.addr, align 8\l  %1 = load i8, i8* %0, align 1\l  %2 = load i8*, i8** %__c1.addr, align 8\l  store i8 %1, i8* %2, align 1\l  ret void\l}"];
+}

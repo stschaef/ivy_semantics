@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__18ios_base8setstateEj' function" {
+	label="CFG for '_ZNSt3__18ios_base8setstateEj' function";
+
+	Node0x6000004df300 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %this.addr = alloca %\"class.std::__1::ios_base\"*, align 8\l  %__state.addr = alloca i32, align 4\l  store %\"class.std::__1::ios_base\"* %this, %\"class.std::__1::ios_base\"**\l... %this.addr, align 8\l  store i32 %__state, i32* %__state.addr, align 4\l  %this1 = load %\"class.std::__1::ios_base\"*, %\"class.std::__1::ios_base\"**\l... %this.addr, align 8\l  %__rdstate_ = getelementptr inbounds %\"class.std::__1::ios_base\",\l... %\"class.std::__1::ios_base\"* %this1, i32 0, i32 4\l  %0 = load i32, i32* %__rdstate_, align 8\l  %1 = load i32, i32* %__state.addr, align 4\l  %or = or i32 %0, %1\l  call void @_ZNSt3__18ios_base5clearEj(%\"class.std::__1::ios_base\"* noundef\l... nonnull align 8 dereferenceable(136) %this1, i32 noundef %or)\l  ret void\l}"];
+}

@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__13setIiNS_4lessIiEENS_9allocatorIiEEED1Ev' function" {
+	label="CFG for '_ZNSt3__13setIiNS_4lessIiEENS_9allocatorIiEEED1Ev' function";
+
+	Node0x600002555500 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %this.addr = alloca %\"class.std::__1::set\"*, align 8\l  store %\"class.std::__1::set\"* %this, %\"class.std::__1::set\"** %this.addr,\l... align 8\l  %this1 = load %\"class.std::__1::set\"*, %\"class.std::__1::set\"** %this.addr,\l... align 8\l  %call = call noundef %\"class.std::__1::set\"*\l... @_ZNSt3__13setIiNS_4lessIiEENS_9allocatorIiEEED2Ev(%\"class.std::__1::set\"*\l... noundef nonnull align 8 dereferenceable(24) %this1) #8\l  ret %\"class.std::__1::set\"* %this1\l}"];
+}

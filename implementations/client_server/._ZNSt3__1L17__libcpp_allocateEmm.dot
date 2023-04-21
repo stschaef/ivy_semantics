@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__1L17__libcpp_allocateEmm' function" {
+	label="CFG for '_ZNSt3__1L17__libcpp_allocateEmm' function";
+
+	Node0x60000255d9c0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %__size.addr = alloca i64, align 8\l  %__align.addr = alloca i64, align 8\l  store i64 %__size, i64* %__size.addr, align 8\l  store i64 %__align, i64* %__align.addr, align 8\l  %0 = load i64, i64* %__size.addr, align 8\l  %call = call noundef i8* @_ZNSt3__1L21__libcpp_operator_newIJmEEEPvDpT_(i64\l... noundef %0)\l  ret i8* %call\l}"];
+}

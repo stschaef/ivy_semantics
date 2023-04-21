@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__122__tree_key_value_typesIiE9__get_keyERKi' function" {
+	label="CFG for '_ZNSt3__122__tree_key_value_typesIiE9__get_keyERKi' function";
+
+	Node0x6000025536c0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %__v.addr = alloca i32*, align 8\l  store i32* %__v, i32** %__v.addr, align 8\l  %0 = load i32*, i32** %__v.addr, align 8\l  ret i32* %0\l}"];
+}

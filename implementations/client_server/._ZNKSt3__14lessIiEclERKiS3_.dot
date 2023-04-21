@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNKSt3__14lessIiEclERKiS3_' function" {
+	label="CFG for '_ZNKSt3__14lessIiEclERKiS3_' function";
+
+	Node0x60000255cc40 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %this.addr = alloca %\"struct.std::__1::less\"*, align 8\l  %__x.addr = alloca i32*, align 8\l  %__y.addr = alloca i32*, align 8\l  store %\"struct.std::__1::less\"* %this, %\"struct.std::__1::less\"**\l... %this.addr, align 8\l  store i32* %__x, i32** %__x.addr, align 8\l  store i32* %__y, i32** %__y.addr, align 8\l  %this1 = load %\"struct.std::__1::less\"*, %\"struct.std::__1::less\"**\l... %this.addr, align 8\l  %0 = load i32*, i32** %__x.addr, align 8\l  %1 = load i32, i32* %0, align 4\l  %2 = load i32*, i32** %__y.addr, align 8\l  %3 = load i32, i32* %2, align 4\l  %cmp = icmp slt i32 %1, %3\l  ret i1 %cmp\l}"];
+}

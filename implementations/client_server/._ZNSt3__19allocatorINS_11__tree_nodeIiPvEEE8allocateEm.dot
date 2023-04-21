@@ -1,0 +1,9 @@
+digraph "CFG for '_ZNSt3__19allocatorINS_11__tree_nodeIiPvEEE8allocateEm' function" {
+	label="CFG for '_ZNSt3__19allocatorINS_11__tree_nodeIiPvEEE8allocateEm' function";
+
+	Node0x60000255d340 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %this.addr = alloca %\"class.std::__1::allocator\"*, align 8\l  %__n.addr = alloca i64, align 8\l  store %\"class.std::__1::allocator\"* %this, %\"class.std::__1::allocator\"**\l... %this.addr, align 8\l  store i64 %__n, i64* %__n.addr, align 8\l  %this1 = load %\"class.std::__1::allocator\"*, %\"class.std::__1::allocator\"**\l... %this.addr, align 8\l  %0 = load i64, i64* %__n.addr, align 8\l  %call = call noundef i64\l... @_ZNSt3__116allocator_traitsINS_9allocatorINS_11__tree_nodeIiPvEEEEE8max_sizeI\l...S5_vEEmRKS5_(%\"class.std::__1::allocator\"* noundef nonnull align 1\l... dereferenceable(1) %this1) #8\l  %cmp = icmp ugt i64 %0, %call\l  br i1 %cmp, label %if.then, label %if.end\l|{<s0>T|<s1>F}}"];
+	Node0x60000255d340:s0 -> Node0x60000255d3c0;
+	Node0x60000255d340:s1 -> Node0x60000255d400;
+	Node0x60000255d3c0 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#6687ed70",label="{if.then:                                          \l  call void @_ZNSt3__1L20__throw_length_errorEPKc(i8* noundef getelementptr\l... inbounds ([68 x i8], [68 x i8]* @.str.21, i64 0, i64 0)) #17\l  unreachable\l}"];
+	Node0x60000255d400 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{if.end:                                           \l  %1 = load i64, i64* %__n.addr, align 8\l  %mul = mul i64 %1, 32\l  %call2 = call noundef i8* @_ZNSt3__1L17__libcpp_allocateEmm(i64 noundef\l... %mul, i64 noundef 8)\l  %2 = bitcast i8* %call2 to %\"class.std::__1::__tree_node\"*\l  ret %\"class.std::__1::__tree_node\"* %2\l}"];
+}

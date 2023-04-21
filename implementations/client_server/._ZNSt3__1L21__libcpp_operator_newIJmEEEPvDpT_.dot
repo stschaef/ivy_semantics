@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__1L21__libcpp_operator_newIJmEEEPvDpT_' function" {
+	label="CFG for '_ZNSt3__1L21__libcpp_operator_newIJmEEEPvDpT_' function";
+
+	Node0x60000255de00 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %__args.addr = alloca i64, align 8\l  store i64 %__args, i64* %__args.addr, align 8\l  %0 = load i64, i64* %__args.addr, align 8\l  %call = call noalias noundef nonnull i8* @_Znwm(i64 noundef %0) #17\l  ret i8* %call\l}"];
+}

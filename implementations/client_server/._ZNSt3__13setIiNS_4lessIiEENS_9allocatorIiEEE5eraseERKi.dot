@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__13setIiNS_4lessIiEENS_9allocatorIiEEE5eraseERKi' function" {
+	label="CFG for '_ZNSt3__13setIiNS_4lessIiEENS_9allocatorIiEEE5eraseERKi' function";
+
+	Node0x600002556dc0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %this.addr = alloca %\"class.std::__1::set\"*, align 8\l  %__k.addr = alloca i32*, align 8\l  store %\"class.std::__1::set\"* %this, %\"class.std::__1::set\"** %this.addr,\l... align 8\l  store i32* %__k, i32** %__k.addr, align 8\l  %this1 = load %\"class.std::__1::set\"*, %\"class.std::__1::set\"** %this.addr,\l... align 8\l  %__tree_ = getelementptr inbounds %\"class.std::__1::set\",\l... %\"class.std::__1::set\"* %this1, i32 0, i32 0\l  %0 = load i32*, i32** %__k.addr, align 8\l  %call = call noundef i64\l... @_ZNSt3__16__treeIiNS_4lessIiEENS_9allocatorIiEEE14__erase_uniqueIiEEmRKT_(%\"c\l...lass.std::__1::__tree\"* noundef nonnull align 8 dereferenceable(24) %__tree_,\l... i32* noundef nonnull align 4 dereferenceable(4) %0)\l  ret i64 %call\l}"];
+}

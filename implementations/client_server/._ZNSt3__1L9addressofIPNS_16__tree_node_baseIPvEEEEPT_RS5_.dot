@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__1L9addressofIPNS_16__tree_node_baseIPvEEEEPT_RS5_' function" {
+	label="CFG for '_ZNSt3__1L9addressofIPNS_16__tree_node_baseIPvEEEEPT_RS5_' function";
+
+	Node0x60000255cc80 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %__x.addr = alloca %\"class.std::__1::__tree_node_base\"**, align 8\l  store %\"class.std::__1::__tree_node_base\"** %__x,\l... %\"class.std::__1::__tree_node_base\"*** %__x.addr, align 8\l  %0 = load %\"class.std::__1::__tree_node_base\"**,\l... %\"class.std::__1::__tree_node_base\"*** %__x.addr, align 8\l  ret %\"class.std::__1::__tree_node_base\"** %0\l}"];
+}

@@ -1,0 +1,5 @@
+digraph "CFG for '_ZL12_OSSwapInt16t' function" {
+	label="CFG for '_ZL12_OSSwapInt16t' function";
+
+	Node0x600002554980 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %_data.addr = alloca i16, align 2\l  store i16 %_data, i16* %_data.addr, align 2\l  %0 = load i16, i16* %_data.addr, align 2\l  %conv = zext i16 %0 to i32\l  %shl = shl i32 %conv, 8\l  %1 = load i16, i16* %_data.addr, align 2\l  %conv1 = zext i16 %1 to i32\l  %shr = ashr i32 %conv1, 8\l  %or = or i32 %shl, %shr\l  %conv2 = trunc i32 %or to i16\l  ret i16 %conv2\l}"];
+}

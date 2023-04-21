@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE5rdbufEv' function" {
+	label="CFG for '_ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE5rdbufEv' function";
+
+	Node0x6000004dd600 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %this.addr = alloca %\"class.std::__1::basic_ios\"*, align 8\l  store %\"class.std::__1::basic_ios\"* %this, %\"class.std::__1::basic_ios\"**\l... %this.addr, align 8\l  %this1 = load %\"class.std::__1::basic_ios\"*, %\"class.std::__1::basic_ios\"**\l... %this.addr, align 8\l  %0 = bitcast %\"class.std::__1::basic_ios\"* %this1 to\l... %\"class.std::__1::ios_base\"*\l  %call = call noundef i8*\l... @_ZNKSt3__18ios_base5rdbufEv(%\"class.std::__1::ios_base\"* noundef nonnull\l... align 8 dereferenceable(136) %0)\l  %1 = bitcast i8* %call to %\"class.std::__1::basic_streambuf\"*\l  ret %\"class.std::__1::basic_streambuf\"* %1\l}"];
+}

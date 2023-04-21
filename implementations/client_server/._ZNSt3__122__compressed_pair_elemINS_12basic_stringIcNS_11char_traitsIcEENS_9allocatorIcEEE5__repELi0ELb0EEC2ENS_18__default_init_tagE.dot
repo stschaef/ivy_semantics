@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__122__compressed_pair_elemINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repELi0ELb0EEC2ENS_18__default_init_tagE' function" {
+	label="CFG for '_ZNSt3__122__compressed_pair_elemINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repELi0ELb0EEC2ENS_18__default_init_tagE' function";
+
+	Node0x6000004dc940 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %0 = alloca %\"struct.std::__1::__default_init_tag\", align 1\l  %this.addr = alloca %\"struct.std::__1::__compressed_pair_elem\"*, align 8\l  store %\"struct.std::__1::__compressed_pair_elem\"* %this,\l... %\"struct.std::__1::__compressed_pair_elem\"** %this.addr, align 8\l  %this1 = load %\"struct.std::__1::__compressed_pair_elem\"*,\l... %\"struct.std::__1::__compressed_pair_elem\"** %this.addr, align 8\l  %__value_ = getelementptr inbounds\l... %\"struct.std::__1::__compressed_pair_elem\",\l... %\"struct.std::__1::__compressed_pair_elem\"* %this1, i32 0, i32 0\l  ret %\"struct.std::__1::__compressed_pair_elem\"* %this1\l}"];
+}

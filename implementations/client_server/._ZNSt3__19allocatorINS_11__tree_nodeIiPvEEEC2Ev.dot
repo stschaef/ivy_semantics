@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__19allocatorINS_11__tree_nodeIiPvEEEC2Ev' function" {
+	label="CFG for '_ZNSt3__19allocatorINS_11__tree_nodeIiPvEEEC2Ev' function";
+
+	Node0x600002550840 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %this.addr = alloca %\"class.std::__1::allocator\"*, align 8\l  store %\"class.std::__1::allocator\"* %this, %\"class.std::__1::allocator\"**\l... %this.addr, align 8\l  %this1 = load %\"class.std::__1::allocator\"*, %\"class.std::__1::allocator\"**\l... %this.addr, align 8\l  %0 = bitcast %\"class.std::__1::allocator\"* %this1 to\l... %\"struct.std::__1::__non_trivial_if\"*\l  %call = call noundef %\"struct.std::__1::__non_trivial_if\"*\l... @_ZNSt3__116__non_trivial_ifILb1ENS_9allocatorINS_11__tree_nodeIiPvEEEEEC2Ev(%\l...\"struct.std::__1::__non_trivial_if\"* noundef nonnull align 1\l... dereferenceable(1) %0) #8\l  ret %\"class.std::__1::allocator\"* %this1\l}"];
+}

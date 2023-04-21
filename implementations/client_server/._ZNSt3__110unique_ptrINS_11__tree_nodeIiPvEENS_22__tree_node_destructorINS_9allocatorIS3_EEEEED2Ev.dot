@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__110unique_ptrINS_11__tree_nodeIiPvEENS_22__tree_node_destructorINS_9allocatorIS3_EEEEED2Ev' function" {
+	label="CFG for '_ZNSt3__110unique_ptrINS_11__tree_nodeIiPvEENS_22__tree_node_destructorINS_9allocatorIS3_EEEEED2Ev' function";
+
+	Node0x600002558000 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %this.addr = alloca %\"class.std::__1::unique_ptr\"*, align 8\l  store %\"class.std::__1::unique_ptr\"* %this, %\"class.std::__1::unique_ptr\"**\l... %this.addr, align 8\l  %this1 = load %\"class.std::__1::unique_ptr\"*,\l... %\"class.std::__1::unique_ptr\"** %this.addr, align 8\l  call void\l... @_ZNSt3__110unique_ptrINS_11__tree_nodeIiPvEENS_22__tree_node_destructorINS_9a\l...llocatorIS3_EEEEE5resetEPS3_(%\"class.std::__1::unique_ptr\"* noundef nonnull\l... align 8 dereferenceable(24) %this1, %\"class.std::__1::__tree_node\"* noundef\l... null) #8\l  ret %\"class.std::__1::unique_ptr\"* %this1\l}"];
+}

@@ -1,0 +1,9 @@
+digraph "CFG for '_ZNSt3__19allocatorINS_11__tree_nodeIiPvEEE10deallocateEPS3_m' function" {
+	label="CFG for '_ZNSt3__19allocatorINS_11__tree_nodeIiPvEEE10deallocateEPS3_m' function";
+
+	Node0x600002551c80 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %this.addr = alloca %\"class.std::__1::allocator\"*, align 8\l  %__p.addr = alloca %\"class.std::__1::__tree_node\"*, align 8\l  %__n.addr = alloca i64, align 8\l  store %\"class.std::__1::allocator\"* %this, %\"class.std::__1::allocator\"**\l... %this.addr, align 8\l  store %\"class.std::__1::__tree_node\"* %__p, %\"class.std::__1::__tree_node\"**\l... %__p.addr, align 8\l  store i64 %__n, i64* %__n.addr, align 8\l  %this1 = load %\"class.std::__1::allocator\"*, %\"class.std::__1::allocator\"**\l... %this.addr, align 8\l  %0 = load %\"class.std::__1::__tree_node\"*, %\"class.std::__1::__tree_node\"**\l... %__p.addr, align 8\l  %1 = bitcast %\"class.std::__1::__tree_node\"* %0 to i8*\l  %2 = load i64, i64* %__n.addr, align 8\l  %mul = mul i64 %2, 32\l  invoke void @_ZNSt3__1L19__libcpp_deallocateEPvmm(i8* noundef %1, i64\l... noundef %mul, i64 noundef 8)\l          to label %invoke.cont unwind label %terminate.lpad\l}"];
+	Node0x600002551c80 -> Node0x600002551cc0;
+	Node0x600002551c80 -> Node0x600002551d00;
+	Node0x600002551cc0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{invoke.cont:                                      \l  ret void\l}"];
+	Node0x600002551d00 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#6687ed70",label="{terminate.lpad:                                   \l  %3 = landingpad \{ i8*, i32 \}\l          catch i8* null\l  %4 = extractvalue \{ i8*, i32 \} %3, 0\l  call void @__clang_call_terminate(i8* %4) #17\l  unreachable\l}"];
+}

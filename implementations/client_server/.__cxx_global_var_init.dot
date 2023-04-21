@@ -1,0 +1,5 @@
+digraph "CFG for '__cxx_global_var_init' function" {
+	label="CFG for '__cxx_global_var_init' function";
+
+	Node0x6000025552c0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %call = call noundef %\"class.std::__1::set\"*\l... @_ZNSt3__13setIiNS_4lessIiEENS_9allocatorIiEEEC1Ev(%\"class.std::__1::set\"*\l... noundef nonnull align 8 dereferenceable(24) @connections) #8\l  %0 = call i32 @__cxa_atexit(void (i8*)* bitcast (%\"class.std::__1::set\"*\l... (%\"class.std::__1::set\"*)* @_ZNSt3__13setIiNS_4lessIiEENS_9allocatorIiEEED1Ev\l... to void (i8*)*), i8* bitcast (%\"class.std::__1::set\"* @connections to i8*),\l... i8* @__dso_handle) #8\l  ret void\l}"];
+}

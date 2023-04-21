@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__1L7forwardINS_22__tree_node_destructorINS_9allocatorINS_11__tree_nodeIiPvEEEEEEEEOT_RNS_16remove_referenceIS8_E4typeE' function" {
+	label="CFG for '_ZNSt3__1L7forwardINS_22__tree_node_destructorINS_9allocatorINS_11__tree_nodeIiPvEEEEEEEEOT_RNS_16remove_referenceIS8_E4typeE' function";
+
+	Node0x60000255e5c0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %__t.addr = alloca %\"class.std::__1::__tree_node_destructor\"*, align 8\l  store %\"class.std::__1::__tree_node_destructor\"* %__t,\l... %\"class.std::__1::__tree_node_destructor\"** %__t.addr, align 8\l  %0 = load %\"class.std::__1::__tree_node_destructor\"*,\l... %\"class.std::__1::__tree_node_destructor\"** %__t.addr, align 8\l  ret %\"class.std::__1::__tree_node_destructor\"* %0\l}"];
+}

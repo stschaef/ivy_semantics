@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__1L9use_facetINS_5ctypeIcEEEERKT_RKNS_6localeE' function" {
+	label="CFG for '_ZNSt3__1L9use_facetINS_5ctypeIcEEEERKT_RKNS_6localeE' function";
+
+	Node0x6000004dd4c0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %__l.addr = alloca %\"class.std::__1::locale\"*, align 8\l  store %\"class.std::__1::locale\"* %__l, %\"class.std::__1::locale\"**\l... %__l.addr, align 8\l  %0 = load %\"class.std::__1::locale\"*, %\"class.std::__1::locale\"** %__l.addr,\l... align 8\l  %call = call noundef %\"class.std::__1::locale::facet\"*\l... @_ZNKSt3__16locale9use_facetERNS0_2idE(%\"class.std::__1::locale\"* noundef\l... nonnull align 8 dereferenceable(8) %0, %\"class.std::__1::locale::id\"* noundef\l... nonnull align 8 dereferenceable(12) @_ZNSt3__15ctypeIcE2idE)\l  %1 = bitcast %\"class.std::__1::locale::facet\"* %call to\l... %\"class.std::__1::ctype\"*\l  ret %\"class.std::__1::ctype\"* %1\l}"];
+}

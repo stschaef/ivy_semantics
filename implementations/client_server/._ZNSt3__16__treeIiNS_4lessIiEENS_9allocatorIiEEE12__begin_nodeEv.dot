@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__16__treeIiNS_4lessIiEENS_9allocatorIiEEE12__begin_nodeEv' function" {
+	label="CFG for '_ZNSt3__16__treeIiNS_4lessIiEENS_9allocatorIiEEE12__begin_nodeEv' function";
+
+	Node0x6000025503c0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %this.addr = alloca %\"class.std::__1::__tree\"*, align 8\l  store %\"class.std::__1::__tree\"* %this, %\"class.std::__1::__tree\"**\l... %this.addr, align 8\l  %this1 = load %\"class.std::__1::__tree\"*, %\"class.std::__1::__tree\"**\l... %this.addr, align 8\l  %__begin_node_ = getelementptr inbounds %\"class.std::__1::__tree\",\l... %\"class.std::__1::__tree\"* %this1, i32 0, i32 0\l  ret %\"class.std::__1::__tree_end_node\"** %__begin_node_\l}"];
+}

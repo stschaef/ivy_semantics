@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__115__tree_end_nodeIPNS_16__tree_node_baseIPvEEEC1Ev' function" {
+	label="CFG for '_ZNSt3__115__tree_end_nodeIPNS_16__tree_node_baseIPvEEEC1Ev' function";
+
+	Node0x6000025506c0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %this.addr = alloca %\"class.std::__1::__tree_end_node\"*, align 8\l  store %\"class.std::__1::__tree_end_node\"* %this,\l... %\"class.std::__1::__tree_end_node\"** %this.addr, align 8\l  %this1 = load %\"class.std::__1::__tree_end_node\"*,\l... %\"class.std::__1::__tree_end_node\"** %this.addr, align 8\l  %call = call noundef %\"class.std::__1::__tree_end_node\"*\l... @_ZNSt3__115__tree_end_nodeIPNS_16__tree_node_baseIPvEEEC2Ev(%\"class.std::__1:\l...:__tree_end_node\"* noundef nonnull align 8 dereferenceable(8) %this1) #8\l  ret %\"class.std::__1::__tree_end_node\"* %this1\l}"];
+}

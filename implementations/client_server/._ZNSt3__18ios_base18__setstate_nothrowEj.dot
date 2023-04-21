@@ -1,0 +1,12 @@
+digraph "CFG for '_ZNSt3__18ios_base18__setstate_nothrowEj' function" {
+	label="CFG for '_ZNSt3__18ios_base18__setstate_nothrowEj' function";
+
+	Node0x6000004ddf00 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %this.addr = alloca %\"class.std::__1::ios_base\"*, align 8\l  %__state.addr = alloca i32, align 4\l  store %\"class.std::__1::ios_base\"* %this, %\"class.std::__1::ios_base\"**\l... %this.addr, align 8\l  store i32 %__state, i32* %__state.addr, align 4\l  %this1 = load %\"class.std::__1::ios_base\"*, %\"class.std::__1::ios_base\"**\l... %this.addr, align 8\l  %__rdbuf_ = getelementptr inbounds %\"class.std::__1::ios_base\",\l... %\"class.std::__1::ios_base\"* %this1, i32 0, i32 6\l  %0 = load i8*, i8** %__rdbuf_, align 8\l  %tobool = icmp ne i8* %0, null\l  br i1 %tobool, label %if.then, label %if.else\l|{<s0>T|<s1>F}}"];
+	Node0x6000004ddf00:s0 -> Node0x6000004ddf40;
+	Node0x6000004ddf00:s1 -> Node0x6000004ddf80;
+	Node0x6000004ddf40 [shape=record,color="#b70d28ff", style=filled, fillcolor="#e8765c70",label="{if.then:                                          \l  %1 = load i32, i32* %__state.addr, align 4\l  %__rdstate_ = getelementptr inbounds %\"class.std::__1::ios_base\",\l... %\"class.std::__1::ios_base\"* %this1, i32 0, i32 4\l  %2 = load i32, i32* %__rdstate_, align 8\l  %or = or i32 %2, %1\l  store i32 %or, i32* %__rdstate_, align 8\l  br label %if.end\l}"];
+	Node0x6000004ddf40 -> Node0x6000004ddfc0;
+	Node0x6000004ddf80 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#f7b39670",label="{if.else:                                          \l  %3 = load i32, i32* %__state.addr, align 4\l  %or2 = or i32 %3, 1\l  %__rdstate_3 = getelementptr inbounds %\"class.std::__1::ios_base\",\l... %\"class.std::__1::ios_base\"* %this1, i32 0, i32 4\l  %4 = load i32, i32* %__rdstate_3, align 8\l  %or4 = or i32 %4, %or2\l  store i32 %or4, i32* %__rdstate_3, align 8\l  br label %if.end\l}"];
+	Node0x6000004ddf80 -> Node0x6000004ddfc0;
+	Node0x6000004ddfc0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{if.end:                                           \l  ret void\l}"];
+}

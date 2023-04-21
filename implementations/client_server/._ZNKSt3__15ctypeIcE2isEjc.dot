@@ -1,0 +1,12 @@
+digraph "CFG for '_ZNKSt3__15ctypeIcE2isEjc' function" {
+	label="CFG for '_ZNKSt3__15ctypeIcE2isEjc' function";
+
+	Node0x6000004ddac0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %this.addr = alloca %\"class.std::__1::ctype\"*, align 8\l  %__m.addr = alloca i32, align 4\l  %__c.addr = alloca i8, align 1\l  store %\"class.std::__1::ctype\"* %this, %\"class.std::__1::ctype\"**\l... %this.addr, align 8\l  store i32 %__m, i32* %__m.addr, align 4\l  store i8 %__c, i8* %__c.addr, align 1\l  %this1 = load %\"class.std::__1::ctype\"*, %\"class.std::__1::ctype\"**\l... %this.addr, align 8\l  %0 = load i8, i8* %__c.addr, align 1\l  %conv = sext i8 %0 to i32\l  %call = call noundef i32 @_Z7isasciii(i32 noundef %conv)\l  %tobool = icmp ne i32 %call, 0\l  br i1 %tobool, label %cond.true, label %cond.false\l|{<s0>T|<s1>F}}"];
+	Node0x6000004ddac0:s0 -> Node0x6000004ddb40;
+	Node0x6000004ddac0:s1 -> Node0x6000004ddb80;
+	Node0x6000004ddb40 [shape=record,color="#b70d28ff", style=filled, fillcolor="#e8765c70",label="{cond.true:                                        \l  %__tab_ = getelementptr inbounds %\"class.std::__1::ctype\",\l... %\"class.std::__1::ctype\"* %this1, i32 0, i32 1\l  %1 = load i32*, i32** %__tab_, align 8\l  %2 = load i8, i8* %__c.addr, align 1\l  %conv2 = sext i8 %2 to i32\l  %idxprom = sext i32 %conv2 to i64\l  %arrayidx = getelementptr inbounds i32, i32* %1, i64 %idxprom\l  %3 = load i32, i32* %arrayidx, align 4\l  %4 = load i32, i32* %__m.addr, align 4\l  %and = and i32 %3, %4\l  %cmp = icmp ne i32 %and, 0\l  br label %cond.end\l}"];
+	Node0x6000004ddb40 -> Node0x6000004ddc00;
+	Node0x6000004ddb80 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#f7b39670",label="{cond.false:                                       \l  br label %cond.end\l}"];
+	Node0x6000004ddb80 -> Node0x6000004ddc00;
+	Node0x6000004ddc00 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{cond.end:                                         \l  %cond = phi i1 [ %cmp, %cond.true ], [ false, %cond.false ]\l  ret i1 %cond\l}"];
+}

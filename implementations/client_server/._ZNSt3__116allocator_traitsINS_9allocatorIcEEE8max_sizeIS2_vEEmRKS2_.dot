@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__116allocator_traitsINS_9allocatorIcEEE8max_sizeIS2_vEEmRKS2_' function" {
+	label="CFG for '_ZNSt3__116allocator_traitsINS_9allocatorIcEEE8max_sizeIS2_vEEmRKS2_' function";
+
+	Node0x6000004debc0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %__a.addr = alloca %\"class.std::__1::allocator\"*, align 8\l  store %\"class.std::__1::allocator\"* %__a, %\"class.std::__1::allocator\"**\l... %__a.addr, align 8\l  %0 = load %\"class.std::__1::allocator\"*, %\"class.std::__1::allocator\"**\l... %__a.addr, align 8\l  %call = call noundef i64\l... @_ZNKSt3__19allocatorIcE8max_sizeEv(%\"class.std::__1::allocator\"* noundef\l... nonnull align 1 dereferenceable(1) %0) #11\l  ret i64 %call\l}"];
+}

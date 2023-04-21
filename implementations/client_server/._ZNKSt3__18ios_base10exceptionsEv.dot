@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNKSt3__18ios_base10exceptionsEv' function" {
+	label="CFG for '_ZNKSt3__18ios_base10exceptionsEv' function";
+
+	Node0x6000004df280 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %this.addr = alloca %\"class.std::__1::ios_base\"*, align 8\l  store %\"class.std::__1::ios_base\"* %this, %\"class.std::__1::ios_base\"**\l... %this.addr, align 8\l  %this1 = load %\"class.std::__1::ios_base\"*, %\"class.std::__1::ios_base\"**\l... %this.addr, align 8\l  %__exceptions_ = getelementptr inbounds %\"class.std::__1::ios_base\",\l... %\"class.std::__1::ios_base\"* %this1, i32 0, i32 5\l  %0 = load i32, i32* %__exceptions_, align 4\l  ret i32 %0\l}"];
+}

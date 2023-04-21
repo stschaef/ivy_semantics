@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__116allocator_traitsINS_9allocatorINS_11__tree_nodeIiPvEEEEE7destroyIivvEEvRS5_PT_' function" {
+	label="CFG for '_ZNSt3__116allocator_traitsINS_9allocatorINS_11__tree_nodeIiPvEEEEE7destroyIivvEEvRS5_PT_' function";
+
+	Node0x600002551880 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %.addr = alloca %\"class.std::__1::allocator\"*, align 8\l  %__p.addr = alloca i32*, align 8\l  store %\"class.std::__1::allocator\"* %0, %\"class.std::__1::allocator\"**\l... %.addr, align 8\l  store i32* %__p, i32** %__p.addr, align 8\l  %1 = load i32*, i32** %__p.addr, align 8\l  ret void\l}"];
+}

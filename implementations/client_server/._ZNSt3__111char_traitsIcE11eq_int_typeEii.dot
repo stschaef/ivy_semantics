@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__111char_traitsIcE11eq_int_typeEii' function" {
+	label="CFG for '_ZNSt3__111char_traitsIcE11eq_int_typeEii' function";
+
+	Node0x6000004dd900 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %__c1.addr = alloca i32, align 4\l  %__c2.addr = alloca i32, align 4\l  store i32 %__c1, i32* %__c1.addr, align 4\l  store i32 %__c2, i32* %__c2.addr, align 4\l  %0 = load i32, i32* %__c1.addr, align 4\l  %1 = load i32, i32* %__c2.addr, align 4\l  %cmp = icmp eq i32 %0, %1\l  ret i1 %cmp\l}"];
+}
