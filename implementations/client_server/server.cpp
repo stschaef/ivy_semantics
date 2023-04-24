@@ -11,12 +11,15 @@
 static const size_t MAX_MESSAGE_SIZE = 256;
 
 bool SEMAPHORE = true;
-std::set <int> connections;
+int connected = -1;
 
 void print_connections() {
-    printf("Connections: ");
-    for (auto it = connections.begin(); it != connections.end(); it++) {
-        printf("%d ", *it);
+    printf("Connected to: ");
+    if (connected != -1) {
+        printf("%d ", connected);
+    }
+    else {
+        printf("none");
     }
     printf("\n");
 }
@@ -62,14 +65,14 @@ int handle_connection(int connectionfd) {
         if (SEMAPHORE) {
             printf("Client %d is connected\n", client_id);
             SEMAPHORE = false;
-            connections.insert(client_id);
+            connected = client_id;
         } else {
             printf("Server already connected. Client %d is rejected\n", client_id);
         }
     }
     if (strcmp(command, "disconnect") == 0) {
-        if (connections.find(client_id) != connections.end()) {
-            connections.erase(client_id);
+        if (connected == client_id) {
+            connected = -1;
             SEMAPHORE = true;
             printf("Client %d is disconnected\n", client_id);
         }
