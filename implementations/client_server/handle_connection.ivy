@@ -21,3 +21,10 @@ action handle_connection (client_id : int, receiver : server, com : command) = {
        semaphore(server) = true;
     }
 }
+
+# Want the invariant
+# unique client connections to any given server
+# something like (this is not proper syntax!)
+# forall c1 . c2 . connected(c1) && connected(c2) -> c1 = c2
+
+# likewise want that you cannot disconnect from a server that you're not connected to
