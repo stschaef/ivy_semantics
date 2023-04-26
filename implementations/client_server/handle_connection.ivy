@@ -1,0 +1,23 @@
+#lang ivy1.7
+
+type client
+type server
+type command = {CONNECT,DISCONNECT,OTHER}
+
+relation pending_message(int, server, command)
+relation semaphore(server)
+function connected(server) : int
+
+
+action handle_connection (client_id : int, receiver : server, com : command) = {
+    requires pending_message(client_id, receiver, com);
+
+    if (command == CONNECT) {
+       semaphore(server) := false;
+       connected(server) := client_id;
+    }
+    if (command == DISCONNECT) {
+       connected(server) := -1; # how to handle ??
+       semaphore(server) = true;
+    }
+}
