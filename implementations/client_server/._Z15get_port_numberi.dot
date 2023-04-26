@@ -1,19 +1,19 @@
 digraph "CFG for '_Z15get_port_numberi' function" {
 	label="CFG for '_Z15get_port_numberi' function";
 
-	Node0x600002554f00 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %retval = alloca i32, align 4\l  %sockfd.addr = alloca i32, align 4\l  %addr = alloca %struct.sockaddr_in, align 4\l  %length = alloca i32, align 4\l  store i32 %sockfd, i32* %sockfd.addr, align 4\l  store i32 16, i32* %length, align 4\l  %0 = load i32, i32* %sockfd.addr, align 4\l  %1 = bitcast %struct.sockaddr_in* %addr to %struct.sockaddr*\l  %call = call i32 @\"\\01_getsockname\"(i32 noundef %0, %struct.sockaddr*\l... noundef %1, i32* noundef %length)\l  %cmp = icmp eq i32 %call, -1\l  br i1 %cmp, label %if.then, label %if.end\l|{<s0>T|<s1>F}}"];
-	Node0x600002554f00:s0 -> Node0x600002554f80;
-	Node0x600002554f00:s1 -> Node0x600002554fc0;
-	Node0x600002554f80 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#c7d7f070",label="{if.then:                                          \l  call void @perror(i8* noundef getelementptr inbounds ([29 x i8], [29 x i8]*\l... @.str.1, i64 0, i64 0)) #17\l  store i32 -1, i32* %retval, align 4\l  br label %return\l}"];
-	Node0x600002554f80 -> Node0x600002555040;
-	Node0x600002554fc0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#bb1b2c70",label="{if.end:                                           \l  %sin_port = getelementptr inbounds %struct.sockaddr_in, %struct.sockaddr_in*\l... %addr, i32 0, i32 2\l  %2 = load i16, i16* %sin_port, align 2\l  %3 = call i1 @llvm.is.constant.i16(i16 %2)\l  br i1 %3, label %cond.true, label %cond.false\l|{<s0>T|<s1>F}}"];
-	Node0x600002554fc0:s0 -> Node0x6000025550c0;
-	Node0x600002554fc0:s1 -> Node0x600002555100;
-	Node0x6000025550c0 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#e5705870",label="{cond.true:                                        \l  %sin_port1 = getelementptr inbounds %struct.sockaddr_in,\l... %struct.sockaddr_in* %addr, i32 0, i32 2\l  %4 = load i16, i16* %sin_port1, align 2\l  %conv = zext i16 %4 to i32\l  %and = and i32 %conv, 65280\l  %shr = lshr i32 %and, 8\l  %sin_port2 = getelementptr inbounds %struct.sockaddr_in,\l... %struct.sockaddr_in* %addr, i32 0, i32 2\l  %5 = load i16, i16* %sin_port2, align 2\l  %conv3 = zext i16 %5 to i32\l  %and4 = and i32 %conv3, 255\l  %shl = shl i32 %and4, 8\l  %or = or i32 %shr, %shl\l  %conv5 = trunc i32 %or to i16\l  br label %cond.end\l}"];
-	Node0x6000025550c0 -> Node0x600002555180;
-	Node0x600002555100 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#e5705870",label="{cond.false:                                       \l  %sin_port6 = getelementptr inbounds %struct.sockaddr_in,\l... %struct.sockaddr_in* %addr, i32 0, i32 2\l  %6 = load i16, i16* %sin_port6, align 2\l  %call7 = call noundef zeroext i16 @_ZL12_OSSwapInt16t(i16 noundef zeroext %6)\l  br label %cond.end\l}"];
-	Node0x600002555100 -> Node0x600002555180;
-	Node0x600002555180 [shape=record,color="#b70d28ff", style=filled, fillcolor="#bb1b2c70",label="{cond.end:                                         \l  %cond = phi i16 [ %conv5, %cond.true ], [ %call7, %cond.false ]\l  %conv8 = zext i16 %cond to i32\l  store i32 %conv8, i32* %retval, align 4\l  br label %return\l}"];
-	Node0x600002555180 -> Node0x600002555040;
-	Node0x600002555040 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{return:                                           \l  %7 = load i32, i32* %retval, align 4\l  ret i32 %7\l}"];
+	Node0x600003e78e40 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %retval = alloca i32, align 4\l  %sockfd.addr = alloca i32, align 4\l  %addr = alloca %struct.sockaddr_in, align 4\l  %length = alloca i32, align 4\l  store i32 %sockfd, i32* %sockfd.addr, align 4\l  store i32 16, i32* %length, align 4\l  %0 = load i32, i32* %sockfd.addr, align 4\l  %1 = bitcast %struct.sockaddr_in* %addr to %struct.sockaddr*\l  %call = call i32 @\"\\01_getsockname\"(i32 noundef %0, %struct.sockaddr*\l... noundef %1, i32* noundef %length)\l  %cmp = icmp eq i32 %call, -1\l  br i1 %cmp, label %if.then, label %if.end\l|{<s0>T|<s1>F}}"];
+	Node0x600003e78e40:s0 -> Node0x600003e78ec0;
+	Node0x600003e78e40:s1 -> Node0x600003e78f00;
+	Node0x600003e78ec0 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#c7d7f070",label="{if.then:                                          \l  call void @perror(i8* noundef getelementptr inbounds ([29 x i8], [29 x i8]*\l... @.str.1, i64 0, i64 0)) #11\l  store i32 -1, i32* %retval, align 4\l  br label %return\l}"];
+	Node0x600003e78ec0 -> Node0x600003e78f80;
+	Node0x600003e78f00 [shape=record,color="#b70d28ff", style=filled, fillcolor="#bb1b2c70",label="{if.end:                                           \l  %sin_port = getelementptr inbounds %struct.sockaddr_in, %struct.sockaddr_in*\l... %addr, i32 0, i32 2\l  %2 = load i16, i16* %sin_port, align 2\l  %3 = call i1 @llvm.is.constant.i16(i16 %2)\l  br i1 %3, label %cond.true, label %cond.false\l|{<s0>T|<s1>F}}"];
+	Node0x600003e78f00:s0 -> Node0x600003e79000;
+	Node0x600003e78f00:s1 -> Node0x600003e79040;
+	Node0x600003e79000 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#e5705870",label="{cond.true:                                        \l  %sin_port1 = getelementptr inbounds %struct.sockaddr_in,\l... %struct.sockaddr_in* %addr, i32 0, i32 2\l  %4 = load i16, i16* %sin_port1, align 2\l  %conv = zext i16 %4 to i32\l  %and = and i32 %conv, 65280\l  %shr = lshr i32 %and, 8\l  %sin_port2 = getelementptr inbounds %struct.sockaddr_in,\l... %struct.sockaddr_in* %addr, i32 0, i32 2\l  %5 = load i16, i16* %sin_port2, align 2\l  %conv3 = zext i16 %5 to i32\l  %and4 = and i32 %conv3, 255\l  %shl = shl i32 %and4, 8\l  %or = or i32 %shr, %shl\l  %conv5 = trunc i32 %or to i16\l  br label %cond.end\l}"];
+	Node0x600003e79000 -> Node0x600003e790c0;
+	Node0x600003e79040 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#e5705870",label="{cond.false:                                       \l  %sin_port6 = getelementptr inbounds %struct.sockaddr_in,\l... %struct.sockaddr_in* %addr, i32 0, i32 2\l  %6 = load i16, i16* %sin_port6, align 2\l  %call7 = call noundef zeroext i16 @_ZL12_OSSwapInt16t(i16 noundef zeroext %6)\l  br label %cond.end\l}"];
+	Node0x600003e79040 -> Node0x600003e790c0;
+	Node0x600003e790c0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#bb1b2c70",label="{cond.end:                                         \l  %cond = phi i16 [ %conv5, %cond.true ], [ %call7, %cond.false ]\l  %conv8 = zext i16 %cond to i32\l  store i32 %conv8, i32* %retval, align 4\l  br label %return\l}"];
+	Node0x600003e790c0 -> Node0x600003e78f80;
+	Node0x600003e78f80 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{return:                                           \l  %7 = load i32, i32* %retval, align 4\l  ret i32 %7\l}"];
 }

@@ -1,0 +1,21 @@
+#+title: Ironfleet Network Axioms
+* What is Ironfleet?
+Ironfleet formally verifies that the implementation of a distributed system meets a given high-level specification. Ironfleet uses a /concurrency containment/ strategy. Use TLA-style refinement to reason about concurrency, then use Floyd-Hoare logic to reason about sandboxed units of concurrency.
+** How does it model the network?
+I cannot find direct axioms modelling the network, but this seems to be the attitude. The network may arbitrarily delay, drop, or duplicate packets; however, we assume that packets are correct. These seem to be modeled with sent-message predicates that are never tripped to be false. Meaning, even as the state evolves, we may read the sent message history in the state.
+
+This is consistent with the work with Karem. All of the protocol examples we saw modeled this by setting a message boolean indexed at some epoch.
+
+Section 6.1 of the Ironfleet paper suggests making invariants reason over sets of messages rather than indiviudal messages themselves. That is, reason over these message histories rather than a mutable message variable.
+
+Section 6.2 --- modeling imperative code functionally --- sounds lovely, but does not vibe with C.
+* Some guesses toward axioms for client-server
+** `handle_connection`
+We can block off lines 44-57 as a unit. Possibly even more code.
+
+This corresponds to something like an action in Ivy that has a requires clause involving a message-sent predicate indexed with the appropriate client and server. Unclear how to handle closing connections.
+
+We might want finer grain networking predicates to more closely mirror TCP or UDP; however, at first glance I don't think this is necessary because any intricate reasoning for why a packet got dropped is modeled by the non-deterministic invocaiton of an action enabled with a `requires` clause.
+
+Need a discrete time step tied to each message, or other order-disambiguating nonce. Can definitely access the time a server receives a message, and the sent packets are probably tagged with a time.
+*** TODO Generate another CFG

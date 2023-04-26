@@ -1,5 +1,5 @@
 digraph "CFG for '_Z7isasciii' function" {
 	label="CFG for '_Z7isasciii' function";
 
-	Node0x6000004df1c0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %_c.addr = alloca i32, align 4\l  store i32 %_c, i32* %_c.addr, align 4\l  %0 = load i32, i32* %_c.addr, align 4\l  %and = and i32 %0, -128\l  %cmp = icmp eq i32 %and, 0\l  %conv = zext i1 %cmp to i32\l  ret i32 %conv\l}"];
+	Node0x600003e7f1c0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{entry:\l  %_c.addr = alloca i32, align 4\l  store i32 %_c, i32* %_c.addr, align 4\l  %0 = load i32, i32* %_c.addr, align 4\l  %and = and i32 %0, -128\l  %cmp = icmp eq i32 %and, 0\l  %conv = zext i1 %cmp to i32\l  ret i32 %conv\l}"];
 }

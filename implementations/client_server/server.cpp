@@ -45,6 +45,7 @@ int handle_connection(int connectionfd) {
 	// Call recv() enough times to consume all the data the client sends.
 	size_t recvd = 0;
 	ssize_t rval;
+// TODO make this a single round
 	do {
 		// Receive as many additional bytes as we can in one call to recv()
 		// (while not exceeding MAX_MESSAGE_SIZE bytes in total).
@@ -55,13 +56,21 @@ int handle_connection(int connectionfd) {
 		}
 		recvd += rval;
 	} while (rval > 0);  // recv() returns 0 when client closes
+// requires pending_message(<server_id>, <client_id>, <message>, <time>)
 
     char * command = strtok(msg, " ");
     int client_id = atoi(strtok(NULL, " "));
 
+    // msg = "connect 10"
+    // command = "connect"
+    // client_id = 10
+    // like python string.split()
+
 	// (2) Print out the message
 	printf("Client %d says '%s'\n", client_id, command);
     if (strcmp(command, "connect") == 0) {
+        // command \in type COMMAND = {connect, disconnect, garbage}
+        // command ?== connect
         if (SEMAPHORE) {
             printf("Client %d is connected\n", client_id);
             SEMAPHORE = false;
@@ -69,7 +78,7 @@ int handle_connection(int connectionfd) {
         } else {
             printf("Server already connected. Client %d is rejected\n", client_id);
         }
-    }
+   }
     if (strcmp(command, "disconnect") == 0) {
         if (connected == client_id) {
             connected = -1;
