@@ -2,29 +2,35 @@
 
 type client
 type server
-type command = {CONNECT,DISCONNECT,OTHER}
+type command = {connect,disconnect,other}
 
-relation pending_message(int, server, command)
-relation semaphore(server)
-function connected(server) : int
+relation pending_message(X:client,Y:server,Z:command)
+relation semaphore(S : server)
+relation connected(S : server, C : client)
+# if you take connected to be a function, it already presupposes that servers are connected to at most one client
 
-
-action handle_connection (client_id : int, receiver : server, com : command) = {
-    requires pending_message(client_id, receiver, com);
-
-    if (command == CONNECT) {
-       semaphore(server) := false;
-       connected(server) := client_id;
-    }
-    if (command == DISCONNECT) {
-       connected(server) := -1; # how to handle ??
-       semaphore(server) = true;
-    }
+after init {
+    semaphore(S) := true;
+    connected(S,C) := false;
 }
 
-# Want the invariant
-# unique client connections to any given server
-# something like (this is not proper syntax!)
-# forall c1 . c2 . connected(c1) && connected(c2) -> c1 = c2
+action handle_connection (clientid : client, receiver : server, com : command) = {
+    require pending_message(clientid, receiver, com);
 
-# likewise want that you cannot disconnect from a server that you're not connected to
+    if (com = connect) {
+       semaphore(receiver) := false;
+       connected(receiver,  clientid) := true;
+    }
+    if (com = disconnect) {
+       connected(receiver, clientid) := false; # how to handle ??
+       semaphore(receiver) := true;
+    }
+    pending_message(clientid, receiver, com) := false;
+}
+
+action send_message (clientid : client, receiver : server, com : command) = {
+    pending_message(clientid, receiver, com) := true;
+}
+
+
+invariant forall C1 , C2 : client , S : server . connected(S,C1) & connected(S,C2) -> C1 = C2
