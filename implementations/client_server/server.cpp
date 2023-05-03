@@ -10,8 +10,10 @@
 
 static const size_t MAX_MESSAGE_SIZE = 256;
 
+// TODO make this not uppercase
 bool SEMAPHORE = true;
 int connected = -1;
+// TODO reflect internally the server ids. prob as a command line arg
 
 void print_connections() {
     printf("Connected to: ");
@@ -46,17 +48,30 @@ int handle_connection(int connectionfd) {
 	size_t recvd = 0;
 	ssize_t rval;
 // TODO make this a single round
-	do {
-		// Receive as many additional bytes as we can in one call to recv()
-		// (while not exceeding MAX_MESSAGE_SIZE bytes in total).
-		rval = recv(connectionfd, msg + recvd, MAX_MESSAGE_SIZE - recvd, 0);
-		if (rval == -1) {
-			perror("Error reading stream message");
-			return -1;
-		}
-		recvd += rval;
-	} while (rval > 0);  // recv() returns 0 when client closes
-// requires pending_message(<server_id>, <client_id>, <message>, <time>)
+	// do {
+	// 	// Receive as many additional bytes as we can in one call to recv()
+	// 	// (while not exceeding MAX_MESSAGE_SIZE bytes in total).
+	// 	rval = recv(connectionfd, msg + recvd, MAX_MESSAGE_SIZE - recvd, 0);
+	// 	if (rval == -1) {
+	// 		perror("Error reading stream message");
+	// 		return -1;
+	// 	}
+	// 	recvd += rval;
+	// } while (rval > 0);
+    // recv() returns 0 when client closes
+
+    rval = recv(connectionfd, msg + recvd, MAX_MESSAGE_SIZE - recvd, 0);
+	if (rval == -1) {
+		perror("Error reading stream message");
+		return -1;
+    }
+    recvd += rval;
+    rval = recv(connectionfd, msg + recvd, MAX_MESSAGE_SIZE - recvd, 0);
+    if (rval != 0) {
+        perror("Error: couldn't fit message in buffer");
+        return -1;
+    }
+// Requires pending_message(<server_id>, <client_id>, <message>, <time>)
 
     char * command = strtok(msg, " ");
     int client_id = atoi(strtok(NULL, " "));
@@ -70,7 +85,13 @@ int handle_connection(int connectionfd) {
 	printf("Client %d says '%s'\n", client_id, command);
     if (strcmp(command, "connect") == 0) {
         // command \in type COMMAND = {connect, disconnect, garbage}
-        // command ?== connect
+        // command = connect
+        //
+        // Somewhat similar to symbolic execution
+        // Search through the code and find all uses of command. Splits into three cases
+        // 1. command = connect
+        // 2. command = disconnect
+        // 3. command = anything else
         if (SEMAPHORE) {
             printf("Client %d is connected\n", client_id);
             SEMAPHORE = false;
@@ -80,6 +101,7 @@ int handle_connection(int connectionfd) {
         }
    }
     if (strcmp(command, "disconnect") == 0) {
+        // command = disconnect
         if (connected == client_id) {
             connected = -1;
             SEMAPHORE = true;

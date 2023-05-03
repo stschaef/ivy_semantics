@@ -1,29 +1,44 @@
 #lang ivy1.7
 
 type client
+
+# interpret client -> int
+individual negative_one : client
+
 type server
 type command = {connect,disconnect,other}
 
 relation pending_message(X:client,Y:server,Z:command)
-relation semaphore(S : server)
-relation connected(S : server, C : client)
-# if you take connected to be a function, it already presupposes that servers are connected to at most one client
+relation semaphore(S : server) # server -> bool
+relation connected(S : server, C : client) # server -> (client -> bool)
+
+function f(S : server) : client
+
+# TODO separate out relation vs function (sets vs variable, resp)
 
 after init {
     semaphore(S) := true;
     connected(S,C) := false;
+    connected(S, negative_one) := true;
 }
 
 action handle_connection (clientid : client, receiver : server, com : command) = {
     require pending_message(clientid, receiver, com);
+    require clientid ~= negative_one;
 
     if (com = connect) {
-       semaphore(receiver) := false;
-       connected(receiver,  clientid) := true;
+       if (semaphore(receiver) = true) {
+          semaphore(receiver) := false;
+          connected(receiver,  clientid) := true;
+          connected(receiver,  negative_one) := false;
+       }
     }
     if (com = disconnect) {
-       connected(receiver, clientid) := false; # how to handle ??
-       semaphore(receiver) := true;
+       if (connected(receiver, clientid)) {
+           connected(receiver, clientid) := false;
+           connected(receiver, negative_one) := true;
+           semaphore(receiver) := true;
+        }
     }
     pending_message(clientid, receiver, com) := false;
 }
@@ -32,5 +47,13 @@ action send_message (clientid : client, receiver : server, com : command) = {
     pending_message(clientid, receiver, com) := true;
 }
 
+export handle_connection
 
-invariant forall C1 , C2 : client , S : server . connected(S,C1) & connected(S,C2) -> C1 = C2
+# invariant forall C : client . forall S : server . connected(S,C) -> ~semaphore(S)
+
+invariant [con_to_clients] forall C : client . forall S : server . (C ~= negative_one) -> (connected(S,C) -> ~semaphore(S))
+invariant [iff] forall S : server . (connected(S, negative_one) <-> ( forall C : client . (C ~= negative_one) -> ~connected(S, C)))
+invariant [safety] forall C1 : client . forall C2 : client . forall S : server . (connected(S,C1) & connected(S,C2)) -> (C1 = C2)
+
+# "servers connected to unique clients" w functions
+invariant [funcsunique] forall S : server . forall C1 , C2 : client . ((f(S) = C1) & (f(S) = C2)) -> (C1 = C2)
