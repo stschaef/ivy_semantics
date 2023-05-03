@@ -1,0 +1,323 @@
+% Created 2023-05-03 Wed 02:05
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Steven Schaefer}
+\date{\today}
+\title{Handle Connection}
+\hypersetup{
+ pdfauthor={Steven Schaefer},
+ pdftitle={Handle Connection},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.2 (Org mode 9.6.1)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{Translating from C++ to Ivy}
+\label{sec:org0bc8b58}
+
+Here we try to take the function \texttt{handle\_connection} and translate it from C++ into Ivy.
+
+\subsection{Safety}
+\label{sec:orgbca03ba}
+The safety property we want to keep in mind here is that servers are connected to a maximum of one client. That is, in Ivy,
+\begin{verbatim}
+invariant forall C1 : client . forall C2 : client . forall S : server . connected(S,C1) & connected(S,C2) -> C1 = C2
+\end{verbatim}
+\subsection{C++ Source}
+\label{sec:orgc4fc37c}
+\begin{verbatim}
+int handle_connection(int connectionfd) {
+	char msg[MAX_MESSAGE_SIZE + 1];
+	memset(msg, 0, sizeof(msg));
+
+	size_t recvd = 0;
+	ssize_t rval;
+
+    rval = recv(connectionfd, msg + recvd, MAX_MESSAGE_SIZE - recvd, 0);
+	if (rval == -1) {
+		return -1;
+    }
+    recvd += rval;
+    rval = recv(connectionfd, msg + recvd, MAX_MESSAGE_SIZE - recvd, 0);
+    if (rval != 0) {
+        return -1;
+    }
+
+    char * command = strtok(msg, " ");
+    int client_id = atoi(strtok(NULL, " "));
+
+    if (strcmp(command, "connect") == 0) {
+        if (SEMAPHORE) {
+            SEMAPHORE = false;
+            connected = client_id;
+        } else {
+          return -1;
+        }
+   }
+    if (strcmp(command, "disconnect") == 0) {
+        // command = disconnect
+        if (connected == client_id) {
+            connected = -1;
+            SEMAPHORE = true;
+        }
+        else {
+          return -1;
+        }
+    }
+	close(connectionfd);
+	return 0;
+}
+\end{verbatim}
+
+Note, for simplifying the core of this translation, from this code we have already removed unnecessary lines involving print statements and raising descriptive errors. In any sort of mechanical process, we would toss these out as extraneous information anyway.
+
+\subsection{Some Print Statements May Be Useful}
+\label{sec:org224fbed}
+
+This might prove problematic if the print statement contained semantically useful information related to the desired specification. However, in these cases we can enforce that the source code use a reserved printing function to distinguish these from extraneous prints.
+
+That is, we may use some \texttt{log()} function to represent meaningful prints whose calls should not be elided, and continue using \texttt{printf()} for ones we may freely toss out. Likewise, we will have the user distinguish important error messages/side effects from unimportant ones.
+
+\subsection{Networking}
+\label{sec:org3e0d7ee}
+\subsubsection{Form of the socket code}
+\label{sec:org4bb6a85}
+We are assuming that all of the network code is handled on the server side to boil down to a simple \texttt{pending\_message} predicate in Ivy.
+
+A first pass at this assume that all the message passing we perform in C++ takes on the same form of socket logic, and thus we only reason about this sort of style once up front. This does not generalize to all C++ programs by any means, but for verification purposes we may think of this as providing a trusted library/API used for sending/receiving messages.
+
+In particular, we assume that we see this same pattern,
+\begin{verbatim}
+size_t recvd = 0;
+ssize_t rval;
+
+rval = recv(connectionfd, msg + recvd, MAX_MESSAGE_SIZE - recvd, 0);
+if (rval == -1) {
+	return -1;
+}
+recvd += rval;
+rval = recv(connectionfd, msg + recvd, MAX_MESSAGE_SIZE - recvd, 0);
+if (rval != 0) {
+    return -1;
+}
+
+char * command = strtok(msg, " ");
+int client_id = atoi(strtok(NULL, " "));
+\end{verbatim}
+
+\subsubsection{Decoding the message}
+\label{sec:org0b7f312}
+All but the final two lines deal with receiving the message. We assume that the message is shorter than \texttt{MAX\_MESSAGE\_SIZE}. If so, and there are no errors, then the string \texttt{msg} holds the intended message.
+
+If there are any errors receiving this message, we short circuit and return -1.
+
+The final two lines deal with decoding the message (handled as a space-delimited string). We may think of this as \texttt{strtok(msg, " ")} as being a primitive notion of ``get first index of message''. Then \texttt{strtok(NULL, " ")} we may treat as another primitive that gets the next part of the message, and we must be careful to call this the correct number of times. Note we use \texttt{atoi} to cast the string to the proper type.
+
+We aren't assuming any corruption of the messages, only arbitrary delays. So, I don't think it is particular useful or interesting at the moment to verify correct decoding this message. If the developer promises to send a three argument space-delimited string such that everything is well-formatted, I'm willing to take their word that they did this encoding properly.
+
+\subsection{Declarations Used in Ivy}
+\label{sec:org10dc445}
+We have made some pretty strict assumptions on the syntax used for our socket code, but they seem reasonably fair at first glance. We might need the user to provide type annotations for the message parameters, or we can likely infer them from how the message is decoded (assuming that the message decoding process is also in a similar format)
+
+Once we have isolated the parameters of the message --- here, \texttt{command} and \texttt{client\_id} --- we can use these to define some types in Ivy representing the same variables. We can further use these to define what the \texttt{pending\_message} type in Ivy should be.
+
+\begin{verbatim}
+type client
+type server
+type command = {connect,disconnect,other}
+relation pending_message(X:client,Y:server,Z:command)
+\end{verbatim}
+
+Each of client, server, and command get their own type.
+
+\subsubsection{Command as an enumerated type}
+\label{sec:org68c6b5f}
+Through a symbolic analysis we can likely determine that the command variable takes on one of three cases
+\begin{enumerate}
+\item the string literal \texttt{"connect"}
+\item the string literal \texttt{"disconnect"}
+\item anything else
+\end{enumerate}
+
+This sort of analysis looks is based on usage of the variable, particularly in conditionals.
+
+I have not actually ran such an analysis; however, I am confident that it can be done. This sort of thing is done when analyzing code paths in symbolic execution, such as in KLEE. So I'm fairly sure we could find some library code that does this for us in C++. If not, the methodology is out there for us to homebrew this if needed.
+
+For this code in particular, we only apply this symbolic analysis to \texttt{command} in an ad-hoc way, because we glanced at it and assumed it was needed. However, more generally we probably want to do this sort of path case analysis for every variable that we transport from C++ into Ivy. In this example it just turns out that these symbolic paths are trivial for the \texttt{client\_id} variable.
+
+\subsubsection{Pending Message Type}
+\label{sec:orgebe2eed}
+The pending message depends on the two variables in the message, \texttt{command} and \texttt{client\_id}. Further, this is a distributed system. Each server is running a copy of the given code, and this message should then be linked to whichever particular server received the message in question.
+
+Here we are assuming we have access to this server's ID for free. In reality this either needs to be interalized into the C++ code, perhaps through a command line arg or environment variable, or internalized into the message. Our initial code did neither of these, but we can imagine adding these.
+
+\subsubsection{Semaphore and Connected}
+\label{sec:org8d0dc9b}
+\texttt{semaphore} is a boolean stored on each server, so we just make that a relation in Ivy.
+
+\texttt{connected} is a little stranger. In the C++ code, it appears to be a function that associates a client to each server. As each server stores the unique client it is connected to (reserving -1 to be a sentinel for no connection)
+\begin{verbatim}
+relation semaphore(s : server)
+function connected(S : server) : client
+\end{verbatim}
+
+However, if this is actually a function, then we get our desired safety property for free. In fact, we can't even state it as initally presented. And it isn't even clear how to state the property in a language where \texttt{connected} has type \texttt{server -> client}
+
+This is because by definition functions have unique outputs for a given input.
+
+Because of this, I by hand relax this to a relation. However, this isn't really justified and is probably too influenced by what I already know to be an Ivy program describing this protocol.
+
+\begin{verbatim}
+relation connected(S : server, C : client)
+\end{verbatim}
+
+Without having a satisfying translation of this particular part, I feel very unclear on where we go from here. This part of the translation defines THE predicate crucial to understanding (and even stating) our invariant, and it is done by hand without any major mechanical motivation.
+
+Perhaps the solution here is to make everything a relation a priori. Even though the C++ source makes it clear that every server is associated to a unique client (via the fact that the \texttt{connected} variable stores exactly one value), when moving into Ivy it may make sense to treat this as a binary relation between clients and servers. In reality this relation just so happens to reduce to a function, but up front we don't know that. And the safety property is ultimately about proving this fact.
+\subsection{Initial State}
+\label{sec:orgf4d9f8a}
+We assume that no servers are connected to any clients when this system begins.
+\begin{verbatim}
+after init {
+    semaphore(S) := true;
+    # connected(S,C) := false;
+    connected(S) := negative_one;
+}
+\end{verbatim}
+\subsection{\texttt{handle\_connection} Action}
+\label{sec:orgbea3796}
+We take the \texttt{pending\_message} as a precondition to an action that represents the rest of the \texttt{handle\_connection} function as given in C++. This is justified, as we reach this part of the code only if we have successfuly read a message from the socket.
+
+The rest of this function is very simple and is nearly syntactically the same in Ivy
+\begin{verbatim}
+ action handle_connection (clientid : client, receiver : server, com : command) = {
+    require pending_message(clientid, receiver, com);
+
+    if (com = connect) {
+       semaphore(receiver) := false;
+       connected(receiver,  clientid) := true;
+    }
+    if (com = disconnect) {
+       connected(receiver, clientid) := false;
+       semaphore(receiver) := true;
+    }
+    pending_message(clientid, receiver, com) := false;
+}
+\end{verbatim}
+
+Another part of this that is done by hand is the updates to \texttt{connected}. In C++ these are \texttt{int} assignments. It is not immediately clear how these affect the truth values of the predicates we have settled on.
+
+My working assumption is that this ``everything is a relation'' attitude works. We say that each server is related the current values of its global/local variables at any give point in time.
+
+Concretely, that means that when the server's copy of \texttt{connected} stores the value \texttt{client\_id} we mark \texttt{connected(server, client)} to be true. Whenever we change this server's copy of \texttt{connected} we make this predicate false.
+
+How we handle these predicates upon updating \texttt{connected} to -1 is not entirely justified and is done by hand for now. If we follow our relation analogy completely, it would be fair to make \texttt{connected(reciever, client\_id) := false} after updating \texttt{connected} to -1; however, by our own rules we should also update \texttt{connected(receiver, -1)} to true.
+
+We know as humans that this null connection to the ``-1''-st client actually represents no connection at all. However in Ivy it isn't clear how we actually handle this without having user input explicitly noting that -1 is a special value.
+
+This is also ignoring Ivy syntactic issues. ``-1'' does not exist in Ivy because ``-'' is not defined for free, and \texttt{int} do not exist for free either. We can choose to interpret \texttt{client} as the \texttt{int} type
+\begin{verbatim}
+type client
+interpret client -> int
+\end{verbatim}
+After reading some light Ivy documentation, I believe this means that Ivy has a built in theory of \texttt{int} and it adds axioms stating that \texttt{client} is a model of that theory. This does not handle the case of integer literals that we may or may not want to use. So we can also define a special client that is meant to represent the value of -1 (as stored in the \texttt{connected} variable) in Ivy
+\begin{verbatim}
+individual negative_one : client
+...
+connected(receiver, clientid) := false;
+connected(receiver, negative_one) := true
+...
+\end{verbatim}
+
+If we do add this \texttt{negative\_one}, we would also need to add some reasoning that sets \texttt{connected(server, negative\_one)} to false at the appropriate time. This would likely be in the connect logic, but this is very done-by-hand right now and not clear how to generalize
+
+\subsubsection{Handle Connection with \texttt{negative\_one} source}
+\label{sec:org097ea5b}
+\begin{verbatim}
+action handle_connection (clientid : client, receiver : server, com : command) = {
+    require pending_message(clientid, receiver, com);
+
+    if (com = connect) {
+       semaphore(receiver) := false;
+       connected(receiver,  clientid) := true;
+       connected(receiver,  negative_one) := false;
+    }
+    if (com = disconnect) {
+       connected(receiver, clientid) := false;
+       connected(receiver, negative_one) := true;
+       semaphore(receiver) := true;
+    }
+    pending_message(clientid, receiver, com) := false;
+}
+\end{verbatim}
+
+\subsection{Ivy Source}
+\label{sec:org69d9157}
+Putting everything together
+\begin{verbatim}
+#lang ivy1.7
+
+type client
+
+# interpret client -> int
+individual negative_one : client
+
+type server
+type command = {connect,disconnect,other}
+
+relation pending_message(X:client,Y:server,Z:command)
+relation semaphore(S : server)
+relation connected(S : server, C : client)
+
+after init {
+    semaphore(S) := true;
+    connected(S,C) := false;
+    connected(S) := negative_one;
+}
+
+action handle_connection (clientid : client, receiver : server, com : command) = {
+    require pending_message(clientid, receiver, com);
+
+    if (com = connect) {
+       semaphore(receiver) := false;
+       connected(receiver,  clientid) := true;
+       connected(receiver,  negative_one) := false;
+    }
+    if (com = disconnect) {
+       connected(receiver, clientid) := false;
+       connected(receiver, negative_one) := true;
+       semaphore(receiver) := true;
+    }
+    pending_message(clientid, receiver, com) := false;
+}
+
+action send_message (clientid : client, receiver : server, com : command) = {
+    pending_message(clientid, receiver, com) := true;
+}
+
+export handle_connection
+
+invariant forall C1 : client . forall C2 : client . forall S : server . (connected(S,C1) & connected(S,C2)) -> (C1 = C2)
+\end{verbatim}
+\subsection{Results}
+\label{sec:org3f5ce3a}
+Until the moment of writing this, I thought I was getting the proof of the invariant to go through on \texttt{ivy\_check} but I just realized I was being very silly and did not explicitly export the \texttt{handle\_connection} action. Because this was not exported, \texttt{ivy\_check} trivially made the invariant hold (because it only looked at the initial state)
+
+After fixing this issue, the proof does NOT go through as written. I'm going to look at this more on Wednesday. It may be needed to look at IC3PO and handle these by finding strenghtening assertions; however, I think this protocol is simply enough that \texttt{ivy\_check} \emph{should} work.
+\end{document}
