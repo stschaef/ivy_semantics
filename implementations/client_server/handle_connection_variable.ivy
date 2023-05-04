@@ -37,7 +37,7 @@ action handle_connection (clientid : client, receiver : server, com : command) =
        }
     }
     if (com = disconnect) {
-       if (connected(receiver, clientid)) {
+       if (connected(receiver) = clientid) {
            connected(receiver) := negative_one;
            semaphore(receiver) := true;
         }
