@@ -464,3 +464,107 @@ invariant [safety] forall C1 : client . forall C2 : client . forall S : server .
 #+end_src
 
 This sort of analysis mirrors exactly the work with the abstract lock server performed by IC3PO.
+* Variable-based View
+** Source Code
+#+begin_src C++
+static const size_t MAX_MESSAGE_SIZE = 256;
+
+bool semaphore = true;
+int connected = -1;
+// TODO: reflect internally the server ids. prob as a command line arg in main function
+
+int handle_connection(int connectionfd) {
+	char msg[MAX_MESSAGE_SIZE + 1];
+	memset(msg, 0, sizeof(msg));
+
+	size_t recvd = 0;
+	ssize_t rval;
+
+    rval = recv(connectionfd, msg + recvd, MAX_MESSAGE_SIZE - recvd, 0);
+	if (rval == -1) {
+		return -1;
+    }
+    recvd += rval;
+    rval = recv(connectionfd, msg + recvd, MAX_MESSAGE_SIZE - recvd, 0);
+    if (rval != 0) {
+        return -1;
+    }
+
+    char * command = strtok(msg, " ");
+    int client_id = atoi(strtok(NULL, " "));
+
+    if (strcmp(command, "connect") == 0) {
+        if (semaphore) {
+            semaphore = false;
+            connected = client_id;
+        } else {
+          return -1;
+        }
+   }
+    if (strcmp(command, "disconnect") == 0) {
+        if (connected == client_id) {
+            connected = -1;
+            semaphore = true;
+        }
+        else {
+          return -1;
+        }
+    }
+	close(connectionfd);
+	return 0;
+}
+#+end_src
+** Ivy
+#+begin_src ivy
+#lang ivy1.7
+
+type client
+individual negative_one : client
+
+type server
+type command = {connect,disconnect,other}
+
+relation pending_message(X:client,Y:server,Z:command)
+
+function semaphore(S : server) : bool
+function connected(S : server) : client
+
+after init {
+    semaphore(S) := true;
+    connected(S) := negative_one;
+}
+
+action handle_connection (clientid : client, receiver : server, com : command) = {
+    require pending_message(clientid, receiver, com);
+    if (com = connect) {
+       if (semaphore(receiver) = true) {
+          semaphore(receiver) := false;
+          connected(receiver) := clientid;
+       }
+    }
+    if (com = disconnect) {
+       if (connected(receiver) = clientid) {
+           connected(receiver) := negative_one;
+           semaphore(receiver) := true;
+        }
+    }
+    pending_message(clientid, receiver, com) := false;
+}
+
+action send_message (clientid : client, receiver : server, com : command) = {
+    pending_message(clientid, receiver, com) := true;
+}
+
+export handle_connection
+
+
+invariant [safety] forall C1 : client . forall C2 : client . forall S : server . (connected(S) = C1 & connected(S) = C2) -> (C1 = C2)
+
+#+end_src
+** Results
+The invariant follows "for free" because functions have unique outputs.
+#+begin_src
+invariant [safety] forall C1 : client . forall C2 : client . forall S : server . (connected(S) = C1 & connected(S) = C2) -> (C1 = C2)
+#+end_src
+
+We justify translating this into a ~function~ in Ivy, because we take the point of view that for each variable of the server we have a function from servers to the type of that variable. That is, here we have a function ~server -> bool~ for ~semaphore~ and a function ~server -> client~ (maybe to ~int~) for the ~connected~ variable.
