@@ -34,6 +34,7 @@ int handle_connection(int connectionfd) {
 
     char * command = strtok(msg, " ");
     int client_id = atoi(strtok(NULL, " "));
+    // ABC DEF EFG
 
     if (strcmp(command, "connect") == 0) {
         if (SEMAPHORE) {
@@ -289,8 +290,11 @@ invariant forall C1 : client . forall C2 : client . forall S : server . (connect
 
 static const size_t MAX_MESSAGE_SIZE = 256;
 
-bool SEMAPHORE = true;
-std::set <int> connections;
+bool SEMAPHORE = true; // server -> bool
+std::set <int> connections; //server -> std::set<int>
+//server -> (int -> bool)
+// (server, int) -> bool
+// (server, client) -> bool
 
 int handle_connection(int connectionfd) {
 	char msg[MAX_MESSAGE_SIZE + 1];
@@ -314,7 +318,7 @@ int handle_connection(int connectionfd) {
             SEMAPHORE = false;
             connections.insert(client_id);
         } else {
-          return -1;j
+          return -1;
         }
     }
     if (strcmp(command, "disconnect") == 0) {
@@ -557,7 +561,6 @@ action send_message (clientid : client, receiver : server, com : command) = {
 
 export handle_connection
 
-
 invariant [safety] forall C1 : client . forall C2 : client . forall S : server . (connected(S) = C1 & connected(S) = C2) -> (C1 = C2)
 
 #+end_src
@@ -568,3 +571,7 @@ invariant [safety] forall C1 : client . forall C2 : client . forall S : server .
 #+end_src
 
 We justify translating this into a ~function~ in Ivy, because we take the point of view that for each variable of the server we have a function from servers to the type of that variable. That is, here we have a function ~server -> bool~ for ~semaphore~ and a function ~server -> client~ (maybe to ~int~) for the ~connected~ variable.
+* Next Steps
+1. try this out on other protocols, two others
+2. if actually coding out this translation, hack w a real parser. But could be reasonable to keep this theoretical for a minute
+   1. Keep in mind which constructs are need/which can be ignored/which can't be handled
