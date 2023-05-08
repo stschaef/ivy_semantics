@@ -1,0 +1,41 @@
+#lang ivy1.7
+
+type node
+type id
+interpret id -> int
+
+function idn (X : node) : id
+axiom idn(X) = idn(Y) -> X = Y
+axiom exists X : node, Y : node, Z : node . (X ~= Y) & (Y ~= Z) & (X ~= Z)
+
+relation is_leader (N : node)
+
+relation pending_message(N1 : node, N2 : node, ID : id)
+
+function error : bool
+
+after init {
+      is_leader(N) := false;
+      pending_message(N,M,I) := false;
+      error := false;
+}
+
+action is_previous_node(n1 : node, n2 : node) returns (z : bool) = {
+       z := idn(n1) - idn(n2) = 0 - 1
+}
+
+action handle_connection(receiver : node, sender : node, id_in : id) = {
+       require pending_message(receiver, sender, id_in);
+       require idn(sender) - idn(receiver) = 0 - 1;
+       if (id_in = idn(receiver)) {
+            is_leader(receiver) := true;
+        }
+        else {
+            pending_message(X, receiver, id_in) := idn(receiver) - idn(X) = 0 - 1;
+        }
+        pending_message(receiver, sender, id_in) := false;
+}
+
+export handle_connection
+
+invariant [safety] forall X : node, Y : node . is_leader(X) & is_leader(Y) -> X = Y
