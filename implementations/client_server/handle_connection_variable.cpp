@@ -10,7 +10,6 @@ bool semaphore = true;
 int connected = -1;
 // TODO: reflect internally the server ids. prob as a command line arg in main function
 
-
 int handle_connection(int connectionfd) {
 	char msg[MAX_MESSAGE_SIZE + 1];
 	memset(msg, 0, sizeof(msg));

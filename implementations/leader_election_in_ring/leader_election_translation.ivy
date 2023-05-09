@@ -26,6 +26,7 @@ action is_previous_node(n1 : node, n2 : node) returns (z : bool) = {
 
 action handle_connection(receiver : node, sender : node, id_in : id) = {
        require pending_message(receiver, sender, id_in);
+       require ~ is_leader(N);
        require idn(sender) - idn(receiver) = 0 - 1;
        if (id_in = idn(receiver)) {
             is_leader(receiver) := true;
