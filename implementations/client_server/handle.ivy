@@ -1,0 +1,46 @@
+#lang ivy1.7
+
+type client
+
+interpret client -> int
+individual negative_one : client
+
+type server
+type command = {connect,disconnect,other}
+
+relation pending_message(X:client,Y:server,Z:command)
+relation semaphore(S : server)
+# relation connected(S : server, C : client)
+function connected(S : server) : client
+
+# if you take connected to be a function, it already presupposes that servers are connected to at most one client
+
+after init {
+    semaphore(S) := true;
+    # connected(S,C) := false;
+    connected(S) := negative_one;
+}
+
+action handle_connection (clientid : client, receiver : server, com : command) = {
+    require pending_message(clientid, receiver, com);
+
+    if (com = connect) {
+       semaphore(receiver) := false;
+       # connected(receiver,  clientid) := true;
+       connected(receiver) := clientid;
+    }
+    if (com = disconnect) {
+       # connected(receiver, clientid) := false;
+       connected(receiver) := negative_one; # how to handle ??
+       semaphore(receiver) := true;
+    }
+    pending_message(clientid, receiver, com) := false;
+}
+
+action send_message (clientid : client, receiver : server, com : command) = {
+    pending_message(clientid, receiver, com) := true;
+}
+
+
+# invariant forall C1 : client . forall C2 : client . forall S : server . connected(S,C1) & connected(S,C2) -> C1 = C2
+# invariant forall C1 : client . forall C2 : client . forall S : server . connected(S,C1) & connected(S,C2) -> C1 = C2

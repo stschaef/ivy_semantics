@@ -1,27 +1,22 @@
 #include <arpa/inet.h>		// htons()
 #include <stdio.h>		// printf(), perror()i
-// #include <string>
+#include <string>
 #include <stdlib.h>		// atoi()
 #include <sys/socket.h>		// socket(), bind(), listen(), accept(), send(), recv()
 #include <unistd.h>		// close()
-// #include <set>
+#include <unordered_map>
 
 #include "helpers.h"		// make_server_sockaddr(), get_port_number()
 
 static const size_t MAX_MESSAGE_SIZE = 256;
 
-// TODO make this not uppercase
-bool SEMAPHORE = true;
-int connected = -1;
-// TODO reflect internally the server ids. prob as a command line arg
+std::unordered_map<int, std::string> connections;
+const int port = 400;
 
 void print_connections() {
-    printf("Connected to: ");
-    if (connected != -1) {
-        printf("%d ", connected);
-    }
-    else {
-        printf("none");
+    printf("\nConnections:\n");
+    for (auto it = connections.begin(); it != connections.end(); it++) {
+        printf("%d %s\n", it->first, (it->second).c_str());
     }
     printf("\n");
 }
@@ -37,78 +32,75 @@ void print_connections() {
  */
 int handle_connection(int connectionfd) {
 
-	printf("New connection %d\n", connectionfd);
-
 	// (1) Receive message from client.
 
 	char msg[MAX_MESSAGE_SIZE + 1];
 	memset(msg, 0, sizeof(msg));
 
 	// Call recv() enough times to consume all the data the client sends.
-	// size_t recvd = 0;
+	size_t recvd = 0;
 	ssize_t rval;
-// TODO make this a single round
-	// do {
-	// 	// Receive as many additional bytes as we can in one call to recv()
-	// 	// (while not exceeding MAX_MESSAGE_SIZE bytes in total).
-	// 	rval = recv(connectionfd, msg + recvd, MAX_MESSAGE_SIZE - recvd, 0);
-	// 	if (rval == -1) {
-	// 		perror("Error reading stream message");
-	// 		return -1;
-	// 	}
-	// 	recvd += rval;
-	// } while (rval > 0);
-    // recv() returns 0 when client closes
-
-    rval = recv(connectionfd, msg + recvd, MAX_MESSAGE_SIZE - recvd, 0);
-	if (rval == -1) {
-		perror("Error reading stream message");
-		return -1;
-    }
-    recvd += rval;
-    rval = recv(connectionfd, msg + recvd, MAX_MESSAGE_SIZE - recvd, 0);
-    if (rval != 0) {
-        perror("Error: couldn't fit message in buffer");
-        return -1;
-    }
-// Requires pending_message(<server_id>, <client_id>, <message>, <time>)
+	do {
+		// Receive as many additional bytes as we can in one call to recv()
+		// (while not exceeding MAX_MESSAGE_SIZE bytes in total).
+		rval = recv(connectionfd, msg + recvd, MAX_MESSAGE_SIZE - recvd, 0);
+		if (rval == -1) {
+			perror("Error reading stream message");
+			return -1;
+		}
+		recvd += rval;
+	} while (rval > 0);  // recv() returns 0 when client closes
 
     char * command = strtok(msg, " ");
     int client_id = atoi(strtok(NULL, " "));
-
-    // msg = "connect 10"
-    // command = "connect"
-    // client_id = 10
-    // like python string.split()
+    auto it = connections.find(client_id);
+    if (it == connections.end()) {
+        connections[client_id] = "working";
+    }
 
 	// (2) Print out the message
 	printf("Client %d says '%s'\n", client_id, command);
-    if (strcmp(command, "connect") == 0) {
-        // command \in type COMMAND = {connect, disconnect, garbage}
-        // command = connect
-        //
-        // Somewhat similar to symbolic execution
-        // Search through the code and find all uses of command. Splits into three cases
-        // 1. command = connect
-        // 2. command = disconnect
-        // 3. command = anything else
-        if (SEMAPHORE) {
-            printf("Client %d is connected\n", client_id);
-            SEMAPHORE = false;
-            connected = client_id;
-        } else {
-            printf("Server already connected. Client %d is rejected\n", client_id);
-        }
-   }
-    if (strcmp(command, "disconnect") == 0) {
-        // command = disconnect
-        if (connected == client_id) {
-            connected = -1;
-            SEMAPHORE = true;
-            printf("Client %d is disconnected\n", client_id);
+    if (strcmp(command, "prepare") == 0) {
+        if (connections[client_id] == "working") {
+            connections[client_id] = "prepared";
+            printf("Client %d is prepared\n", client_id);
         }
         else {
-            printf("Client %d is not connected. Disconnect failed\n", client_id);
+            printf("Client %d is not working. Prepare failed\n", client_id);
+        }
+    }
+    if (strcmp(command, "decide_commit") == 0) {
+        if (connections[client_id] == "prepared") {
+            auto it = std::find_if(connections.begin(), connections.end(), [](auto&& p) {
+                return p.second == "working" || p.second == "aborted";
+            });
+            if (it == connections.end()) {
+                connections[client_id] = "committed";
+                printf("Client %d is committed\n", client_id);
+            }
+            else {
+                printf("Someone is aborted or working. Commit failed\n");
+            }
+        }
+        else {
+            printf("Client %d is not prepared. Commit failed\n", client_id);
+        }
+    }
+    if (strcmp(command, "decide_abort") == 0) {
+        if (connections[client_id] == "prepared" || connections[client_id] == "working") {
+            auto it = std::find_if(connections.begin(), connections.end(), [](auto&& p) {
+                return p.second == "committed";
+            });
+            if (it == connections.end()) {
+                connections[client_id] = "aborted";
+                printf("Client %d is aborted\n", client_id);
+            }
+            else {
+                printf("Someone is committed. Abort failed\n");
+            }
+        }
+        else {
+            printf("Client %d is not prepared. Abort failed\n", client_id);
         }
     }
     print_connections();
@@ -179,13 +171,10 @@ int run_server(int port, int queue_size) {
 
 int main(int argc, const char **argv) {
 	// Parse command line arguments
-	if (argc != 2) {
-		printf("Usage: ./server port_num\n");
+	if (argc != 1) {
+		printf("Usage: ./server\n");
 		return 1;
 	}
-	// int port = atoi(argv[1]);
-	int port = 300;
-
 	if (run_server(port, 10) == -1) {
 		return 1;
 	}

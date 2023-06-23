@@ -1,0 +1,4839 @@
+CursorKind.TRANSLATION_UNIT server.cpp
+	CursorKind.TYPEDEF_DECL __int8_t
+	CursorKind.TYPEDEF_DECL __uint8_t
+	CursorKind.TYPEDEF_DECL __int16_t
+	CursorKind.TYPEDEF_DECL __uint16_t
+	CursorKind.TYPEDEF_DECL __int32_t
+	CursorKind.TYPEDEF_DECL __uint32_t
+	CursorKind.TYPEDEF_DECL __int64_t
+	CursorKind.TYPEDEF_DECL __uint64_t
+	CursorKind.TYPEDEF_DECL __darwin_intptr_t
+	CursorKind.TYPEDEF_DECL __darwin_natural_t
+	CursorKind.TYPEDEF_DECL __darwin_ct_rune_t
+	CursorKind.UNION_DECL 
+		CursorKind.FIELD_DECL __mbstate8
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL _mbstateL
+	CursorKind.TYPEDEF_DECL __mbstate_t
+		CursorKind.UNION_DECL 
+			CursorKind.FIELD_DECL __mbstate8
+				CursorKind.INTEGER_LITERAL 
+			CursorKind.FIELD_DECL _mbstateL
+	CursorKind.TYPEDEF_DECL __darwin_mbstate_t
+		CursorKind.TYPE_REF __mbstate_t
+	CursorKind.TYPEDEF_DECL __darwin_ptrdiff_t
+	CursorKind.TYPEDEF_DECL __darwin_size_t
+	CursorKind.TYPEDEF_DECL __darwin_va_list
+		CursorKind.TYPE_REF __builtin_va_list
+	CursorKind.TYPEDEF_DECL __darwin_wchar_t
+	CursorKind.TYPEDEF_DECL __darwin_rune_t
+		CursorKind.TYPE_REF __darwin_wchar_t
+	CursorKind.TYPEDEF_DECL __darwin_wint_t
+	CursorKind.TYPEDEF_DECL __darwin_clock_t
+	CursorKind.TYPEDEF_DECL __darwin_socklen_t
+		CursorKind.TYPE_REF __uint32_t
+	CursorKind.TYPEDEF_DECL __darwin_ssize_t
+	CursorKind.TYPEDEF_DECL __darwin_time_t
+	CursorKind.TYPEDEF_DECL __darwin_blkcnt_t
+		CursorKind.TYPE_REF __int64_t
+	CursorKind.TYPEDEF_DECL __darwin_blksize_t
+		CursorKind.TYPE_REF __int32_t
+	CursorKind.TYPEDEF_DECL __darwin_dev_t
+		CursorKind.TYPE_REF __int32_t
+	CursorKind.TYPEDEF_DECL __darwin_fsblkcnt_t
+	CursorKind.TYPEDEF_DECL __darwin_fsfilcnt_t
+	CursorKind.TYPEDEF_DECL __darwin_gid_t
+		CursorKind.TYPE_REF __uint32_t
+	CursorKind.TYPEDEF_DECL __darwin_id_t
+		CursorKind.TYPE_REF __uint32_t
+	CursorKind.TYPEDEF_DECL __darwin_ino64_t
+		CursorKind.TYPE_REF __uint64_t
+	CursorKind.TYPEDEF_DECL __darwin_ino_t
+		CursorKind.TYPE_REF __darwin_ino64_t
+	CursorKind.TYPEDEF_DECL __darwin_mach_port_name_t
+		CursorKind.TYPE_REF __darwin_natural_t
+	CursorKind.TYPEDEF_DECL __darwin_mach_port_t
+		CursorKind.TYPE_REF __darwin_mach_port_name_t
+	CursorKind.TYPEDEF_DECL __darwin_mode_t
+		CursorKind.TYPE_REF __uint16_t
+	CursorKind.TYPEDEF_DECL __darwin_off_t
+		CursorKind.TYPE_REF __int64_t
+	CursorKind.TYPEDEF_DECL __darwin_pid_t
+		CursorKind.TYPE_REF __int32_t
+	CursorKind.TYPEDEF_DECL __darwin_sigset_t
+		CursorKind.TYPE_REF __uint32_t
+	CursorKind.TYPEDEF_DECL __darwin_suseconds_t
+		CursorKind.TYPE_REF __int32_t
+	CursorKind.TYPEDEF_DECL __darwin_uid_t
+		CursorKind.TYPE_REF __uint32_t
+	CursorKind.TYPEDEF_DECL __darwin_useconds_t
+		CursorKind.TYPE_REF __uint32_t
+	CursorKind.TYPEDEF_DECL __darwin_uuid_t
+		CursorKind.INTEGER_LITERAL 
+	CursorKind.TYPEDEF_DECL __darwin_uuid_string_t
+		CursorKind.INTEGER_LITERAL 
+	CursorKind.STRUCT_DECL __darwin_pthread_handler_rec
+		CursorKind.FIELD_DECL __routine
+			CursorKind.PARM_DECL 
+		CursorKind.FIELD_DECL __arg
+		CursorKind.FIELD_DECL __next
+			CursorKind.TYPE_REF struct __darwin_pthread_handler_rec
+	CursorKind.STRUCT_DECL _opaque_pthread_attr_t
+		CursorKind.FIELD_DECL __sig
+		CursorKind.FIELD_DECL __opaque
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.STRUCT_DECL _opaque_pthread_cond_t
+		CursorKind.FIELD_DECL __sig
+		CursorKind.FIELD_DECL __opaque
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.STRUCT_DECL _opaque_pthread_condattr_t
+		CursorKind.FIELD_DECL __sig
+		CursorKind.FIELD_DECL __opaque
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.STRUCT_DECL _opaque_pthread_mutex_t
+		CursorKind.FIELD_DECL __sig
+		CursorKind.FIELD_DECL __opaque
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.STRUCT_DECL _opaque_pthread_mutexattr_t
+		CursorKind.FIELD_DECL __sig
+		CursorKind.FIELD_DECL __opaque
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.STRUCT_DECL _opaque_pthread_once_t
+		CursorKind.FIELD_DECL __sig
+		CursorKind.FIELD_DECL __opaque
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.STRUCT_DECL _opaque_pthread_rwlock_t
+		CursorKind.FIELD_DECL __sig
+		CursorKind.FIELD_DECL __opaque
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.STRUCT_DECL _opaque_pthread_rwlockattr_t
+		CursorKind.FIELD_DECL __sig
+		CursorKind.FIELD_DECL __opaque
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.STRUCT_DECL _opaque_pthread_t
+		CursorKind.FIELD_DECL __sig
+		CursorKind.FIELD_DECL __cleanup_stack
+			CursorKind.TYPE_REF struct __darwin_pthread_handler_rec
+		CursorKind.FIELD_DECL __opaque
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.TYPEDEF_DECL __darwin_pthread_attr_t
+		CursorKind.TYPE_REF struct _opaque_pthread_attr_t
+	CursorKind.TYPEDEF_DECL __darwin_pthread_cond_t
+		CursorKind.TYPE_REF struct _opaque_pthread_cond_t
+	CursorKind.TYPEDEF_DECL __darwin_pthread_condattr_t
+		CursorKind.TYPE_REF struct _opaque_pthread_condattr_t
+	CursorKind.TYPEDEF_DECL __darwin_pthread_key_t
+	CursorKind.TYPEDEF_DECL __darwin_pthread_mutex_t
+		CursorKind.TYPE_REF struct _opaque_pthread_mutex_t
+	CursorKind.TYPEDEF_DECL __darwin_pthread_mutexattr_t
+		CursorKind.TYPE_REF struct _opaque_pthread_mutexattr_t
+	CursorKind.TYPEDEF_DECL __darwin_pthread_once_t
+		CursorKind.TYPE_REF struct _opaque_pthread_once_t
+	CursorKind.TYPEDEF_DECL __darwin_pthread_rwlock_t
+		CursorKind.TYPE_REF struct _opaque_pthread_rwlock_t
+	CursorKind.TYPEDEF_DECL __darwin_pthread_rwlockattr_t
+		CursorKind.TYPE_REF struct _opaque_pthread_rwlockattr_t
+	CursorKind.TYPEDEF_DECL __darwin_pthread_t
+		CursorKind.TYPE_REF struct _opaque_pthread_t
+	CursorKind.NAMESPACE std
+		CursorKind.NAMESPACE __1
+	CursorKind.TYPEDEF_DECL int8_t
+	CursorKind.TYPEDEF_DECL int16_t
+	CursorKind.TYPEDEF_DECL int32_t
+	CursorKind.TYPEDEF_DECL int64_t
+	CursorKind.TYPEDEF_DECL uint8_t
+	CursorKind.TYPEDEF_DECL uint16_t
+	CursorKind.TYPEDEF_DECL uint32_t
+	CursorKind.TYPEDEF_DECL uint64_t
+	CursorKind.TYPEDEF_DECL int_least8_t
+		CursorKind.TYPE_REF int8_t
+	CursorKind.TYPEDEF_DECL int_least16_t
+		CursorKind.TYPE_REF int16_t
+	CursorKind.TYPEDEF_DECL int_least32_t
+		CursorKind.TYPE_REF int32_t
+	CursorKind.TYPEDEF_DECL int_least64_t
+		CursorKind.TYPE_REF int64_t
+	CursorKind.TYPEDEF_DECL uint_least8_t
+		CursorKind.TYPE_REF uint8_t
+	CursorKind.TYPEDEF_DECL uint_least16_t
+		CursorKind.TYPE_REF uint16_t
+	CursorKind.TYPEDEF_DECL uint_least32_t
+		CursorKind.TYPE_REF uint32_t
+	CursorKind.TYPEDEF_DECL uint_least64_t
+		CursorKind.TYPE_REF uint64_t
+	CursorKind.TYPEDEF_DECL int_fast8_t
+		CursorKind.TYPE_REF int8_t
+	CursorKind.TYPEDEF_DECL int_fast16_t
+		CursorKind.TYPE_REF int16_t
+	CursorKind.TYPEDEF_DECL int_fast32_t
+		CursorKind.TYPE_REF int32_t
+	CursorKind.TYPEDEF_DECL int_fast64_t
+		CursorKind.TYPE_REF int64_t
+	CursorKind.TYPEDEF_DECL uint_fast8_t
+		CursorKind.TYPE_REF uint8_t
+	CursorKind.TYPEDEF_DECL uint_fast16_t
+		CursorKind.TYPE_REF uint16_t
+	CursorKind.TYPEDEF_DECL uint_fast32_t
+		CursorKind.TYPE_REF uint32_t
+	CursorKind.TYPEDEF_DECL uint_fast64_t
+		CursorKind.TYPE_REF uint64_t
+	CursorKind.TYPEDEF_DECL u_int8_t
+	CursorKind.TYPEDEF_DECL u_int16_t
+	CursorKind.TYPEDEF_DECL u_int32_t
+	CursorKind.TYPEDEF_DECL u_int64_t
+	CursorKind.TYPEDEF_DECL register_t
+		CursorKind.TYPE_REF int64_t
+	CursorKind.TYPEDEF_DECL uintptr_t
+	CursorKind.TYPEDEF_DECL user_addr_t
+		CursorKind.TYPE_REF u_int64_t
+	CursorKind.TYPEDEF_DECL user_size_t
+		CursorKind.TYPE_REF u_int64_t
+	CursorKind.TYPEDEF_DECL user_ssize_t
+		CursorKind.TYPE_REF int64_t
+	CursorKind.TYPEDEF_DECL user_long_t
+		CursorKind.TYPE_REF int64_t
+	CursorKind.TYPEDEF_DECL user_ulong_t
+		CursorKind.TYPE_REF u_int64_t
+	CursorKind.TYPEDEF_DECL user_time_t
+		CursorKind.TYPE_REF int64_t
+	CursorKind.TYPEDEF_DECL user_off_t
+		CursorKind.TYPE_REF int64_t
+	CursorKind.TYPEDEF_DECL syscall_arg_t
+		CursorKind.TYPE_REF u_int64_t
+	CursorKind.TYPEDEF_DECL intptr_t
+		CursorKind.TYPE_REF __darwin_intptr_t
+	CursorKind.TYPEDEF_DECL intmax_t
+	CursorKind.TYPEDEF_DECL uintmax_t
+	CursorKind.FUNCTION_DECL _OSSwapInt16
+		CursorKind.TYPE_REF uint16_t
+		CursorKind.PARM_DECL _data
+			CursorKind.TYPE_REF uint16_t
+		CursorKind.COMPOUND_STMT 
+			CursorKind.RETURN_STMT 
+				CursorKind.CSTYLE_CAST_EXPR 
+					CursorKind.TYPE_REF uint16_t
+					CursorKind.UNEXPOSED_EXPR 
+						CursorKind.PAREN_EXPR 
+							CursorKind.BINARY_OPERATOR 
+								CursorKind.BINARY_OPERATOR 
+									CursorKind.UNEXPOSED_EXPR _data
+										CursorKind.UNEXPOSED_EXPR _data
+											CursorKind.DECL_REF_EXPR _data
+									CursorKind.INTEGER_LITERAL 
+								CursorKind.BINARY_OPERATOR 
+									CursorKind.UNEXPOSED_EXPR _data
+										CursorKind.UNEXPOSED_EXPR _data
+											CursorKind.DECL_REF_EXPR _data
+									CursorKind.INTEGER_LITERAL 
+	CursorKind.FUNCTION_DECL _OSSwapInt32
+		CursorKind.TYPE_REF uint32_t
+		CursorKind.PARM_DECL _data
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.COMPOUND_STMT 
+			CursorKind.BINARY_OPERATOR 
+				CursorKind.DECL_REF_EXPR _data
+				CursorKind.CALL_EXPR __builtin_bswap32
+					CursorKind.UNEXPOSED_EXPR __builtin_bswap32
+						CursorKind.DECL_REF_EXPR __builtin_bswap32
+					CursorKind.UNEXPOSED_EXPR _data
+						CursorKind.DECL_REF_EXPR _data
+			CursorKind.RETURN_STMT 
+				CursorKind.UNEXPOSED_EXPR _data
+					CursorKind.DECL_REF_EXPR _data
+	CursorKind.FUNCTION_DECL _OSSwapInt64
+		CursorKind.TYPE_REF uint64_t
+		CursorKind.PARM_DECL _data
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.COMPOUND_STMT 
+			CursorKind.RETURN_STMT 
+				CursorKind.CALL_EXPR __builtin_bswap64
+					CursorKind.UNEXPOSED_EXPR __builtin_bswap64
+						CursorKind.DECL_REF_EXPR __builtin_bswap64
+					CursorKind.UNEXPOSED_EXPR _data
+						CursorKind.DECL_REF_EXPR _data
+	CursorKind.STRUCT_DECL _OSUnalignedU16
+		CursorKind.PACKED_ATTR packed
+		CursorKind.FIELD_DECL __val
+			CursorKind.TYPE_REF uint16_t
+	CursorKind.STRUCT_DECL _OSUnalignedU32
+		CursorKind.PACKED_ATTR packed
+		CursorKind.FIELD_DECL __val
+			CursorKind.TYPE_REF uint32_t
+	CursorKind.STRUCT_DECL _OSUnalignedU64
+		CursorKind.PACKED_ATTR packed
+		CursorKind.FIELD_DECL __val
+			CursorKind.TYPE_REF uint64_t
+	CursorKind.FUNCTION_DECL OSReadSwapInt16
+		CursorKind.TYPE_REF uint16_t
+		CursorKind.PARM_DECL _base
+		CursorKind.PARM_DECL _offset
+			CursorKind.TYPE_REF uintptr_t
+		CursorKind.COMPOUND_STMT 
+			CursorKind.RETURN_STMT 
+				CursorKind.CALL_EXPR _OSSwapInt16
+					CursorKind.UNEXPOSED_EXPR _OSSwapInt16
+						CursorKind.DECL_REF_EXPR _OSSwapInt16
+					CursorKind.UNEXPOSED_EXPR __val
+						CursorKind.MEMBER_REF_EXPR __val
+							CursorKind.PAREN_EXPR 
+								CursorKind.CSTYLE_CAST_EXPR 
+									CursorKind.TYPE_REF struct _OSUnalignedU16
+									CursorKind.PAREN_EXPR 
+										CursorKind.BINARY_OPERATOR 
+											CursorKind.CSTYLE_CAST_EXPR 
+												CursorKind.TYPE_REF uintptr_t
+												CursorKind.UNEXPOSED_EXPR _base
+													CursorKind.DECL_REF_EXPR _base
+											CursorKind.UNEXPOSED_EXPR _offset
+												CursorKind.DECL_REF_EXPR _offset
+	CursorKind.FUNCTION_DECL OSReadSwapInt32
+		CursorKind.TYPE_REF uint32_t
+		CursorKind.PARM_DECL _base
+		CursorKind.PARM_DECL _offset
+			CursorKind.TYPE_REF uintptr_t
+		CursorKind.COMPOUND_STMT 
+			CursorKind.RETURN_STMT 
+				CursorKind.CALL_EXPR _OSSwapInt32
+					CursorKind.UNEXPOSED_EXPR _OSSwapInt32
+						CursorKind.DECL_REF_EXPR _OSSwapInt32
+					CursorKind.UNEXPOSED_EXPR __val
+						CursorKind.MEMBER_REF_EXPR __val
+							CursorKind.PAREN_EXPR 
+								CursorKind.CSTYLE_CAST_EXPR 
+									CursorKind.TYPE_REF struct _OSUnalignedU32
+									CursorKind.PAREN_EXPR 
+										CursorKind.BINARY_OPERATOR 
+											CursorKind.CSTYLE_CAST_EXPR 
+												CursorKind.TYPE_REF uintptr_t
+												CursorKind.UNEXPOSED_EXPR _base
+													CursorKind.DECL_REF_EXPR _base
+											CursorKind.UNEXPOSED_EXPR _offset
+												CursorKind.DECL_REF_EXPR _offset
+	CursorKind.FUNCTION_DECL OSReadSwapInt64
+		CursorKind.TYPE_REF uint64_t
+		CursorKind.PARM_DECL _base
+		CursorKind.PARM_DECL _offset
+			CursorKind.TYPE_REF uintptr_t
+		CursorKind.COMPOUND_STMT 
+			CursorKind.RETURN_STMT 
+				CursorKind.CALL_EXPR _OSSwapInt64
+					CursorKind.UNEXPOSED_EXPR _OSSwapInt64
+						CursorKind.DECL_REF_EXPR _OSSwapInt64
+					CursorKind.UNEXPOSED_EXPR __val
+						CursorKind.MEMBER_REF_EXPR __val
+							CursorKind.PAREN_EXPR 
+								CursorKind.CSTYLE_CAST_EXPR 
+									CursorKind.TYPE_REF struct _OSUnalignedU64
+									CursorKind.PAREN_EXPR 
+										CursorKind.BINARY_OPERATOR 
+											CursorKind.CSTYLE_CAST_EXPR 
+												CursorKind.TYPE_REF uintptr_t
+												CursorKind.UNEXPOSED_EXPR _base
+													CursorKind.DECL_REF_EXPR _base
+											CursorKind.UNEXPOSED_EXPR _offset
+												CursorKind.DECL_REF_EXPR _offset
+	CursorKind.FUNCTION_DECL OSWriteSwapInt16
+		CursorKind.PARM_DECL _base
+		CursorKind.PARM_DECL _offset
+			CursorKind.TYPE_REF uintptr_t
+		CursorKind.PARM_DECL _data
+			CursorKind.TYPE_REF uint16_t
+		CursorKind.COMPOUND_STMT 
+			CursorKind.BINARY_OPERATOR 
+				CursorKind.MEMBER_REF_EXPR __val
+					CursorKind.PAREN_EXPR 
+						CursorKind.CSTYLE_CAST_EXPR 
+							CursorKind.TYPE_REF struct _OSUnalignedU16
+							CursorKind.PAREN_EXPR 
+								CursorKind.BINARY_OPERATOR 
+									CursorKind.CSTYLE_CAST_EXPR 
+										CursorKind.TYPE_REF uintptr_t
+										CursorKind.UNEXPOSED_EXPR _base
+											CursorKind.DECL_REF_EXPR _base
+									CursorKind.UNEXPOSED_EXPR _offset
+										CursorKind.DECL_REF_EXPR _offset
+				CursorKind.CALL_EXPR _OSSwapInt16
+					CursorKind.UNEXPOSED_EXPR _OSSwapInt16
+						CursorKind.DECL_REF_EXPR _OSSwapInt16
+					CursorKind.UNEXPOSED_EXPR _data
+						CursorKind.DECL_REF_EXPR _data
+	CursorKind.FUNCTION_DECL OSWriteSwapInt32
+		CursorKind.PARM_DECL _base
+		CursorKind.PARM_DECL _offset
+			CursorKind.TYPE_REF uintptr_t
+		CursorKind.PARM_DECL _data
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.COMPOUND_STMT 
+			CursorKind.BINARY_OPERATOR 
+				CursorKind.MEMBER_REF_EXPR __val
+					CursorKind.PAREN_EXPR 
+						CursorKind.CSTYLE_CAST_EXPR 
+							CursorKind.TYPE_REF struct _OSUnalignedU32
+							CursorKind.PAREN_EXPR 
+								CursorKind.BINARY_OPERATOR 
+									CursorKind.CSTYLE_CAST_EXPR 
+										CursorKind.TYPE_REF uintptr_t
+										CursorKind.UNEXPOSED_EXPR _base
+											CursorKind.DECL_REF_EXPR _base
+									CursorKind.UNEXPOSED_EXPR _offset
+										CursorKind.DECL_REF_EXPR _offset
+				CursorKind.CALL_EXPR _OSSwapInt32
+					CursorKind.UNEXPOSED_EXPR _OSSwapInt32
+						CursorKind.DECL_REF_EXPR _OSSwapInt32
+					CursorKind.UNEXPOSED_EXPR _data
+						CursorKind.DECL_REF_EXPR _data
+	CursorKind.FUNCTION_DECL OSWriteSwapInt64
+		CursorKind.PARM_DECL _base
+		CursorKind.PARM_DECL _offset
+			CursorKind.TYPE_REF uintptr_t
+		CursorKind.PARM_DECL _data
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.COMPOUND_STMT 
+			CursorKind.BINARY_OPERATOR 
+				CursorKind.MEMBER_REF_EXPR __val
+					CursorKind.PAREN_EXPR 
+						CursorKind.CSTYLE_CAST_EXPR 
+							CursorKind.TYPE_REF struct _OSUnalignedU64
+							CursorKind.PAREN_EXPR 
+								CursorKind.BINARY_OPERATOR 
+									CursorKind.CSTYLE_CAST_EXPR 
+										CursorKind.TYPE_REF uintptr_t
+										CursorKind.UNEXPOSED_EXPR _base
+											CursorKind.DECL_REF_EXPR _base
+									CursorKind.UNEXPOSED_EXPR _offset
+										CursorKind.DECL_REF_EXPR _offset
+				CursorKind.CALL_EXPR _OSSwapInt64
+					CursorKind.UNEXPOSED_EXPR _OSSwapInt64
+						CursorKind.DECL_REF_EXPR _OSSwapInt64
+					CursorKind.UNEXPOSED_EXPR _data
+						CursorKind.DECL_REF_EXPR _data
+	CursorKind.TYPEDEF_DECL in_addr_t
+		CursorKind.TYPE_REF __uint32_t
+	CursorKind.TYPEDEF_DECL in_port_t
+		CursorKind.TYPE_REF __uint16_t
+	CursorKind.TYPEDEF_DECL u_char
+	CursorKind.TYPEDEF_DECL u_short
+	CursorKind.TYPEDEF_DECL u_int
+	CursorKind.TYPEDEF_DECL u_long
+	CursorKind.TYPEDEF_DECL ushort
+	CursorKind.TYPEDEF_DECL uint
+	CursorKind.TYPEDEF_DECL u_quad_t
+		CursorKind.TYPE_REF u_int64_t
+	CursorKind.TYPEDEF_DECL quad_t
+		CursorKind.TYPE_REF int64_t
+	CursorKind.TYPEDEF_DECL qaddr_t
+		CursorKind.TYPE_REF quad_t
+	CursorKind.TYPEDEF_DECL caddr_t
+	CursorKind.TYPEDEF_DECL daddr_t
+		CursorKind.TYPE_REF int32_t
+	CursorKind.TYPEDEF_DECL dev_t
+		CursorKind.TYPE_REF __darwin_dev_t
+	CursorKind.TYPEDEF_DECL fixpt_t
+		CursorKind.TYPE_REF u_int32_t
+	CursorKind.TYPEDEF_DECL blkcnt_t
+		CursorKind.TYPE_REF __darwin_blkcnt_t
+	CursorKind.TYPEDEF_DECL blksize_t
+		CursorKind.TYPE_REF __darwin_blksize_t
+	CursorKind.TYPEDEF_DECL gid_t
+		CursorKind.TYPE_REF __darwin_gid_t
+	CursorKind.TYPEDEF_DECL ino_t
+		CursorKind.TYPE_REF __darwin_ino_t
+	CursorKind.TYPEDEF_DECL ino64_t
+		CursorKind.TYPE_REF __darwin_ino64_t
+	CursorKind.TYPEDEF_DECL key_t
+		CursorKind.TYPE_REF __int32_t
+	CursorKind.TYPEDEF_DECL mode_t
+		CursorKind.TYPE_REF __darwin_mode_t
+	CursorKind.TYPEDEF_DECL nlink_t
+		CursorKind.TYPE_REF __uint16_t
+	CursorKind.TYPEDEF_DECL id_t
+		CursorKind.TYPE_REF __darwin_id_t
+	CursorKind.TYPEDEF_DECL pid_t
+		CursorKind.TYPE_REF __darwin_pid_t
+	CursorKind.TYPEDEF_DECL off_t
+		CursorKind.TYPE_REF __darwin_off_t
+	CursorKind.TYPEDEF_DECL segsz_t
+		CursorKind.TYPE_REF int32_t
+	CursorKind.TYPEDEF_DECL swblk_t
+		CursorKind.TYPE_REF int32_t
+	CursorKind.TYPEDEF_DECL uid_t
+		CursorKind.TYPE_REF __darwin_uid_t
+	CursorKind.FUNCTION_DECL major
+		CursorKind.TYPE_REF __int32_t
+		CursorKind.PARM_DECL _x
+			CursorKind.TYPE_REF __uint32_t
+		CursorKind.COMPOUND_STMT 
+			CursorKind.RETURN_STMT 
+				CursorKind.CSTYLE_CAST_EXPR 
+					CursorKind.TYPE_REF __int32_t
+					CursorKind.UNEXPOSED_EXPR 
+						CursorKind.PAREN_EXPR 
+							CursorKind.BINARY_OPERATOR 
+								CursorKind.PAREN_EXPR 
+									CursorKind.BINARY_OPERATOR 
+										CursorKind.CSTYLE_CAST_EXPR 
+											CursorKind.TYPE_REF __uint32_t
+											CursorKind.UNEXPOSED_EXPR _x
+												CursorKind.DECL_REF_EXPR _x
+										CursorKind.INTEGER_LITERAL 
+								CursorKind.UNEXPOSED_EXPR 
+									CursorKind.INTEGER_LITERAL 
+	CursorKind.FUNCTION_DECL minor
+		CursorKind.TYPE_REF __int32_t
+		CursorKind.PARM_DECL _x
+			CursorKind.TYPE_REF __uint32_t
+		CursorKind.COMPOUND_STMT 
+			CursorKind.RETURN_STMT 
+				CursorKind.CSTYLE_CAST_EXPR 
+					CursorKind.TYPE_REF __int32_t
+					CursorKind.UNEXPOSED_EXPR 
+						CursorKind.PAREN_EXPR 
+							CursorKind.BINARY_OPERATOR 
+								CursorKind.UNEXPOSED_EXPR 
+									CursorKind.PAREN_EXPR 
+										CursorKind.DECL_REF_EXPR _x
+								CursorKind.UNEXPOSED_EXPR 
+									CursorKind.INTEGER_LITERAL 
+	CursorKind.FUNCTION_DECL makedev
+		CursorKind.TYPE_REF dev_t
+		CursorKind.PARM_DECL _major
+			CursorKind.TYPE_REF __uint32_t
+		CursorKind.PARM_DECL _minor
+			CursorKind.TYPE_REF __uint32_t
+		CursorKind.COMPOUND_STMT 
+			CursorKind.RETURN_STMT 
+				CursorKind.CSTYLE_CAST_EXPR 
+					CursorKind.TYPE_REF dev_t
+					CursorKind.UNEXPOSED_EXPR 
+						CursorKind.PAREN_EXPR 
+							CursorKind.BINARY_OPERATOR 
+								CursorKind.PAREN_EXPR 
+									CursorKind.BINARY_OPERATOR 
+										CursorKind.UNEXPOSED_EXPR 
+											CursorKind.PAREN_EXPR 
+												CursorKind.DECL_REF_EXPR _major
+										CursorKind.INTEGER_LITERAL 
+								CursorKind.UNEXPOSED_EXPR 
+									CursorKind.PAREN_EXPR 
+										CursorKind.DECL_REF_EXPR _minor
+	CursorKind.TYPEDEF_DECL clock_t
+		CursorKind.TYPE_REF __darwin_clock_t
+	CursorKind.TYPEDEF_DECL size_t
+		CursorKind.TYPE_REF __darwin_size_t
+	CursorKind.TYPEDEF_DECL ssize_t
+		CursorKind.TYPE_REF __darwin_ssize_t
+	CursorKind.TYPEDEF_DECL time_t
+		CursorKind.TYPE_REF __darwin_time_t
+	CursorKind.TYPEDEF_DECL useconds_t
+		CursorKind.TYPE_REF __darwin_useconds_t
+	CursorKind.TYPEDEF_DECL suseconds_t
+		CursorKind.TYPE_REF __darwin_suseconds_t
+	CursorKind.TYPEDEF_DECL rsize_t
+		CursorKind.TYPE_REF __darwin_size_t
+	CursorKind.TYPEDEF_DECL errno_t
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.STRUCT_DECL fd_set
+			CursorKind.FIELD_DECL fds_bits
+				CursorKind.TYPE_REF __int32_t
+				CursorKind.PAREN_EXPR 
+					CursorKind.CONDITIONAL_OPERATOR 
+						CursorKind.PAREN_EXPR 
+							CursorKind.BINARY_OPERATOR 
+								CursorKind.PAREN_EXPR 
+									CursorKind.BINARY_OPERATOR 
+										CursorKind.UNEXPOSED_EXPR 
+											CursorKind.PAREN_EXPR 
+												CursorKind.INTEGER_LITERAL 
+										CursorKind.PAREN_EXPR 
+											CursorKind.PAREN_EXPR 
+												CursorKind.BINARY_OPERATOR 
+													CursorKind.CXX_UNARY_EXPR 
+														CursorKind.TYPE_REF __int32_t
+													CursorKind.UNEXPOSED_EXPR 
+														CursorKind.INTEGER_LITERAL 
+								CursorKind.UNEXPOSED_EXPR 
+									CursorKind.INTEGER_LITERAL 
+						CursorKind.PAREN_EXPR 
+							CursorKind.BINARY_OPERATOR 
+								CursorKind.UNEXPOSED_EXPR 
+									CursorKind.PAREN_EXPR 
+										CursorKind.INTEGER_LITERAL 
+								CursorKind.PAREN_EXPR 
+									CursorKind.PAREN_EXPR 
+										CursorKind.BINARY_OPERATOR 
+											CursorKind.CXX_UNARY_EXPR 
+												CursorKind.TYPE_REF __int32_t
+											CursorKind.UNEXPOSED_EXPR 
+												CursorKind.INTEGER_LITERAL 
+						CursorKind.PAREN_EXPR 
+							CursorKind.BINARY_OPERATOR 
+								CursorKind.PAREN_EXPR 
+									CursorKind.BINARY_OPERATOR 
+										CursorKind.UNEXPOSED_EXPR 
+											CursorKind.PAREN_EXPR 
+												CursorKind.INTEGER_LITERAL 
+										CursorKind.PAREN_EXPR 
+											CursorKind.PAREN_EXPR 
+												CursorKind.BINARY_OPERATOR 
+													CursorKind.CXX_UNARY_EXPR 
+														CursorKind.TYPE_REF __int32_t
+													CursorKind.UNEXPOSED_EXPR 
+														CursorKind.INTEGER_LITERAL 
+								CursorKind.UNEXPOSED_EXPR 
+									CursorKind.INTEGER_LITERAL 
+		CursorKind.TYPEDEF_DECL fd_set
+			CursorKind.STRUCT_DECL fd_set
+				CursorKind.FIELD_DECL fds_bits
+					CursorKind.TYPE_REF __int32_t
+					CursorKind.PAREN_EXPR 
+						CursorKind.CONDITIONAL_OPERATOR 
+							CursorKind.PAREN_EXPR 
+								CursorKind.BINARY_OPERATOR 
+									CursorKind.PAREN_EXPR 
+										CursorKind.BINARY_OPERATOR 
+											CursorKind.UNEXPOSED_EXPR 
+												CursorKind.PAREN_EXPR 
+													CursorKind.INTEGER_LITERAL 
+											CursorKind.PAREN_EXPR 
+												CursorKind.PAREN_EXPR 
+													CursorKind.BINARY_OPERATOR 
+														CursorKind.CXX_UNARY_EXPR 
+															CursorKind.TYPE_REF __int32_t
+														CursorKind.UNEXPOSED_EXPR 
+															CursorKind.INTEGER_LITERAL 
+									CursorKind.UNEXPOSED_EXPR 
+										CursorKind.INTEGER_LITERAL 
+							CursorKind.PAREN_EXPR 
+								CursorKind.BINARY_OPERATOR 
+									CursorKind.UNEXPOSED_EXPR 
+										CursorKind.PAREN_EXPR 
+											CursorKind.INTEGER_LITERAL 
+									CursorKind.PAREN_EXPR 
+										CursorKind.PAREN_EXPR 
+											CursorKind.BINARY_OPERATOR 
+												CursorKind.CXX_UNARY_EXPR 
+													CursorKind.TYPE_REF __int32_t
+												CursorKind.UNEXPOSED_EXPR 
+													CursorKind.INTEGER_LITERAL 
+							CursorKind.PAREN_EXPR 
+								CursorKind.BINARY_OPERATOR 
+									CursorKind.PAREN_EXPR 
+										CursorKind.BINARY_OPERATOR 
+											CursorKind.UNEXPOSED_EXPR 
+												CursorKind.PAREN_EXPR 
+													CursorKind.INTEGER_LITERAL 
+											CursorKind.PAREN_EXPR 
+												CursorKind.PAREN_EXPR 
+													CursorKind.BINARY_OPERATOR 
+														CursorKind.CXX_UNARY_EXPR 
+															CursorKind.TYPE_REF __int32_t
+														CursorKind.UNEXPOSED_EXPR 
+															CursorKind.INTEGER_LITERAL 
+									CursorKind.UNEXPOSED_EXPR 
+										CursorKind.INTEGER_LITERAL 
+		CursorKind.FUNCTION_DECL __darwin_check_fd_set_overflow
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+	CursorKind.FUNCTION_DECL __darwin_check_fd_set
+		CursorKind.UNEXPOSED_ATTR 
+		CursorKind.PARM_DECL _a
+		CursorKind.PARM_DECL _b
+		CursorKind.COMPOUND_STMT 
+			CursorKind.IF_STMT 
+				CursorKind.BINARY_OPERATOR 
+					CursorKind.CSTYLE_CAST_EXPR 
+						CursorKind.TYPE_REF uintptr_t
+						CursorKind.UNARY_OPERATOR 
+							CursorKind.DECL_REF_EXPR __darwin_check_fd_set_overflow
+					CursorKind.CSTYLE_CAST_EXPR 
+						CursorKind.TYPE_REF uintptr_t
+						CursorKind.UNEXPOSED_EXPR 
+							CursorKind.INTEGER_LITERAL 
+				CursorKind.COMPOUND_STMT 
+					CursorKind.RETURN_STMT 
+						CursorKind.CALL_EXPR __darwin_check_fd_set_overflow
+							CursorKind.UNEXPOSED_EXPR __darwin_check_fd_set_overflow
+								CursorKind.DECL_REF_EXPR __darwin_check_fd_set_overflow
+							CursorKind.UNEXPOSED_EXPR _a
+								CursorKind.DECL_REF_EXPR _a
+							CursorKind.UNEXPOSED_EXPR _b
+								CursorKind.DECL_REF_EXPR _b
+							CursorKind.INTEGER_LITERAL 
+				CursorKind.COMPOUND_STMT 
+					CursorKind.RETURN_STMT 
+						CursorKind.INTEGER_LITERAL 
+	CursorKind.FUNCTION_DECL __darwin_fd_isset
+		CursorKind.UNEXPOSED_ATTR 
+		CursorKind.PARM_DECL _fd
+		CursorKind.PARM_DECL _p
+			CursorKind.TYPE_REF struct fd_set
+		CursorKind.COMPOUND_STMT 
+			CursorKind.IF_STMT 
+				CursorKind.UNEXPOSED_EXPR __darwin_check_fd_set
+					CursorKind.CALL_EXPR __darwin_check_fd_set
+						CursorKind.UNEXPOSED_EXPR __darwin_check_fd_set
+							CursorKind.DECL_REF_EXPR __darwin_check_fd_set
+						CursorKind.UNEXPOSED_EXPR _fd
+							CursorKind.DECL_REF_EXPR _fd
+						CursorKind.CSTYLE_CAST_EXPR 
+							CursorKind.UNEXPOSED_EXPR _p
+								CursorKind.UNEXPOSED_EXPR _p
+									CursorKind.DECL_REF_EXPR _p
+				CursorKind.COMPOUND_STMT 
+					CursorKind.RETURN_STMT 
+						CursorKind.BINARY_OPERATOR 
+							CursorKind.UNEXPOSED_EXPR 
+								CursorKind.ARRAY_SUBSCRIPT_EXPR 
+									CursorKind.UNEXPOSED_EXPR fds_bits
+										CursorKind.MEMBER_REF_EXPR fds_bits
+											CursorKind.UNEXPOSED_EXPR _p
+												CursorKind.DECL_REF_EXPR _p
+									CursorKind.BINARY_OPERATOR 
+										CursorKind.CSTYLE_CAST_EXPR 
+											CursorKind.UNEXPOSED_EXPR _fd
+												CursorKind.UNEXPOSED_EXPR _fd
+													CursorKind.DECL_REF_EXPR _fd
+										CursorKind.PAREN_EXPR 
+											CursorKind.BINARY_OPERATOR 
+												CursorKind.CXX_UNARY_EXPR 
+													CursorKind.TYPE_REF __int32_t
+												CursorKind.UNEXPOSED_EXPR 
+													CursorKind.INTEGER_LITERAL 
+							CursorKind.PAREN_EXPR 
+								CursorKind.CSTYLE_CAST_EXPR 
+									CursorKind.TYPE_REF __int32_t
+									CursorKind.UNEXPOSED_EXPR 
+										CursorKind.PAREN_EXPR 
+											CursorKind.BINARY_OPERATOR 
+												CursorKind.PAREN_EXPR 
+													CursorKind.CSTYLE_CAST_EXPR 
+														CursorKind.UNEXPOSED_EXPR 
+															CursorKind.INTEGER_LITERAL 
+												CursorKind.PAREN_EXPR 
+													CursorKind.BINARY_OPERATOR 
+														CursorKind.CSTYLE_CAST_EXPR 
+															CursorKind.UNEXPOSED_EXPR _fd
+																CursorKind.UNEXPOSED_EXPR _fd
+																	CursorKind.DECL_REF_EXPR _fd
+														CursorKind.PAREN_EXPR 
+															CursorKind.BINARY_OPERATOR 
+																CursorKind.CXX_UNARY_EXPR 
+																	CursorKind.TYPE_REF __int32_t
+																CursorKind.UNEXPOSED_EXPR 
+																	CursorKind.INTEGER_LITERAL 
+			CursorKind.RETURN_STMT 
+				CursorKind.INTEGER_LITERAL 
+	CursorKind.FUNCTION_DECL __darwin_fd_set
+		CursorKind.UNEXPOSED_ATTR 
+		CursorKind.PARM_DECL _fd
+		CursorKind.PARM_DECL _p
+			CursorKind.TYPE_REF struct fd_set
+		CursorKind.COMPOUND_STMT 
+			CursorKind.IF_STMT 
+				CursorKind.UNEXPOSED_EXPR __darwin_check_fd_set
+					CursorKind.CALL_EXPR __darwin_check_fd_set
+						CursorKind.UNEXPOSED_EXPR __darwin_check_fd_set
+							CursorKind.DECL_REF_EXPR __darwin_check_fd_set
+						CursorKind.UNEXPOSED_EXPR _fd
+							CursorKind.DECL_REF_EXPR _fd
+						CursorKind.CSTYLE_CAST_EXPR 
+							CursorKind.UNEXPOSED_EXPR _p
+								CursorKind.UNEXPOSED_EXPR _p
+									CursorKind.DECL_REF_EXPR _p
+				CursorKind.COMPOUND_STMT 
+					CursorKind.PAREN_EXPR 
+						CursorKind.COMPOUND_ASSIGNMENT_OPERATOR 
+							CursorKind.ARRAY_SUBSCRIPT_EXPR 
+								CursorKind.UNEXPOSED_EXPR fds_bits
+									CursorKind.MEMBER_REF_EXPR fds_bits
+										CursorKind.UNEXPOSED_EXPR _p
+											CursorKind.DECL_REF_EXPR _p
+								CursorKind.BINARY_OPERATOR 
+									CursorKind.CSTYLE_CAST_EXPR 
+										CursorKind.UNEXPOSED_EXPR _fd
+											CursorKind.UNEXPOSED_EXPR _fd
+												CursorKind.DECL_REF_EXPR _fd
+									CursorKind.PAREN_EXPR 
+										CursorKind.BINARY_OPERATOR 
+											CursorKind.CXX_UNARY_EXPR 
+												CursorKind.TYPE_REF __int32_t
+											CursorKind.UNEXPOSED_EXPR 
+												CursorKind.INTEGER_LITERAL 
+							CursorKind.PAREN_EXPR 
+								CursorKind.CSTYLE_CAST_EXPR 
+									CursorKind.TYPE_REF __int32_t
+									CursorKind.UNEXPOSED_EXPR 
+										CursorKind.PAREN_EXPR 
+											CursorKind.BINARY_OPERATOR 
+												CursorKind.PAREN_EXPR 
+													CursorKind.CSTYLE_CAST_EXPR 
+														CursorKind.UNEXPOSED_EXPR 
+															CursorKind.INTEGER_LITERAL 
+												CursorKind.PAREN_EXPR 
+													CursorKind.BINARY_OPERATOR 
+														CursorKind.CSTYLE_CAST_EXPR 
+															CursorKind.UNEXPOSED_EXPR _fd
+																CursorKind.UNEXPOSED_EXPR _fd
+																	CursorKind.DECL_REF_EXPR _fd
+														CursorKind.PAREN_EXPR 
+															CursorKind.BINARY_OPERATOR 
+																CursorKind.CXX_UNARY_EXPR 
+																	CursorKind.TYPE_REF __int32_t
+																CursorKind.UNEXPOSED_EXPR 
+																	CursorKind.INTEGER_LITERAL 
+	CursorKind.FUNCTION_DECL __darwin_fd_clr
+		CursorKind.UNEXPOSED_ATTR 
+		CursorKind.PARM_DECL _fd
+		CursorKind.PARM_DECL _p
+			CursorKind.TYPE_REF struct fd_set
+		CursorKind.COMPOUND_STMT 
+			CursorKind.IF_STMT 
+				CursorKind.UNEXPOSED_EXPR __darwin_check_fd_set
+					CursorKind.CALL_EXPR __darwin_check_fd_set
+						CursorKind.UNEXPOSED_EXPR __darwin_check_fd_set
+							CursorKind.DECL_REF_EXPR __darwin_check_fd_set
+						CursorKind.UNEXPOSED_EXPR _fd
+							CursorKind.DECL_REF_EXPR _fd
+						CursorKind.CSTYLE_CAST_EXPR 
+							CursorKind.UNEXPOSED_EXPR _p
+								CursorKind.UNEXPOSED_EXPR _p
+									CursorKind.DECL_REF_EXPR _p
+				CursorKind.COMPOUND_STMT 
+					CursorKind.PAREN_EXPR 
+						CursorKind.COMPOUND_ASSIGNMENT_OPERATOR 
+							CursorKind.ARRAY_SUBSCRIPT_EXPR 
+								CursorKind.UNEXPOSED_EXPR fds_bits
+									CursorKind.MEMBER_REF_EXPR fds_bits
+										CursorKind.UNEXPOSED_EXPR _p
+											CursorKind.DECL_REF_EXPR _p
+								CursorKind.BINARY_OPERATOR 
+									CursorKind.CSTYLE_CAST_EXPR 
+										CursorKind.UNEXPOSED_EXPR _fd
+											CursorKind.UNEXPOSED_EXPR _fd
+												CursorKind.DECL_REF_EXPR _fd
+									CursorKind.PAREN_EXPR 
+										CursorKind.BINARY_OPERATOR 
+											CursorKind.CXX_UNARY_EXPR 
+												CursorKind.TYPE_REF __int32_t
+											CursorKind.UNEXPOSED_EXPR 
+												CursorKind.INTEGER_LITERAL 
+							CursorKind.UNARY_OPERATOR 
+								CursorKind.PAREN_EXPR 
+									CursorKind.CSTYLE_CAST_EXPR 
+										CursorKind.TYPE_REF __int32_t
+										CursorKind.UNEXPOSED_EXPR 
+											CursorKind.PAREN_EXPR 
+												CursorKind.BINARY_OPERATOR 
+													CursorKind.PAREN_EXPR 
+														CursorKind.CSTYLE_CAST_EXPR 
+															CursorKind.UNEXPOSED_EXPR 
+																CursorKind.INTEGER_LITERAL 
+													CursorKind.PAREN_EXPR 
+														CursorKind.BINARY_OPERATOR 
+															CursorKind.CSTYLE_CAST_EXPR 
+																CursorKind.UNEXPOSED_EXPR _fd
+																	CursorKind.UNEXPOSED_EXPR _fd
+																		CursorKind.DECL_REF_EXPR _fd
+															CursorKind.PAREN_EXPR 
+																CursorKind.BINARY_OPERATOR 
+																	CursorKind.CXX_UNARY_EXPR 
+																		CursorKind.TYPE_REF __int32_t
+																	CursorKind.UNEXPOSED_EXPR 
+																		CursorKind.INTEGER_LITERAL 
+	CursorKind.TYPEDEF_DECL fd_mask
+		CursorKind.TYPE_REF __int32_t
+	CursorKind.TYPEDEF_DECL pthread_attr_t
+		CursorKind.TYPE_REF __darwin_pthread_attr_t
+	CursorKind.TYPEDEF_DECL pthread_cond_t
+		CursorKind.TYPE_REF __darwin_pthread_cond_t
+	CursorKind.TYPEDEF_DECL pthread_condattr_t
+		CursorKind.TYPE_REF __darwin_pthread_condattr_t
+	CursorKind.TYPEDEF_DECL pthread_mutex_t
+		CursorKind.TYPE_REF __darwin_pthread_mutex_t
+	CursorKind.TYPEDEF_DECL pthread_mutexattr_t
+		CursorKind.TYPE_REF __darwin_pthread_mutexattr_t
+	CursorKind.TYPEDEF_DECL pthread_once_t
+		CursorKind.TYPE_REF __darwin_pthread_once_t
+	CursorKind.TYPEDEF_DECL pthread_rwlock_t
+		CursorKind.TYPE_REF __darwin_pthread_rwlock_t
+	CursorKind.TYPEDEF_DECL pthread_rwlockattr_t
+		CursorKind.TYPE_REF __darwin_pthread_rwlockattr_t
+	CursorKind.TYPEDEF_DECL pthread_t
+		CursorKind.TYPE_REF __darwin_pthread_t
+	CursorKind.TYPEDEF_DECL pthread_key_t
+		CursorKind.TYPE_REF __darwin_pthread_key_t
+	CursorKind.TYPEDEF_DECL fsblkcnt_t
+		CursorKind.TYPE_REF __darwin_fsblkcnt_t
+	CursorKind.TYPEDEF_DECL fsfilcnt_t
+		CursorKind.TYPE_REF __darwin_fsfilcnt_t
+	CursorKind.TYPEDEF_DECL sa_family_t
+		CursorKind.TYPE_REF __uint8_t
+	CursorKind.TYPEDEF_DECL socklen_t
+		CursorKind.TYPE_REF __darwin_socklen_t
+	CursorKind.STRUCT_DECL iovec
+		CursorKind.FIELD_DECL iov_base
+		CursorKind.FIELD_DECL iov_len
+			CursorKind.TYPE_REF size_t
+	CursorKind.TYPEDEF_DECL sae_associd_t
+		CursorKind.TYPE_REF __uint32_t
+	CursorKind.TYPEDEF_DECL sae_connid_t
+		CursorKind.TYPE_REF __uint32_t
+	CursorKind.STRUCT_DECL sa_endpoints
+		CursorKind.FIELD_DECL sae_srcif
+		CursorKind.STRUCT_DECL sockaddr
+		CursorKind.FIELD_DECL sae_srcaddr
+			CursorKind.TYPE_REF struct sockaddr
+		CursorKind.FIELD_DECL sae_srcaddrlen
+			CursorKind.TYPE_REF socklen_t
+		CursorKind.FIELD_DECL sae_dstaddr
+			CursorKind.TYPE_REF struct sockaddr
+		CursorKind.FIELD_DECL sae_dstaddrlen
+			CursorKind.TYPE_REF socklen_t
+	CursorKind.TYPEDEF_DECL sa_endpoints_t
+		CursorKind.STRUCT_DECL sa_endpoints
+			CursorKind.FIELD_DECL sae_srcif
+			CursorKind.STRUCT_DECL sockaddr
+			CursorKind.FIELD_DECL sae_srcaddr
+				CursorKind.TYPE_REF struct sockaddr
+			CursorKind.FIELD_DECL sae_srcaddrlen
+				CursorKind.TYPE_REF socklen_t
+			CursorKind.FIELD_DECL sae_dstaddr
+				CursorKind.TYPE_REF struct sockaddr
+			CursorKind.FIELD_DECL sae_dstaddrlen
+				CursorKind.TYPE_REF socklen_t
+	CursorKind.STRUCT_DECL linger
+		CursorKind.FIELD_DECL l_onoff
+		CursorKind.FIELD_DECL l_linger
+	CursorKind.STRUCT_DECL so_np_extensions
+		CursorKind.FIELD_DECL npx_flags
+			CursorKind.TYPE_REF u_int32_t
+		CursorKind.FIELD_DECL npx_mask
+			CursorKind.TYPE_REF u_int32_t
+	CursorKind.STRUCT_DECL sockaddr
+		CursorKind.FIELD_DECL sa_len
+			CursorKind.TYPE_REF __uint8_t
+		CursorKind.FIELD_DECL sa_family
+			CursorKind.TYPE_REF sa_family_t
+		CursorKind.FIELD_DECL sa_data
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.UNEXPOSED_DECL 
+	CursorKind.STRUCT_DECL __sockaddr_header
+		CursorKind.FIELD_DECL sa_len
+			CursorKind.TYPE_REF __uint8_t
+		CursorKind.FIELD_DECL sa_family
+			CursorKind.TYPE_REF sa_family_t
+	CursorKind.STRUCT_DECL sockproto
+		CursorKind.FIELD_DECL sp_family
+			CursorKind.TYPE_REF __uint16_t
+		CursorKind.FIELD_DECL sp_protocol
+			CursorKind.TYPE_REF __uint16_t
+	CursorKind.STRUCT_DECL sockaddr_storage
+		CursorKind.FIELD_DECL ss_len
+			CursorKind.TYPE_REF __uint8_t
+		CursorKind.FIELD_DECL ss_family
+			CursorKind.TYPE_REF sa_family_t
+		CursorKind.FIELD_DECL __ss_pad1
+			CursorKind.PAREN_EXPR 
+				CursorKind.BINARY_OPERATOR 
+					CursorKind.BINARY_OPERATOR 
+						CursorKind.PAREN_EXPR 
+							CursorKind.CXX_UNARY_EXPR 
+								CursorKind.TYPE_REF __int64_t
+						CursorKind.CXX_UNARY_EXPR 
+							CursorKind.TYPE_REF __uint8_t
+					CursorKind.CXX_UNARY_EXPR 
+						CursorKind.TYPE_REF sa_family_t
+		CursorKind.FIELD_DECL __ss_align
+			CursorKind.TYPE_REF __int64_t
+		CursorKind.FIELD_DECL __ss_pad2
+			CursorKind.PAREN_EXPR 
+				CursorKind.BINARY_OPERATOR 
+					CursorKind.BINARY_OPERATOR 
+						CursorKind.BINARY_OPERATOR 
+							CursorKind.BINARY_OPERATOR 
+								CursorKind.UNEXPOSED_EXPR 
+									CursorKind.INTEGER_LITERAL 
+								CursorKind.CXX_UNARY_EXPR 
+									CursorKind.TYPE_REF __uint8_t
+							CursorKind.CXX_UNARY_EXPR 
+								CursorKind.TYPE_REF sa_family_t
+						CursorKind.PAREN_EXPR 
+							CursorKind.BINARY_OPERATOR 
+								CursorKind.BINARY_OPERATOR 
+									CursorKind.PAREN_EXPR 
+										CursorKind.CXX_UNARY_EXPR 
+											CursorKind.TYPE_REF __int64_t
+									CursorKind.CXX_UNARY_EXPR 
+										CursorKind.TYPE_REF __uint8_t
+								CursorKind.CXX_UNARY_EXPR 
+									CursorKind.TYPE_REF sa_family_t
+					CursorKind.PAREN_EXPR 
+						CursorKind.CXX_UNARY_EXPR 
+							CursorKind.TYPE_REF __int64_t
+	CursorKind.UNEXPOSED_DECL 
+	CursorKind.STRUCT_DECL msghdr
+		CursorKind.FIELD_DECL msg_name
+		CursorKind.FIELD_DECL msg_namelen
+			CursorKind.TYPE_REF socklen_t
+		CursorKind.FIELD_DECL msg_iov
+			CursorKind.TYPE_REF struct iovec
+		CursorKind.FIELD_DECL msg_iovlen
+		CursorKind.FIELD_DECL msg_control
+		CursorKind.FIELD_DECL msg_controllen
+			CursorKind.TYPE_REF socklen_t
+		CursorKind.FIELD_DECL msg_flags
+	CursorKind.STRUCT_DECL cmsghdr
+		CursorKind.FIELD_DECL cmsg_len
+			CursorKind.TYPE_REF socklen_t
+		CursorKind.FIELD_DECL cmsg_level
+		CursorKind.FIELD_DECL cmsg_type
+	CursorKind.STRUCT_DECL sf_hdtr
+		CursorKind.FIELD_DECL headers
+			CursorKind.TYPE_REF struct iovec
+		CursorKind.FIELD_DECL hdr_cnt
+		CursorKind.FIELD_DECL trailers
+			CursorKind.TYPE_REF struct iovec
+		CursorKind.FIELD_DECL trl_cnt
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL accept
+			CursorKind.ASM_LABEL_ATTR _accept
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct sockaddr
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+		CursorKind.FUNCTION_DECL bind
+			CursorKind.ASM_LABEL_ATTR _bind
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct sockaddr
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+		CursorKind.FUNCTION_DECL connect
+			CursorKind.ASM_LABEL_ATTR _connect
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct sockaddr
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+		CursorKind.FUNCTION_DECL getpeername
+			CursorKind.ASM_LABEL_ATTR _getpeername
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct sockaddr
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+		CursorKind.FUNCTION_DECL getsockname
+			CursorKind.ASM_LABEL_ATTR _getsockname
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct sockaddr
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+		CursorKind.FUNCTION_DECL getsockopt
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+		CursorKind.FUNCTION_DECL listen
+			CursorKind.ASM_LABEL_ATTR _listen
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL recv
+			CursorKind.ASM_LABEL_ATTR _recv
+			CursorKind.TYPE_REF ssize_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL recvfrom
+			CursorKind.ASM_LABEL_ATTR _recvfrom
+			CursorKind.TYPE_REF ssize_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct sockaddr
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+		CursorKind.FUNCTION_DECL recvmsg
+			CursorKind.ASM_LABEL_ATTR _recvmsg
+			CursorKind.TYPE_REF ssize_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct msghdr
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL send
+			CursorKind.ASM_LABEL_ATTR _send
+			CursorKind.TYPE_REF ssize_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL sendmsg
+			CursorKind.ASM_LABEL_ATTR _sendmsg
+			CursorKind.TYPE_REF ssize_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct msghdr
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL sendto
+			CursorKind.ASM_LABEL_ATTR _sendto
+			CursorKind.TYPE_REF ssize_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct sockaddr
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+		CursorKind.FUNCTION_DECL setsockopt
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+		CursorKind.FUNCTION_DECL shutdown
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL sockatmark
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL socket
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL socketpair
+			CursorKind.ASM_LABEL_ATTR _socketpair
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL sendfile
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF off_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF off_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct sf_hdtr
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL pfctlinput
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct sockaddr
+		CursorKind.FUNCTION_DECL connectx
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF sa_endpoints_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF sae_associd_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct iovec
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF sae_connid_t
+		CursorKind.FUNCTION_DECL disconnectx
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF sae_associd_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF sae_connid_t
+	CursorKind.STRUCT_DECL in_addr
+		CursorKind.FIELD_DECL s_addr
+			CursorKind.TYPE_REF in_addr_t
+	CursorKind.STRUCT_DECL sockaddr_in
+		CursorKind.FIELD_DECL sin_len
+			CursorKind.TYPE_REF __uint8_t
+		CursorKind.FIELD_DECL sin_family
+			CursorKind.TYPE_REF sa_family_t
+		CursorKind.FIELD_DECL sin_port
+			CursorKind.TYPE_REF in_port_t
+		CursorKind.FIELD_DECL sin_addr
+			CursorKind.TYPE_REF struct in_addr
+		CursorKind.FIELD_DECL sin_zero
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.STRUCT_DECL ip_opts
+		CursorKind.FIELD_DECL ip_dst
+			CursorKind.TYPE_REF struct in_addr
+		CursorKind.FIELD_DECL ip_opts
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.STRUCT_DECL ip_mreq
+		CursorKind.FIELD_DECL imr_multiaddr
+			CursorKind.TYPE_REF struct in_addr
+		CursorKind.FIELD_DECL imr_interface
+			CursorKind.TYPE_REF struct in_addr
+	CursorKind.STRUCT_DECL ip_mreqn
+		CursorKind.FIELD_DECL imr_multiaddr
+			CursorKind.TYPE_REF struct in_addr
+		CursorKind.FIELD_DECL imr_address
+			CursorKind.TYPE_REF struct in_addr
+		CursorKind.FIELD_DECL imr_ifindex
+	CursorKind.STRUCT_DECL ip_mreq_source
+		CursorKind.FIELD_DECL imr_multiaddr
+			CursorKind.TYPE_REF struct in_addr
+		CursorKind.FIELD_DECL imr_sourceaddr
+			CursorKind.TYPE_REF struct in_addr
+		CursorKind.FIELD_DECL imr_interface
+			CursorKind.TYPE_REF struct in_addr
+	CursorKind.STRUCT_DECL group_req
+		CursorKind.FIELD_DECL gr_interface
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.FIELD_DECL gr_group
+			CursorKind.TYPE_REF struct sockaddr_storage
+	CursorKind.STRUCT_DECL group_source_req
+		CursorKind.FIELD_DECL gsr_interface
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.FIELD_DECL gsr_group
+			CursorKind.TYPE_REF struct sockaddr_storage
+		CursorKind.FIELD_DECL gsr_source
+			CursorKind.TYPE_REF struct sockaddr_storage
+	CursorKind.STRUCT_DECL __msfilterreq
+		CursorKind.FIELD_DECL msfr_ifindex
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.FIELD_DECL msfr_fmode
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.FIELD_DECL msfr_nsrcs
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.FIELD_DECL __msfr_align
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.FIELD_DECL msfr_group
+			CursorKind.TYPE_REF struct sockaddr_storage
+		CursorKind.FIELD_DECL msfr_srcs
+			CursorKind.TYPE_REF struct sockaddr_storage
+	CursorKind.STRUCT_DECL sockaddr
+	CursorKind.FUNCTION_DECL setipv4sourcefilter
+		CursorKind.UNEXPOSED_ATTR 
+		CursorKind.PARM_DECL 
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF struct in_addr
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF struct in_addr
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF struct in_addr
+	CursorKind.FUNCTION_DECL getipv4sourcefilter
+		CursorKind.UNEXPOSED_ATTR 
+		CursorKind.PARM_DECL 
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF struct in_addr
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF struct in_addr
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF struct in_addr
+	CursorKind.FUNCTION_DECL setsourcefilter
+		CursorKind.UNEXPOSED_ATTR 
+		CursorKind.PARM_DECL 
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF struct sockaddr
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF socklen_t
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF struct sockaddr_storage
+	CursorKind.FUNCTION_DECL getsourcefilter
+		CursorKind.UNEXPOSED_ATTR 
+		CursorKind.PARM_DECL 
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF struct sockaddr
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF socklen_t
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.PARM_DECL 
+			CursorKind.TYPE_REF struct sockaddr_storage
+	CursorKind.STRUCT_DECL in_pktinfo
+		CursorKind.FIELD_DECL ipi_ifindex
+		CursorKind.FIELD_DECL ipi_spec_dst
+			CursorKind.TYPE_REF struct in_addr
+		CursorKind.FIELD_DECL ipi_addr
+			CursorKind.TYPE_REF struct in_addr
+	CursorKind.STRUCT_DECL in6_addr
+		CursorKind.UNION_DECL 
+			CursorKind.FIELD_DECL __u6_addr8
+				CursorKind.TYPE_REF __uint8_t
+				CursorKind.INTEGER_LITERAL 
+			CursorKind.FIELD_DECL __u6_addr16
+				CursorKind.TYPE_REF __uint16_t
+				CursorKind.INTEGER_LITERAL 
+			CursorKind.FIELD_DECL __u6_addr32
+				CursorKind.TYPE_REF __uint32_t
+				CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL __u6_addr
+			CursorKind.UNION_DECL 
+				CursorKind.FIELD_DECL __u6_addr8
+					CursorKind.TYPE_REF __uint8_t
+					CursorKind.INTEGER_LITERAL 
+				CursorKind.FIELD_DECL __u6_addr16
+					CursorKind.TYPE_REF __uint16_t
+					CursorKind.INTEGER_LITERAL 
+				CursorKind.FIELD_DECL __u6_addr32
+					CursorKind.TYPE_REF __uint32_t
+					CursorKind.INTEGER_LITERAL 
+	CursorKind.TYPEDEF_DECL in6_addr_t
+		CursorKind.STRUCT_DECL in6_addr
+			CursorKind.UNION_DECL 
+				CursorKind.FIELD_DECL __u6_addr8
+					CursorKind.TYPE_REF __uint8_t
+					CursorKind.INTEGER_LITERAL 
+				CursorKind.FIELD_DECL __u6_addr16
+					CursorKind.TYPE_REF __uint16_t
+					CursorKind.INTEGER_LITERAL 
+				CursorKind.FIELD_DECL __u6_addr32
+					CursorKind.TYPE_REF __uint32_t
+					CursorKind.INTEGER_LITERAL 
+			CursorKind.FIELD_DECL __u6_addr
+				CursorKind.UNION_DECL 
+					CursorKind.FIELD_DECL __u6_addr8
+						CursorKind.TYPE_REF __uint8_t
+						CursorKind.INTEGER_LITERAL 
+					CursorKind.FIELD_DECL __u6_addr16
+						CursorKind.TYPE_REF __uint16_t
+						CursorKind.INTEGER_LITERAL 
+					CursorKind.FIELD_DECL __u6_addr32
+						CursorKind.TYPE_REF __uint32_t
+						CursorKind.INTEGER_LITERAL 
+	CursorKind.STRUCT_DECL sockaddr_in6
+		CursorKind.FIELD_DECL sin6_len
+			CursorKind.TYPE_REF __uint8_t
+		CursorKind.FIELD_DECL sin6_family
+			CursorKind.TYPE_REF sa_family_t
+		CursorKind.FIELD_DECL sin6_port
+			CursorKind.TYPE_REF in_port_t
+		CursorKind.FIELD_DECL sin6_flowinfo
+			CursorKind.TYPE_REF __uint32_t
+		CursorKind.FIELD_DECL sin6_addr
+			CursorKind.TYPE_REF struct in6_addr
+		CursorKind.FIELD_DECL sin6_scope_id
+			CursorKind.TYPE_REF __uint32_t
+	CursorKind.VAR_DECL in6addr_any
+		CursorKind.TYPE_REF struct in6_addr
+	CursorKind.VAR_DECL in6addr_loopback
+		CursorKind.TYPE_REF struct in6_addr
+	CursorKind.VAR_DECL in6addr_nodelocal_allnodes
+		CursorKind.TYPE_REF struct in6_addr
+	CursorKind.VAR_DECL in6addr_linklocal_allnodes
+		CursorKind.TYPE_REF struct in6_addr
+	CursorKind.VAR_DECL in6addr_linklocal_allrouters
+		CursorKind.TYPE_REF struct in6_addr
+	CursorKind.VAR_DECL in6addr_linklocal_allv2routers
+		CursorKind.TYPE_REF struct in6_addr
+	CursorKind.STRUCT_DECL ipv6_mreq
+		CursorKind.FIELD_DECL ipv6mr_multiaddr
+			CursorKind.TYPE_REF struct in6_addr
+		CursorKind.FIELD_DECL ipv6mr_interface
+	CursorKind.STRUCT_DECL in6_pktinfo
+		CursorKind.FIELD_DECL ipi6_addr
+			CursorKind.TYPE_REF struct in6_addr
+		CursorKind.FIELD_DECL ipi6_ifindex
+	CursorKind.STRUCT_DECL ip6_mtuinfo
+		CursorKind.FIELD_DECL ip6m_addr
+			CursorKind.TYPE_REF struct sockaddr_in6
+		CursorKind.FIELD_DECL ip6m_mtu
+			CursorKind.TYPE_REF uint32_t
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.STRUCT_DECL cmsghdr
+		CursorKind.FUNCTION_DECL inet6_option_space
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_option_init
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct cmsghdr
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_option_append
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct cmsghdr
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF __uint8_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_option_alloc
+			CursorKind.TYPE_REF __uint8_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct cmsghdr
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_option_next
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct cmsghdr
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF __uint8_t
+		CursorKind.FUNCTION_DECL inet6_option_find
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct cmsghdr
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF __uint8_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_rthdr_space
+			CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_rthdr_init
+			CursorKind.TYPE_REF struct cmsghdr
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_rthdr_add
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct cmsghdr
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct in6_addr
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_rthdr_lasthop
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct cmsghdr
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_rthdr_segments
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct cmsghdr
+		CursorKind.FUNCTION_DECL inet6_rthdr_getaddr
+			CursorKind.TYPE_REF struct in6_addr
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct cmsghdr
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_rthdr_getflags
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct cmsghdr
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_opt_init
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+		CursorKind.FUNCTION_DECL inet6_opt_append
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF __uint8_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF __uint8_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_opt_finish
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_opt_set_val
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+		CursorKind.FUNCTION_DECL inet6_opt_next
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF __uint8_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_opt_find
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF __uint8_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_opt_get_val
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+		CursorKind.FUNCTION_DECL inet6_rth_space
+			CursorKind.TYPE_REF socklen_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_rth_init
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_rth_add
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct in6_addr
+		CursorKind.FUNCTION_DECL inet6_rth_reverse
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_rth_segments
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet6_rth_getaddr
+			CursorKind.TYPE_REF struct in6_addr
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL bindresvport
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct sockaddr_in
+		CursorKind.STRUCT_DECL sockaddr
+		CursorKind.FUNCTION_DECL bindresvport_sa
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct sockaddr
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL inet_addr
+			CursorKind.TYPE_REF in_addr_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet_ntoa
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct in_addr
+		CursorKind.FUNCTION_DECL inet_ntop
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF socklen_t
+		CursorKind.FUNCTION_DECL inet_pton
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL ascii2addr
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL addr2ascii
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet_aton
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct in_addr
+		CursorKind.FUNCTION_DECL inet_lnaof
+			CursorKind.TYPE_REF in_addr_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct in_addr
+		CursorKind.FUNCTION_DECL inet_makeaddr
+			CursorKind.TYPE_REF struct in_addr
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF in_addr_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF in_addr_t
+		CursorKind.FUNCTION_DECL inet_netof
+			CursorKind.TYPE_REF in_addr_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct in_addr
+		CursorKind.FUNCTION_DECL inet_network
+			CursorKind.TYPE_REF in_addr_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet_net_ntop
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF __darwin_size_t
+		CursorKind.FUNCTION_DECL inet_net_pton
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF __darwin_size_t
+		CursorKind.FUNCTION_DECL inet_neta
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF in_addr_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF __darwin_size_t
+		CursorKind.FUNCTION_DECL inet_nsap_addr
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL inet_nsap_ntoa
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+	CursorKind.TYPEDEF_DECL __darwin_nl_item
+	CursorKind.TYPEDEF_DECL __darwin_wctrans_t
+	CursorKind.TYPEDEF_DECL __darwin_wctype_t
+		CursorKind.TYPE_REF __uint32_t
+	CursorKind.TYPEDEF_DECL va_list
+		CursorKind.TYPE_REF __darwin_va_list
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL renameat
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL renamex_np
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL renameatx_np
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+	CursorKind.TYPEDEF_DECL fpos_t
+		CursorKind.TYPE_REF __darwin_off_t
+	CursorKind.STRUCT_DECL __sbuf
+		CursorKind.FIELD_DECL _base
+		CursorKind.FIELD_DECL _size
+	CursorKind.STRUCT_DECL __sFILEX
+	CursorKind.STRUCT_DECL __sFILE
+		CursorKind.FIELD_DECL _p
+		CursorKind.FIELD_DECL _r
+		CursorKind.FIELD_DECL _w
+		CursorKind.FIELD_DECL _flags
+		CursorKind.FIELD_DECL _file
+		CursorKind.FIELD_DECL _bf
+			CursorKind.TYPE_REF struct __sbuf
+		CursorKind.FIELD_DECL _lbfsize
+		CursorKind.FIELD_DECL _cookie
+		CursorKind.FIELD_DECL _close
+			CursorKind.PARM_DECL 
+		CursorKind.FIELD_DECL _read
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FIELD_DECL _seek
+			CursorKind.TYPE_REF fpos_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF fpos_t
+			CursorKind.PARM_DECL 
+		CursorKind.FIELD_DECL _write
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FIELD_DECL _ub
+			CursorKind.TYPE_REF struct __sbuf
+		CursorKind.FIELD_DECL _extra
+			CursorKind.TYPE_REF struct __sFILEX
+		CursorKind.FIELD_DECL _ur
+		CursorKind.FIELD_DECL _ubuf
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL _nbuf
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL _lb
+			CursorKind.TYPE_REF struct __sbuf
+		CursorKind.FIELD_DECL _blksize
+		CursorKind.FIELD_DECL _offset
+			CursorKind.TYPE_REF fpos_t
+	CursorKind.TYPEDEF_DECL FILE
+		CursorKind.STRUCT_DECL __sFILE
+			CursorKind.FIELD_DECL _p
+			CursorKind.FIELD_DECL _r
+			CursorKind.FIELD_DECL _w
+			CursorKind.FIELD_DECL _flags
+			CursorKind.FIELD_DECL _file
+			CursorKind.FIELD_DECL _bf
+				CursorKind.TYPE_REF struct __sbuf
+			CursorKind.FIELD_DECL _lbfsize
+			CursorKind.FIELD_DECL _cookie
+			CursorKind.FIELD_DECL _close
+				CursorKind.PARM_DECL 
+			CursorKind.FIELD_DECL _read
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+			CursorKind.FIELD_DECL _seek
+				CursorKind.TYPE_REF fpos_t
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+					CursorKind.TYPE_REF fpos_t
+				CursorKind.PARM_DECL 
+			CursorKind.FIELD_DECL _write
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+			CursorKind.FIELD_DECL _ub
+				CursorKind.TYPE_REF struct __sbuf
+			CursorKind.FIELD_DECL _extra
+				CursorKind.TYPE_REF struct __sFILEX
+			CursorKind.FIELD_DECL _ur
+			CursorKind.FIELD_DECL _ubuf
+				CursorKind.INTEGER_LITERAL 
+			CursorKind.FIELD_DECL _nbuf
+				CursorKind.INTEGER_LITERAL 
+			CursorKind.FIELD_DECL _lb
+				CursorKind.TYPE_REF struct __sbuf
+			CursorKind.FIELD_DECL _blksize
+			CursorKind.FIELD_DECL _offset
+				CursorKind.TYPE_REF fpos_t
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.VAR_DECL __stdinp
+			CursorKind.TYPE_REF FILE
+		CursorKind.VAR_DECL __stdoutp
+			CursorKind.TYPE_REF FILE
+		CursorKind.VAR_DECL __stderrp
+			CursorKind.TYPE_REF FILE
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL clearerr
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL fclose
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL feof
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL ferror
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL fflush
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL fgetc
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL fgetpos
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF fpos_t
+		CursorKind.FUNCTION_DECL fgets
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL fopen
+			CursorKind.ASM_LABEL_ATTR _fopen
+			CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL __filename
+			CursorKind.PARM_DECL __mode
+		CursorKind.FUNCTION_DECL fprintf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL fputc
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL fputs
+			CursorKind.ASM_LABEL_ATTR _fputs
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL fread
+			CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __ptr
+			CursorKind.PARM_DECL __size
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __nitems
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __stream
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL freopen
+			CursorKind.ASM_LABEL_ATTR _freopen
+			CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL fscanf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL fseek
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL fsetpos
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF fpos_t
+		CursorKind.FUNCTION_DECL ftell
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL fwrite
+			CursorKind.ASM_LABEL_ATTR _fwrite
+			CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __ptr
+			CursorKind.PARM_DECL __size
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __nitems
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __stream
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL getc
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL getchar
+		CursorKind.FUNCTION_DECL gets
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL perror
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL printf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL putc
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL putchar
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL puts
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL remove
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL rename
+			CursorKind.PARM_DECL __old
+			CursorKind.PARM_DECL __new
+		CursorKind.FUNCTION_DECL rewind
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL scanf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL setbuf
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL setvbuf
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL sprintf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL sscanf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL tmpfile
+			CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL tmpnam
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL ungetc
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL vfprintf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF va_list
+		CursorKind.FUNCTION_DECL vprintf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF va_list
+		CursorKind.FUNCTION_DECL vsprintf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF va_list
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.UNEXPOSED_DECL 
+			CursorKind.FUNCTION_DECL ctermid
+				CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL fdopen
+			CursorKind.ASM_LABEL_ATTR _fdopen
+			CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL fileno
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL pclose
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL popen
+			CursorKind.ASM_LABEL_ATTR _popen
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL __srget
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL __svfscanf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF va_list
+		CursorKind.FUNCTION_DECL __swbuf
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+	CursorKind.FUNCTION_DECL __sputc
+		CursorKind.UNEXPOSED_ATTR 
+		CursorKind.PARM_DECL _c
+		CursorKind.PARM_DECL _p
+			CursorKind.TYPE_REF FILE
+		CursorKind.COMPOUND_STMT 
+			CursorKind.IF_STMT 
+				CursorKind.BINARY_OPERATOR 
+					CursorKind.BINARY_OPERATOR 
+						CursorKind.UNEXPOSED_EXPR 
+							CursorKind.UNARY_OPERATOR 
+								CursorKind.MEMBER_REF_EXPR _w
+									CursorKind.UNEXPOSED_EXPR _p
+										CursorKind.DECL_REF_EXPR _p
+						CursorKind.INTEGER_LITERAL 
+					CursorKind.PAREN_EXPR 
+						CursorKind.BINARY_OPERATOR 
+							CursorKind.BINARY_OPERATOR 
+								CursorKind.UNEXPOSED_EXPR _w
+									CursorKind.MEMBER_REF_EXPR _w
+										CursorKind.UNEXPOSED_EXPR _p
+											CursorKind.DECL_REF_EXPR _p
+								CursorKind.UNEXPOSED_EXPR _lbfsize
+									CursorKind.MEMBER_REF_EXPR _lbfsize
+										CursorKind.UNEXPOSED_EXPR _p
+											CursorKind.DECL_REF_EXPR _p
+							CursorKind.BINARY_OPERATOR 
+								CursorKind.UNEXPOSED_EXPR 
+									CursorKind.CSTYLE_CAST_EXPR 
+										CursorKind.UNEXPOSED_EXPR _c
+											CursorKind.UNEXPOSED_EXPR _c
+												CursorKind.DECL_REF_EXPR _c
+								CursorKind.UNEXPOSED_EXPR 
+									CursorKind.CHARACTER_LITERAL 
+				CursorKind.RETURN_STMT 
+					CursorKind.UNEXPOSED_EXPR 
+						CursorKind.UNEXPOSED_EXPR 
+							CursorKind.PAREN_EXPR 
+								CursorKind.BINARY_OPERATOR 
+									CursorKind.UNARY_OPERATOR 
+										CursorKind.UNARY_OPERATOR 
+											CursorKind.MEMBER_REF_EXPR _p
+												CursorKind.UNEXPOSED_EXPR _p
+													CursorKind.DECL_REF_EXPR _p
+									CursorKind.UNEXPOSED_EXPR _c
+										CursorKind.UNEXPOSED_EXPR _c
+											CursorKind.DECL_REF_EXPR _c
+				CursorKind.RETURN_STMT 
+					CursorKind.PAREN_EXPR 
+						CursorKind.CALL_EXPR __swbuf
+							CursorKind.UNEXPOSED_EXPR __swbuf
+								CursorKind.DECL_REF_EXPR __swbuf
+							CursorKind.UNEXPOSED_EXPR _c
+								CursorKind.DECL_REF_EXPR _c
+							CursorKind.UNEXPOSED_EXPR _p
+								CursorKind.DECL_REF_EXPR _p
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL flockfile
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL ftrylockfile
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL funlockfile
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL getc_unlocked
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL getchar_unlocked
+		CursorKind.FUNCTION_DECL putc_unlocked
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL putchar_unlocked
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL getw
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL putw
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL tempnam
+			CursorKind.ASM_LABEL_ATTR _tempnam
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __dir
+			CursorKind.PARM_DECL __prefix
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL fseeko
+			CursorKind.PARM_DECL __stream
+				CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL __offset
+				CursorKind.TYPE_REF off_t
+			CursorKind.PARM_DECL __whence
+		CursorKind.FUNCTION_DECL ftello
+			CursorKind.TYPE_REF off_t
+			CursorKind.PARM_DECL __stream
+				CursorKind.TYPE_REF FILE
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL snprintf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __str
+			CursorKind.PARM_DECL __size
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __format
+		CursorKind.FUNCTION_DECL vfscanf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __stream
+				CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL __format
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF va_list
+		CursorKind.FUNCTION_DECL vscanf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __format
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF va_list
+		CursorKind.FUNCTION_DECL vsnprintf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __str
+			CursorKind.PARM_DECL __size
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __format
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF va_list
+		CursorKind.FUNCTION_DECL vsscanf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __str
+			CursorKind.PARM_DECL __format
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF va_list
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL dprintf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL vdprintf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF va_list
+		CursorKind.FUNCTION_DECL getdelim
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.TYPE_REF ssize_t
+			CursorKind.PARM_DECL __linep
+			CursorKind.PARM_DECL __linecapp
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __delimiter
+			CursorKind.PARM_DECL __stream
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL getline
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.TYPE_REF ssize_t
+			CursorKind.PARM_DECL __linep
+			CursorKind.PARM_DECL __linecapp
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __stream
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL fmemopen
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL __buf
+			CursorKind.PARM_DECL __size
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __mode
+		CursorKind.FUNCTION_DECL open_memstream
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL __bufp
+			CursorKind.PARM_DECL __sizep
+				CursorKind.TYPE_REF size_t
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.VAR_DECL sys_nerr
+		CursorKind.VAR_DECL sys_errlist
+		CursorKind.FUNCTION_DECL asprintf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL ctermid_r
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL fgetln
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL fmtcheck
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL fpurge
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL setbuffer
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL setlinebuf
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF FILE
+		CursorKind.FUNCTION_DECL vasprintf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF va_list
+		CursorKind.FUNCTION_DECL funopen
+			CursorKind.TYPE_REF FILE
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF fpos_t
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+					CursorKind.TYPE_REF fpos_t
+				CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+	CursorKind.ENUM_DECL 
+		CursorKind.ENUM_CONSTANT_DECL P_ALL
+		CursorKind.ENUM_CONSTANT_DECL P_PID
+		CursorKind.ENUM_CONSTANT_DECL P_PGID
+	CursorKind.TYPEDEF_DECL idtype_t
+		CursorKind.ENUM_DECL 
+			CursorKind.ENUM_CONSTANT_DECL P_ALL
+			CursorKind.ENUM_CONSTANT_DECL P_PID
+			CursorKind.ENUM_CONSTANT_DECL P_PGID
+	CursorKind.TYPEDEF_DECL sig_atomic_t
+	CursorKind.STRUCT_DECL __darwin_arm_exception_state
+		CursorKind.FIELD_DECL __exception
+			CursorKind.TYPE_REF __uint32_t
+		CursorKind.FIELD_DECL __fsr
+			CursorKind.TYPE_REF __uint32_t
+		CursorKind.FIELD_DECL __far
+			CursorKind.TYPE_REF __uint32_t
+	CursorKind.STRUCT_DECL __darwin_arm_exception_state64
+		CursorKind.FIELD_DECL __far
+			CursorKind.TYPE_REF __uint64_t
+		CursorKind.FIELD_DECL __esr
+			CursorKind.TYPE_REF __uint32_t
+		CursorKind.FIELD_DECL __exception
+			CursorKind.TYPE_REF __uint32_t
+	CursorKind.STRUCT_DECL __darwin_arm_thread_state
+		CursorKind.FIELD_DECL __r
+			CursorKind.TYPE_REF __uint32_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL __sp
+			CursorKind.TYPE_REF __uint32_t
+		CursorKind.FIELD_DECL __lr
+			CursorKind.TYPE_REF __uint32_t
+		CursorKind.FIELD_DECL __pc
+			CursorKind.TYPE_REF __uint32_t
+		CursorKind.FIELD_DECL __cpsr
+			CursorKind.TYPE_REF __uint32_t
+	CursorKind.STRUCT_DECL __darwin_arm_thread_state64
+		CursorKind.FIELD_DECL __x
+			CursorKind.TYPE_REF __uint64_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL __fp
+			CursorKind.TYPE_REF __uint64_t
+		CursorKind.FIELD_DECL __lr
+			CursorKind.TYPE_REF __uint64_t
+		CursorKind.FIELD_DECL __sp
+			CursorKind.TYPE_REF __uint64_t
+		CursorKind.FIELD_DECL __pc
+			CursorKind.TYPE_REF __uint64_t
+		CursorKind.FIELD_DECL __cpsr
+			CursorKind.TYPE_REF __uint32_t
+		CursorKind.FIELD_DECL __pad
+			CursorKind.TYPE_REF __uint32_t
+	CursorKind.STRUCT_DECL __darwin_arm_vfp_state
+		CursorKind.FIELD_DECL __r
+			CursorKind.TYPE_REF __uint32_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL __fpscr
+			CursorKind.TYPE_REF __uint32_t
+	CursorKind.STRUCT_DECL __darwin_arm_neon_state64
+		CursorKind.FIELD_DECL __v
+			CursorKind.TYPE_REF __uint128_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL __fpsr
+			CursorKind.TYPE_REF __uint32_t
+		CursorKind.FIELD_DECL __fpcr
+			CursorKind.TYPE_REF __uint32_t
+	CursorKind.STRUCT_DECL __darwin_arm_neon_state
+		CursorKind.FIELD_DECL __v
+			CursorKind.TYPE_REF __uint128_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL __fpsr
+			CursorKind.TYPE_REF __uint32_t
+		CursorKind.FIELD_DECL __fpcr
+			CursorKind.TYPE_REF __uint32_t
+	CursorKind.STRUCT_DECL __arm_pagein_state
+		CursorKind.FIELD_DECL __pagein_error
+	CursorKind.STRUCT_DECL __arm_legacy_debug_state
+		CursorKind.FIELD_DECL __bvr
+			CursorKind.TYPE_REF __uint32_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL __bcr
+			CursorKind.TYPE_REF __uint32_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL __wvr
+			CursorKind.TYPE_REF __uint32_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL __wcr
+			CursorKind.TYPE_REF __uint32_t
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.STRUCT_DECL __darwin_arm_debug_state32
+		CursorKind.FIELD_DECL __bvr
+			CursorKind.TYPE_REF __uint32_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL __bcr
+			CursorKind.TYPE_REF __uint32_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL __wvr
+			CursorKind.TYPE_REF __uint32_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL __wcr
+			CursorKind.TYPE_REF __uint32_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL __mdscr_el1
+			CursorKind.TYPE_REF __uint64_t
+	CursorKind.STRUCT_DECL __darwin_arm_debug_state64
+		CursorKind.FIELD_DECL __bvr
+			CursorKind.TYPE_REF __uint64_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL __bcr
+			CursorKind.TYPE_REF __uint64_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL __wvr
+			CursorKind.TYPE_REF __uint64_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL __wcr
+			CursorKind.TYPE_REF __uint64_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL __mdscr_el1
+			CursorKind.TYPE_REF __uint64_t
+	CursorKind.STRUCT_DECL __darwin_arm_cpmu_state64
+		CursorKind.FIELD_DECL __ctrs
+			CursorKind.TYPE_REF __uint64_t
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.STRUCT_DECL __darwin_mcontext32
+		CursorKind.FIELD_DECL __es
+			CursorKind.TYPE_REF struct __darwin_arm_exception_state
+		CursorKind.FIELD_DECL __ss
+			CursorKind.TYPE_REF struct __darwin_arm_thread_state
+		CursorKind.FIELD_DECL __fs
+			CursorKind.TYPE_REF struct __darwin_arm_vfp_state
+	CursorKind.STRUCT_DECL __darwin_mcontext64
+		CursorKind.FIELD_DECL __es
+			CursorKind.TYPE_REF struct __darwin_arm_exception_state64
+		CursorKind.FIELD_DECL __ss
+			CursorKind.TYPE_REF struct __darwin_arm_thread_state64
+		CursorKind.FIELD_DECL __ns
+			CursorKind.TYPE_REF struct __darwin_arm_neon_state64
+	CursorKind.TYPEDEF_DECL mcontext_t
+		CursorKind.TYPE_REF struct __darwin_mcontext64
+	CursorKind.STRUCT_DECL __darwin_sigaltstack
+		CursorKind.FIELD_DECL ss_sp
+		CursorKind.FIELD_DECL ss_size
+			CursorKind.TYPE_REF __darwin_size_t
+		CursorKind.FIELD_DECL ss_flags
+	CursorKind.TYPEDEF_DECL stack_t
+		CursorKind.TYPE_REF struct __darwin_sigaltstack
+	CursorKind.STRUCT_DECL __darwin_ucontext
+		CursorKind.FIELD_DECL uc_onstack
+		CursorKind.FIELD_DECL uc_sigmask
+			CursorKind.TYPE_REF __darwin_sigset_t
+		CursorKind.FIELD_DECL uc_stack
+			CursorKind.TYPE_REF struct __darwin_sigaltstack
+		CursorKind.FIELD_DECL uc_link
+			CursorKind.TYPE_REF struct __darwin_ucontext
+		CursorKind.FIELD_DECL uc_mcsize
+			CursorKind.TYPE_REF __darwin_size_t
+		CursorKind.FIELD_DECL uc_mcontext
+			CursorKind.TYPE_REF struct __darwin_mcontext64
+	CursorKind.TYPEDEF_DECL ucontext_t
+		CursorKind.TYPE_REF struct __darwin_ucontext
+	CursorKind.TYPEDEF_DECL sigset_t
+		CursorKind.TYPE_REF __darwin_sigset_t
+	CursorKind.UNION_DECL sigval
+		CursorKind.FIELD_DECL sival_int
+		CursorKind.FIELD_DECL sival_ptr
+	CursorKind.STRUCT_DECL sigevent
+		CursorKind.FIELD_DECL sigev_notify
+		CursorKind.FIELD_DECL sigev_signo
+		CursorKind.FIELD_DECL sigev_value
+			CursorKind.TYPE_REF union sigval
+		CursorKind.FIELD_DECL sigev_notify_function
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF union sigval
+		CursorKind.FIELD_DECL sigev_notify_attributes
+			CursorKind.TYPE_REF pthread_attr_t
+	CursorKind.STRUCT_DECL __siginfo
+		CursorKind.FIELD_DECL si_signo
+		CursorKind.FIELD_DECL si_errno
+		CursorKind.FIELD_DECL si_code
+		CursorKind.FIELD_DECL si_pid
+			CursorKind.TYPE_REF pid_t
+		CursorKind.FIELD_DECL si_uid
+			CursorKind.TYPE_REF uid_t
+		CursorKind.FIELD_DECL si_status
+		CursorKind.FIELD_DECL si_addr
+		CursorKind.FIELD_DECL si_value
+			CursorKind.TYPE_REF union sigval
+		CursorKind.FIELD_DECL si_band
+		CursorKind.FIELD_DECL __pad
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.TYPEDEF_DECL siginfo_t
+		CursorKind.STRUCT_DECL __siginfo
+			CursorKind.FIELD_DECL si_signo
+			CursorKind.FIELD_DECL si_errno
+			CursorKind.FIELD_DECL si_code
+			CursorKind.FIELD_DECL si_pid
+				CursorKind.TYPE_REF pid_t
+			CursorKind.FIELD_DECL si_uid
+				CursorKind.TYPE_REF uid_t
+			CursorKind.FIELD_DECL si_status
+			CursorKind.FIELD_DECL si_addr
+			CursorKind.FIELD_DECL si_value
+				CursorKind.TYPE_REF union sigval
+			CursorKind.FIELD_DECL si_band
+			CursorKind.FIELD_DECL __pad
+				CursorKind.INTEGER_LITERAL 
+	CursorKind.UNION_DECL __sigaction_u
+		CursorKind.FIELD_DECL __sa_handler
+			CursorKind.PARM_DECL 
+		CursorKind.FIELD_DECL __sa_sigaction
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct __siginfo
+			CursorKind.PARM_DECL 
+	CursorKind.STRUCT_DECL __sigaction
+		CursorKind.FIELD_DECL __sigaction_u
+			CursorKind.TYPE_REF union __sigaction_u
+		CursorKind.FIELD_DECL sa_tramp
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF siginfo_t
+			CursorKind.PARM_DECL 
+		CursorKind.FIELD_DECL sa_mask
+			CursorKind.TYPE_REF sigset_t
+		CursorKind.FIELD_DECL sa_flags
+	CursorKind.STRUCT_DECL sigaction
+		CursorKind.FIELD_DECL __sigaction_u
+			CursorKind.TYPE_REF union __sigaction_u
+		CursorKind.FIELD_DECL sa_mask
+			CursorKind.TYPE_REF sigset_t
+		CursorKind.FIELD_DECL sa_flags
+	CursorKind.TYPEDEF_DECL sig_t
+		CursorKind.PARM_DECL 
+	CursorKind.STRUCT_DECL sigvec
+		CursorKind.FIELD_DECL sv_handler
+			CursorKind.PARM_DECL 
+		CursorKind.FIELD_DECL sv_mask
+		CursorKind.FIELD_DECL sv_flags
+	CursorKind.STRUCT_DECL sigstack
+		CursorKind.FIELD_DECL ss_sp
+		CursorKind.FIELD_DECL ss_onstack
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL signal
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+	CursorKind.STRUCT_DECL timeval
+		CursorKind.FIELD_DECL tv_sec
+			CursorKind.TYPE_REF __darwin_time_t
+		CursorKind.FIELD_DECL tv_usec
+			CursorKind.TYPE_REF __darwin_suseconds_t
+	CursorKind.TYPEDEF_DECL rlim_t
+		CursorKind.TYPE_REF __uint64_t
+	CursorKind.STRUCT_DECL rusage
+		CursorKind.FIELD_DECL ru_utime
+			CursorKind.TYPE_REF struct timeval
+		CursorKind.FIELD_DECL ru_stime
+			CursorKind.TYPE_REF struct timeval
+		CursorKind.FIELD_DECL ru_maxrss
+		CursorKind.FIELD_DECL ru_ixrss
+		CursorKind.FIELD_DECL ru_idrss
+		CursorKind.FIELD_DECL ru_isrss
+		CursorKind.FIELD_DECL ru_minflt
+		CursorKind.FIELD_DECL ru_majflt
+		CursorKind.FIELD_DECL ru_nswap
+		CursorKind.FIELD_DECL ru_inblock
+		CursorKind.FIELD_DECL ru_oublock
+		CursorKind.FIELD_DECL ru_msgsnd
+		CursorKind.FIELD_DECL ru_msgrcv
+		CursorKind.FIELD_DECL ru_nsignals
+		CursorKind.FIELD_DECL ru_nvcsw
+		CursorKind.FIELD_DECL ru_nivcsw
+	CursorKind.TYPEDEF_DECL rusage_info_t
+	CursorKind.STRUCT_DECL rusage_info_v0
+		CursorKind.FIELD_DECL ri_uuid
+			CursorKind.TYPE_REF uint8_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL ri_user_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_pkg_idle_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_interrupt_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_pageins
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_wired_size
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_resident_size
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_phys_footprint
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_proc_start_abstime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_proc_exit_abstime
+			CursorKind.TYPE_REF uint64_t
+	CursorKind.STRUCT_DECL rusage_info_v1
+		CursorKind.FIELD_DECL ri_uuid
+			CursorKind.TYPE_REF uint8_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL ri_user_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_pkg_idle_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_interrupt_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_pageins
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_wired_size
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_resident_size
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_phys_footprint
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_proc_start_abstime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_proc_exit_abstime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_user_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_pkg_idle_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_interrupt_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_pageins
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_elapsed_abstime
+			CursorKind.TYPE_REF uint64_t
+	CursorKind.STRUCT_DECL rusage_info_v2
+		CursorKind.FIELD_DECL ri_uuid
+			CursorKind.TYPE_REF uint8_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL ri_user_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_pkg_idle_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_interrupt_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_pageins
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_wired_size
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_resident_size
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_phys_footprint
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_proc_start_abstime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_proc_exit_abstime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_user_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_pkg_idle_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_interrupt_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_pageins
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_elapsed_abstime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_diskio_bytesread
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_diskio_byteswritten
+			CursorKind.TYPE_REF uint64_t
+	CursorKind.STRUCT_DECL rusage_info_v3
+		CursorKind.FIELD_DECL ri_uuid
+			CursorKind.TYPE_REF uint8_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL ri_user_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_pkg_idle_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_interrupt_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_pageins
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_wired_size
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_resident_size
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_phys_footprint
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_proc_start_abstime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_proc_exit_abstime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_user_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_pkg_idle_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_interrupt_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_pageins
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_elapsed_abstime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_diskio_bytesread
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_diskio_byteswritten
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_default
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_maintenance
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_background
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_utility
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_legacy
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_user_initiated
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_user_interactive
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_billed_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_serviced_system_time
+			CursorKind.TYPE_REF uint64_t
+	CursorKind.STRUCT_DECL rusage_info_v4
+		CursorKind.FIELD_DECL ri_uuid
+			CursorKind.TYPE_REF uint8_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL ri_user_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_pkg_idle_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_interrupt_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_pageins
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_wired_size
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_resident_size
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_phys_footprint
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_proc_start_abstime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_proc_exit_abstime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_user_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_pkg_idle_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_interrupt_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_pageins
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_elapsed_abstime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_diskio_bytesread
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_diskio_byteswritten
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_default
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_maintenance
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_background
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_utility
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_legacy
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_user_initiated
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_user_interactive
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_billed_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_serviced_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_logical_writes
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_lifetime_max_phys_footprint
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_instructions
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cycles
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_billed_energy
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_serviced_energy
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_interval_max_phys_footprint
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_runnable_time
+			CursorKind.TYPE_REF uint64_t
+	CursorKind.STRUCT_DECL rusage_info_v5
+		CursorKind.FIELD_DECL ri_uuid
+			CursorKind.TYPE_REF uint8_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL ri_user_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_pkg_idle_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_interrupt_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_pageins
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_wired_size
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_resident_size
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_phys_footprint
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_proc_start_abstime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_proc_exit_abstime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_user_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_pkg_idle_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_interrupt_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_pageins
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_elapsed_abstime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_diskio_bytesread
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_diskio_byteswritten
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_default
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_maintenance
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_background
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_utility
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_legacy
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_user_initiated
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_user_interactive
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_billed_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_serviced_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_logical_writes
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_lifetime_max_phys_footprint
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_instructions
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cycles
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_billed_energy
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_serviced_energy
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_interval_max_phys_footprint
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_runnable_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_flags
+			CursorKind.TYPE_REF uint64_t
+	CursorKind.STRUCT_DECL rusage_info_v6
+		CursorKind.FIELD_DECL ri_uuid
+			CursorKind.TYPE_REF uint8_t
+			CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL ri_user_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_pkg_idle_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_interrupt_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_pageins
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_wired_size
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_resident_size
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_phys_footprint
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_proc_start_abstime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_proc_exit_abstime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_user_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_pkg_idle_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_interrupt_wkups
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_pageins
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_child_elapsed_abstime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_diskio_bytesread
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_diskio_byteswritten
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_default
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_maintenance
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_background
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_utility
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_legacy
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_user_initiated
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cpu_time_qos_user_interactive
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_billed_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_serviced_system_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_logical_writes
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_lifetime_max_phys_footprint
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_instructions
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_cycles
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_billed_energy
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_serviced_energy
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_interval_max_phys_footprint
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_runnable_time
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_flags
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_user_ptime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_system_ptime
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_pinstructions
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_pcycles
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_energy_nj
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_penergy_nj
+			CursorKind.TYPE_REF uint64_t
+		CursorKind.FIELD_DECL ri_reserved
+			CursorKind.TYPE_REF uint64_t
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.TYPEDEF_DECL rusage_info_current
+		CursorKind.TYPE_REF struct rusage_info_v6
+	CursorKind.STRUCT_DECL rlimit
+		CursorKind.FIELD_DECL rlim_cur
+			CursorKind.TYPE_REF rlim_t
+		CursorKind.FIELD_DECL rlim_max
+			CursorKind.TYPE_REF rlim_t
+	CursorKind.STRUCT_DECL proc_rlimit_control_wakeupmon
+		CursorKind.FIELD_DECL wm_flags
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.FIELD_DECL wm_rate
+			CursorKind.TYPE_REF int32_t
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL getpriority
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF id_t
+		CursorKind.FUNCTION_DECL getiopolicy_np
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL getrlimit
+			CursorKind.ASM_LABEL_ATTR _getrlimit
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct rlimit
+		CursorKind.FUNCTION_DECL getrusage
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct rusage
+		CursorKind.FUNCTION_DECL setpriority
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF id_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL setiopolicy_np
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL setrlimit
+			CursorKind.ASM_LABEL_ATTR _setrlimit
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct rlimit
+	CursorKind.UNION_DECL wait
+		CursorKind.FIELD_DECL w_status
+		CursorKind.STRUCT_DECL 
+			CursorKind.FIELD_DECL w_Termsig
+				CursorKind.INTEGER_LITERAL 
+			CursorKind.FIELD_DECL w_Coredump
+				CursorKind.INTEGER_LITERAL 
+			CursorKind.FIELD_DECL w_Retcode
+				CursorKind.INTEGER_LITERAL 
+			CursorKind.FIELD_DECL w_Filler
+				CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL w_T
+			CursorKind.STRUCT_DECL 
+				CursorKind.FIELD_DECL w_Termsig
+					CursorKind.INTEGER_LITERAL 
+				CursorKind.FIELD_DECL w_Coredump
+					CursorKind.INTEGER_LITERAL 
+				CursorKind.FIELD_DECL w_Retcode
+					CursorKind.INTEGER_LITERAL 
+				CursorKind.FIELD_DECL w_Filler
+					CursorKind.INTEGER_LITERAL 
+		CursorKind.STRUCT_DECL 
+			CursorKind.FIELD_DECL w_Stopval
+				CursorKind.INTEGER_LITERAL 
+			CursorKind.FIELD_DECL w_Stopsig
+				CursorKind.INTEGER_LITERAL 
+			CursorKind.FIELD_DECL w_Filler
+				CursorKind.INTEGER_LITERAL 
+		CursorKind.FIELD_DECL w_S
+			CursorKind.STRUCT_DECL 
+				CursorKind.FIELD_DECL w_Stopval
+					CursorKind.INTEGER_LITERAL 
+				CursorKind.FIELD_DECL w_Stopsig
+					CursorKind.INTEGER_LITERAL 
+				CursorKind.FIELD_DECL w_Filler
+					CursorKind.INTEGER_LITERAL 
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL wait
+			CursorKind.ASM_LABEL_ATTR _wait
+			CursorKind.TYPE_REF pid_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL waitpid
+			CursorKind.ASM_LABEL_ATTR _waitpid
+			CursorKind.TYPE_REF pid_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF pid_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL waitid
+			CursorKind.ASM_LABEL_ATTR _waitid
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF idtype_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF id_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF siginfo_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL wait3
+			CursorKind.TYPE_REF pid_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct rusage
+		CursorKind.FUNCTION_DECL wait4
+			CursorKind.TYPE_REF pid_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF pid_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct rusage
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL alloca
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+	CursorKind.TYPEDEF_DECL ct_rune_t
+		CursorKind.TYPE_REF __darwin_ct_rune_t
+	CursorKind.TYPEDEF_DECL rune_t
+		CursorKind.TYPE_REF __darwin_rune_t
+	CursorKind.STRUCT_DECL 
+		CursorKind.FIELD_DECL quot
+		CursorKind.FIELD_DECL rem
+	CursorKind.TYPEDEF_DECL div_t
+		CursorKind.STRUCT_DECL 
+			CursorKind.FIELD_DECL quot
+			CursorKind.FIELD_DECL rem
+	CursorKind.STRUCT_DECL 
+		CursorKind.FIELD_DECL quot
+		CursorKind.FIELD_DECL rem
+	CursorKind.TYPEDEF_DECL ldiv_t
+		CursorKind.STRUCT_DECL 
+			CursorKind.FIELD_DECL quot
+			CursorKind.FIELD_DECL rem
+	CursorKind.STRUCT_DECL 
+		CursorKind.FIELD_DECL quot
+		CursorKind.FIELD_DECL rem
+	CursorKind.TYPEDEF_DECL lldiv_t
+		CursorKind.STRUCT_DECL 
+			CursorKind.FIELD_DECL quot
+			CursorKind.FIELD_DECL rem
+	CursorKind.VAR_DECL __mb_cur_max
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL malloc
+			CursorKind.WARN_UNUSED_RESULT_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __size
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL calloc
+			CursorKind.WARN_UNUSED_RESULT_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __count
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __size
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL free
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL realloc
+			CursorKind.WARN_UNUSED_RESULT_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __ptr
+			CursorKind.PARM_DECL __size
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL valloc
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL aligned_alloc
+			CursorKind.WARN_UNUSED_RESULT_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __alignment
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __size
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL posix_memalign
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __memptr
+			CursorKind.PARM_DECL __alignment
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __size
+				CursorKind.TYPE_REF size_t
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL abort
+			CursorKind.UNEXPOSED_ATTR 
+		CursorKind.FUNCTION_DECL abs
+			CursorKind.CONST_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL atexit
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL atof
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL atoi
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL atol
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL atoll
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL bsearch
+			CursorKind.PARM_DECL __key
+			CursorKind.PARM_DECL __base
+			CursorKind.PARM_DECL __nel
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __width
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __compar
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL div
+			CursorKind.CONST_ATTR 
+			CursorKind.TYPE_REF div_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL exit
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL getenv
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL labs
+			CursorKind.CONST_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL ldiv
+			CursorKind.CONST_ATTR 
+			CursorKind.TYPE_REF ldiv_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL llabs
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL lldiv
+			CursorKind.TYPE_REF lldiv_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL mblen
+			CursorKind.PARM_DECL __s
+			CursorKind.PARM_DECL __n
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL mbstowcs
+			CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL mbtowc
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL qsort
+			CursorKind.PARM_DECL __base
+			CursorKind.PARM_DECL __nel
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __width
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __compar
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL rand
+			CursorKind.UNEXPOSED_ATTR 
+		CursorKind.FUNCTION_DECL srand
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL strtod
+			CursorKind.ASM_LABEL_ATTR _strtod
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL strtof
+			CursorKind.ASM_LABEL_ATTR _strtof
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL strtol
+			CursorKind.PARM_DECL __str
+			CursorKind.PARM_DECL __endptr
+			CursorKind.PARM_DECL __base
+		CursorKind.FUNCTION_DECL strtold
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL strtoll
+			CursorKind.PARM_DECL __str
+			CursorKind.PARM_DECL __endptr
+			CursorKind.PARM_DECL __base
+		CursorKind.FUNCTION_DECL strtoul
+			CursorKind.PARM_DECL __str
+			CursorKind.PARM_DECL __endptr
+			CursorKind.PARM_DECL __base
+		CursorKind.FUNCTION_DECL strtoull
+			CursorKind.PARM_DECL __str
+			CursorKind.PARM_DECL __endptr
+			CursorKind.PARM_DECL __base
+		CursorKind.FUNCTION_DECL system
+			CursorKind.ASM_LABEL_ATTR _system
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL wcstombs
+			CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL wctomb
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL _Exit
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL a64l
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL drand48
+		CursorKind.FUNCTION_DECL ecvt
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL erand48
+			CursorKind.PARM_DECL 
+				CursorKind.INTEGER_LITERAL 
+		CursorKind.FUNCTION_DECL fcvt
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL gcvt
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL getsubopt
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL grantpt
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL initstate
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL jrand48
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+				CursorKind.INTEGER_LITERAL 
+		CursorKind.FUNCTION_DECL l64a
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL lcong48
+			CursorKind.PARM_DECL 
+				CursorKind.INTEGER_LITERAL 
+		CursorKind.FUNCTION_DECL lrand48
+			CursorKind.UNEXPOSED_ATTR 
+		CursorKind.FUNCTION_DECL mktemp
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL mkstemp
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL mrand48
+			CursorKind.UNEXPOSED_ATTR 
+		CursorKind.FUNCTION_DECL nrand48
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+				CursorKind.INTEGER_LITERAL 
+		CursorKind.FUNCTION_DECL posix_openpt
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL ptsname
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL ptsname_r
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL fildes
+			CursorKind.PARM_DECL buffer
+			CursorKind.PARM_DECL buflen
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL putenv
+			CursorKind.ASM_LABEL_ATTR _putenv
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL random
+			CursorKind.UNEXPOSED_ATTR 
+		CursorKind.FUNCTION_DECL rand_r
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL realpath
+			CursorKind.ASM_LABEL_ATTR _realpath$DARWIN_EXTSN
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL seed48
+			CursorKind.PARM_DECL 
+				CursorKind.INTEGER_LITERAL 
+		CursorKind.FUNCTION_DECL setenv
+			CursorKind.ASM_LABEL_ATTR _setenv
+			CursorKind.PARM_DECL __name
+			CursorKind.PARM_DECL __value
+			CursorKind.PARM_DECL __overwrite
+		CursorKind.FUNCTION_DECL setkey
+			CursorKind.ASM_LABEL_ATTR _setkey
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL setstate
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL srand48
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL srandom
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL unlockpt
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL unsetenv
+			CursorKind.ASM_LABEL_ATTR _unsetenv
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL arc4random
+			CursorKind.TYPE_REF uint32_t
+		CursorKind.FUNCTION_DECL arc4random_addrandom
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL arc4random_buf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __buf
+			CursorKind.PARM_DECL __nbytes
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL arc4random_stir
+		CursorKind.FUNCTION_DECL arc4random_uniform
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.TYPE_REF uint32_t
+			CursorKind.PARM_DECL __upper_bound
+				CursorKind.TYPE_REF uint32_t
+		CursorKind.FUNCTION_DECL atexit_b
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL bsearch_b
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __key
+			CursorKind.PARM_DECL __base
+			CursorKind.PARM_DECL __nel
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __width
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __compar
+				CursorKind.UNEXPOSED_ATTR 
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL cgetcap
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL cgetclose
+		CursorKind.FUNCTION_DECL cgetent
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL cgetfirst
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL cgetmatch
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL cgetnext
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL cgetnum
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL cgetset
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL cgetstr
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL cgetustr
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL daemon
+			CursorKind.ASM_LABEL_ATTR _daemon
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL devname
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF dev_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF mode_t
+		CursorKind.FUNCTION_DECL devname_r
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF dev_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF mode_t
+			CursorKind.PARM_DECL buf
+			CursorKind.PARM_DECL len
+		CursorKind.FUNCTION_DECL getbsize
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL getloadavg
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL getprogname
+		CursorKind.FUNCTION_DECL setprogname
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL heapsort
+			CursorKind.PARM_DECL __base
+			CursorKind.PARM_DECL __nel
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __width
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __compar
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL heapsort_b
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __base
+			CursorKind.PARM_DECL __nel
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __width
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __compar
+				CursorKind.UNEXPOSED_ATTR 
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL mergesort
+			CursorKind.PARM_DECL __base
+			CursorKind.PARM_DECL __nel
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __width
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __compar
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL mergesort_b
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __base
+			CursorKind.PARM_DECL __nel
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __width
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __compar
+				CursorKind.UNEXPOSED_ATTR 
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL psort
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __base
+			CursorKind.PARM_DECL __nel
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __width
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __compar
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL psort_b
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __base
+			CursorKind.PARM_DECL __nel
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __width
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __compar
+				CursorKind.UNEXPOSED_ATTR 
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL psort_r
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __base
+			CursorKind.PARM_DECL __nel
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __width
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL __compar
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL qsort_b
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __base
+			CursorKind.PARM_DECL __nel
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __width
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __compar
+				CursorKind.UNEXPOSED_ATTR 
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL qsort_r
+			CursorKind.PARM_DECL __base
+			CursorKind.PARM_DECL __nel
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __width
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL __compar
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+				CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL radixsort
+			CursorKind.PARM_DECL __base
+			CursorKind.PARM_DECL __nel
+			CursorKind.PARM_DECL __table
+			CursorKind.PARM_DECL __endbyte
+		CursorKind.FUNCTION_DECL rpmatch
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL sradixsort
+			CursorKind.PARM_DECL __base
+			CursorKind.PARM_DECL __nel
+			CursorKind.PARM_DECL __table
+			CursorKind.PARM_DECL __endbyte
+		CursorKind.FUNCTION_DECL sranddev
+		CursorKind.FUNCTION_DECL srandomdev
+		CursorKind.FUNCTION_DECL reallocf
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __ptr
+			CursorKind.PARM_DECL __size
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL strtonum
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __numstr
+			CursorKind.PARM_DECL __minval
+			CursorKind.PARM_DECL __maxval
+			CursorKind.PARM_DECL __errstrp
+		CursorKind.FUNCTION_DECL strtoq
+			CursorKind.PARM_DECL __str
+			CursorKind.PARM_DECL __endptr
+			CursorKind.PARM_DECL __base
+		CursorKind.FUNCTION_DECL strtouq
+			CursorKind.PARM_DECL __str
+			CursorKind.PARM_DECL __endptr
+			CursorKind.PARM_DECL __base
+		CursorKind.VAR_DECL suboptarg
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL abs
+			CursorKind.VISIBILITY_ATTR hidden
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __x
+			CursorKind.COMPOUND_STMT 
+				CursorKind.RETURN_STMT 
+					CursorKind.CALL_EXPR __builtin_labs
+						CursorKind.UNEXPOSED_EXPR __builtin_labs
+							CursorKind.DECL_REF_EXPR __builtin_labs
+						CursorKind.UNEXPOSED_EXPR __x
+							CursorKind.DECL_REF_EXPR __x
+		CursorKind.FUNCTION_DECL abs
+			CursorKind.VISIBILITY_ATTR hidden
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __x
+			CursorKind.COMPOUND_STMT 
+				CursorKind.RETURN_STMT 
+					CursorKind.CALL_EXPR __builtin_llabs
+						CursorKind.UNEXPOSED_EXPR __builtin_llabs
+							CursorKind.DECL_REF_EXPR __builtin_llabs
+						CursorKind.UNEXPOSED_EXPR __x
+							CursorKind.DECL_REF_EXPR __x
+		CursorKind.FUNCTION_DECL abs
+			CursorKind.VISIBILITY_ATTR hidden
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __lcpp_x
+			CursorKind.COMPOUND_STMT 
+				CursorKind.RETURN_STMT 
+					CursorKind.CALL_EXPR __builtin_fabsf
+						CursorKind.UNEXPOSED_EXPR __builtin_fabsf
+							CursorKind.DECL_REF_EXPR __builtin_fabsf
+						CursorKind.UNEXPOSED_EXPR __lcpp_x
+							CursorKind.DECL_REF_EXPR __lcpp_x
+		CursorKind.FUNCTION_DECL abs
+			CursorKind.VISIBILITY_ATTR hidden
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __lcpp_x
+			CursorKind.COMPOUND_STMT 
+				CursorKind.RETURN_STMT 
+					CursorKind.CALL_EXPR __builtin_fabs
+						CursorKind.UNEXPOSED_EXPR __builtin_fabs
+							CursorKind.DECL_REF_EXPR __builtin_fabs
+						CursorKind.UNEXPOSED_EXPR __lcpp_x
+							CursorKind.DECL_REF_EXPR __lcpp_x
+		CursorKind.FUNCTION_DECL abs
+			CursorKind.VISIBILITY_ATTR hidden
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __lcpp_x
+			CursorKind.COMPOUND_STMT 
+				CursorKind.RETURN_STMT 
+					CursorKind.CALL_EXPR __builtin_fabsl
+						CursorKind.UNEXPOSED_EXPR __builtin_fabsl
+							CursorKind.DECL_REF_EXPR __builtin_fabsl
+						CursorKind.UNEXPOSED_EXPR __lcpp_x
+							CursorKind.DECL_REF_EXPR __lcpp_x
+		CursorKind.FUNCTION_DECL div
+			CursorKind.VISIBILITY_ATTR hidden
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.TYPE_REF ldiv_t
+			CursorKind.PARM_DECL __x
+			CursorKind.PARM_DECL __y
+			CursorKind.COMPOUND_STMT 
+				CursorKind.RETURN_STMT 
+					CursorKind.UNEXPOSED_EXPR 
+						CursorKind.CALL_EXPR 
+							CursorKind.UNEXPOSED_EXPR 
+								CursorKind.CALL_EXPR ldiv
+									CursorKind.UNEXPOSED_EXPR ldiv
+										CursorKind.DECL_REF_EXPR ldiv
+									CursorKind.UNEXPOSED_EXPR __x
+										CursorKind.DECL_REF_EXPR __x
+									CursorKind.UNEXPOSED_EXPR __y
+										CursorKind.DECL_REF_EXPR __y
+		CursorKind.FUNCTION_DECL div
+			CursorKind.VISIBILITY_ATTR hidden
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.TYPE_REF lldiv_t
+			CursorKind.PARM_DECL __x
+			CursorKind.PARM_DECL __y
+			CursorKind.COMPOUND_STMT 
+				CursorKind.RETURN_STMT 
+					CursorKind.UNEXPOSED_EXPR 
+						CursorKind.CALL_EXPR 
+							CursorKind.UNEXPOSED_EXPR 
+								CursorKind.CALL_EXPR lldiv
+									CursorKind.UNEXPOSED_EXPR lldiv
+										CursorKind.DECL_REF_EXPR lldiv
+									CursorKind.UNEXPOSED_EXPR __x
+										CursorKind.DECL_REF_EXPR __x
+									CursorKind.UNEXPOSED_EXPR __y
+										CursorKind.DECL_REF_EXPR __y
+	CursorKind.STRUCT_DECL accessx_descriptor
+		CursorKind.FIELD_DECL ad_name_offset
+		CursorKind.FIELD_DECL ad_flags
+		CursorKind.FIELD_DECL ad_pad
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL getattrlistbulk
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uint64_t
+		CursorKind.FUNCTION_DECL getattrlistat
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL setattrlistat
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uint32_t
+		CursorKind.FUNCTION_DECL freadlink
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.TYPE_REF ssize_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL faccessat
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL fchownat
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uid_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF gid_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL linkat
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL readlinkat
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.TYPE_REF ssize_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL symlinkat
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL unlinkat
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL _exit
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL access
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL alarm
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL chdir
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL chown
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uid_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF gid_t
+		CursorKind.FUNCTION_DECL close
+			CursorKind.ASM_LABEL_ATTR _close
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL dup
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL dup2
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL execl
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __path
+			CursorKind.PARM_DECL __arg0
+		CursorKind.FUNCTION_DECL execle
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __path
+			CursorKind.PARM_DECL __arg0
+		CursorKind.FUNCTION_DECL execlp
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __file
+			CursorKind.PARM_DECL __arg0
+		CursorKind.FUNCTION_DECL execv
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __path
+			CursorKind.PARM_DECL __argv
+		CursorKind.FUNCTION_DECL execve
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __file
+			CursorKind.PARM_DECL __argv
+			CursorKind.PARM_DECL __envp
+		CursorKind.FUNCTION_DECL execvp
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __file
+			CursorKind.PARM_DECL __argv
+		CursorKind.FUNCTION_DECL fork
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.TYPE_REF pid_t
+		CursorKind.FUNCTION_DECL fpathconf
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL getcwd
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL getegid
+			CursorKind.TYPE_REF gid_t
+		CursorKind.FUNCTION_DECL geteuid
+			CursorKind.TYPE_REF uid_t
+		CursorKind.FUNCTION_DECL getgid
+			CursorKind.TYPE_REF gid_t
+		CursorKind.FUNCTION_DECL getgroups
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF gid_t
+		CursorKind.FUNCTION_DECL getlogin
+		CursorKind.FUNCTION_DECL getpgrp
+			CursorKind.TYPE_REF pid_t
+		CursorKind.FUNCTION_DECL getpid
+			CursorKind.TYPE_REF pid_t
+		CursorKind.FUNCTION_DECL getppid
+			CursorKind.TYPE_REF pid_t
+		CursorKind.FUNCTION_DECL getuid
+			CursorKind.TYPE_REF uid_t
+		CursorKind.FUNCTION_DECL isatty
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL link
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL lseek
+			CursorKind.TYPE_REF off_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF off_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL pathconf
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL pause
+			CursorKind.ASM_LABEL_ATTR _pause
+		CursorKind.FUNCTION_DECL pipe
+			CursorKind.PARM_DECL 
+				CursorKind.INTEGER_LITERAL 
+		CursorKind.FUNCTION_DECL read
+			CursorKind.ASM_LABEL_ATTR _read
+			CursorKind.TYPE_REF ssize_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL rmdir
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL setgid
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF gid_t
+		CursorKind.FUNCTION_DECL setpgid
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF pid_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF pid_t
+		CursorKind.FUNCTION_DECL setsid
+			CursorKind.TYPE_REF pid_t
+		CursorKind.FUNCTION_DECL setuid
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uid_t
+		CursorKind.FUNCTION_DECL sleep
+			CursorKind.ASM_LABEL_ATTR _sleep
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL sysconf
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL tcgetpgrp
+			CursorKind.TYPE_REF pid_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL tcsetpgrp
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF pid_t
+		CursorKind.FUNCTION_DECL ttyname
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL ttyname_r
+			CursorKind.ASM_LABEL_ATTR _ttyname_r
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL unlink
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL write
+			CursorKind.ASM_LABEL_ATTR _write
+			CursorKind.TYPE_REF ssize_t
+			CursorKind.PARM_DECL __fd
+			CursorKind.PARM_DECL __buf
+			CursorKind.PARM_DECL __nbyte
+				CursorKind.TYPE_REF size_t
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL confstr
+			CursorKind.ASM_LABEL_ATTR _confstr
+			CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL getopt
+			CursorKind.ASM_LABEL_ATTR _getopt
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.VAR_DECL optarg
+		CursorKind.VAR_DECL optind
+		CursorKind.VAR_DECL opterr
+		CursorKind.VAR_DECL optopt
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL brk
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL chroot
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL crypt
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL encrypt
+			CursorKind.ASM_LABEL_ATTR _encrypt
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL fchdir
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL gethostid
+		CursorKind.FUNCTION_DECL getpgid
+			CursorKind.TYPE_REF pid_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF pid_t
+		CursorKind.FUNCTION_DECL getsid
+			CursorKind.TYPE_REF pid_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF pid_t
+		CursorKind.FUNCTION_DECL getdtablesize
+		CursorKind.FUNCTION_DECL getpagesize
+			CursorKind.CONST_ATTR 
+		CursorKind.FUNCTION_DECL getpass
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL getwd
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL lchown
+			CursorKind.ASM_LABEL_ATTR _lchown
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uid_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF gid_t
+		CursorKind.FUNCTION_DECL lockf
+			CursorKind.ASM_LABEL_ATTR _lockf
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF off_t
+		CursorKind.FUNCTION_DECL nice
+			CursorKind.ASM_LABEL_ATTR _nice
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL pread
+			CursorKind.ASM_LABEL_ATTR _pread
+			CursorKind.TYPE_REF ssize_t
+			CursorKind.PARM_DECL __fd
+			CursorKind.PARM_DECL __buf
+			CursorKind.PARM_DECL __nbyte
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __offset
+				CursorKind.TYPE_REF off_t
+		CursorKind.FUNCTION_DECL pwrite
+			CursorKind.ASM_LABEL_ATTR _pwrite
+			CursorKind.TYPE_REF ssize_t
+			CursorKind.PARM_DECL __fd
+			CursorKind.PARM_DECL __buf
+			CursorKind.PARM_DECL __nbyte
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL __offset
+				CursorKind.TYPE_REF off_t
+		CursorKind.FUNCTION_DECL sbrk
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL setpgrp
+			CursorKind.ASM_LABEL_ATTR _setpgrp
+			CursorKind.TYPE_REF pid_t
+		CursorKind.FUNCTION_DECL setregid
+			CursorKind.ASM_LABEL_ATTR _setregid
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF gid_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF gid_t
+		CursorKind.FUNCTION_DECL setreuid
+			CursorKind.ASM_LABEL_ATTR _setreuid
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uid_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uid_t
+		CursorKind.FUNCTION_DECL swab
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF ssize_t
+		CursorKind.FUNCTION_DECL sync
+		CursorKind.FUNCTION_DECL truncate
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF off_t
+		CursorKind.FUNCTION_DECL ualarm
+			CursorKind.TYPE_REF useconds_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF useconds_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF useconds_t
+		CursorKind.FUNCTION_DECL usleep
+			CursorKind.ASM_LABEL_ATTR _usleep
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF useconds_t
+		CursorKind.FUNCTION_DECL vfork
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.TYPE_REF pid_t
+		CursorKind.FUNCTION_DECL fsync
+			CursorKind.ASM_LABEL_ATTR _fsync
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL ftruncate
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF off_t
+		CursorKind.FUNCTION_DECL getlogin_r
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL fchown
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uid_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF gid_t
+		CursorKind.FUNCTION_DECL gethostname
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL readlink
+			CursorKind.TYPE_REF ssize_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL setegid
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF gid_t
+		CursorKind.FUNCTION_DECL seteuid
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uid_t
+		CursorKind.FUNCTION_DECL symlink
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+	CursorKind.STRUCT_DECL timespec
+		CursorKind.FIELD_DECL tv_sec
+			CursorKind.TYPE_REF __darwin_time_t
+		CursorKind.FIELD_DECL tv_nsec
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL pselect
+			CursorKind.ASM_LABEL_ATTR _pselect
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF fd_set
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF fd_set
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF fd_set
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct timespec
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF sigset_t
+		CursorKind.FUNCTION_DECL select
+			CursorKind.ASM_LABEL_ATTR _select
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF fd_set
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF fd_set
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF fd_set
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct timeval
+	CursorKind.TYPEDEF_DECL uuid_t
+		CursorKind.TYPE_REF __darwin_uuid_t
+	CursorKind.UNEXPOSED_DECL 
+		CursorKind.FUNCTION_DECL _Exit
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL accessx_np
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct accessx_descriptor
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uid_t
+		CursorKind.FUNCTION_DECL acct
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL add_profil
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL endusershell
+		CursorKind.FUNCTION_DECL execvP
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL __file
+			CursorKind.PARM_DECL __searchpath
+			CursorKind.PARM_DECL __argv
+		CursorKind.FUNCTION_DECL fflagstostr
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL getdomainname
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL getgrouplist
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL gethostuuid
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uuid_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct timespec
+		CursorKind.FUNCTION_DECL getmode
+			CursorKind.TYPE_REF mode_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF mode_t
+		CursorKind.FUNCTION_DECL getpeereid
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uid_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF gid_t
+		CursorKind.FUNCTION_DECL getsgroups_np
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uuid_t
+		CursorKind.FUNCTION_DECL getusershell
+		CursorKind.FUNCTION_DECL getwgroups_np
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uuid_t
+		CursorKind.FUNCTION_DECL initgroups
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL issetugid
+		CursorKind.FUNCTION_DECL mkdtemp
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL mknod
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF mode_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF dev_t
+		CursorKind.FUNCTION_DECL mkpath_np
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL path
+			CursorKind.PARM_DECL omode
+				CursorKind.TYPE_REF mode_t
+		CursorKind.FUNCTION_DECL mkpathat_np
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL dfd
+			CursorKind.PARM_DECL path
+			CursorKind.PARM_DECL omode
+				CursorKind.TYPE_REF mode_t
+		CursorKind.FUNCTION_DECL mkstemp
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL mkstemps
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL mktemp
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL mkostemp
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL path
+			CursorKind.PARM_DECL oflags
+		CursorKind.FUNCTION_DECL mkostemps
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL path
+			CursorKind.PARM_DECL slen
+			CursorKind.PARM_DECL oflags
+		CursorKind.FUNCTION_DECL mkstemp_dprotected_np
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL path
+			CursorKind.PARM_DECL dpclass
+			CursorKind.PARM_DECL dpflags
+		CursorKind.FUNCTION_DECL mkdtempat_np
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL dfd
+			CursorKind.PARM_DECL path
+		CursorKind.FUNCTION_DECL mkstempsat_np
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL dfd
+			CursorKind.PARM_DECL path
+			CursorKind.PARM_DECL slen
+		CursorKind.FUNCTION_DECL mkostempsat_np
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL dfd
+			CursorKind.PARM_DECL path
+			CursorKind.PARM_DECL slen
+			CursorKind.PARM_DECL oflags
+		CursorKind.FUNCTION_DECL nfssvc
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL profil
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL pthread_setugid_np
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uid_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF gid_t
+		CursorKind.FUNCTION_DECL pthread_getugid_np
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uid_t
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF gid_t
+		CursorKind.FUNCTION_DECL reboot
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL revoke
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL rcmd
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL rcmd_af
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL rresvport
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL rresvport_af
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL iruserok
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL iruserok_sa
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL ruserok
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL setdomainname
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL setgroups
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF gid_t
+		CursorKind.FUNCTION_DECL sethostid
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL sethostname
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL setkey
+			CursorKind.ASM_LABEL_ATTR _setkey
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL setlogin
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL setmode
+			CursorKind.ASM_LABEL_ATTR _setmode
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL setrgid
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF gid_t
+		CursorKind.FUNCTION_DECL setruid
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uid_t
+		CursorKind.FUNCTION_DECL setsgroups_np
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uuid_t
+		CursorKind.FUNCTION_DECL setusershell
+		CursorKind.FUNCTION_DECL setwgroups_np
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF uuid_t
+		CursorKind.FUNCTION_DECL strtofflags
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL swapon
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL ttyslot
+		CursorKind.FUNCTION_DECL undelete
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL unwhiteout
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL valloc
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+		CursorKind.FUNCTION_DECL syscall
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+		CursorKind.VAR_DECL suboptarg
+		CursorKind.FUNCTION_DECL getsubopt
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL fgetattrlist
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL fsetattrlist
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL getattrlist
+			CursorKind.ASM_LABEL_ATTR _getattrlist
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL setattrlist
+			CursorKind.ASM_LABEL_ATTR _setattrlist
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL exchangedata
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL getdirentriesattr
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF size_t
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.STRUCT_DECL fssearchblock
+		CursorKind.STRUCT_DECL searchstate
+		CursorKind.FUNCTION_DECL searchfs
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct fssearchblock
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+				CursorKind.TYPE_REF struct searchstate
+		CursorKind.FUNCTION_DECL fsctl
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL ffsctl
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL fsync_volume_np
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.FUNCTION_DECL sync_volume_np
+			CursorKind.UNEXPOSED_ATTR 
+			CursorKind.PARM_DECL 
+			CursorKind.PARM_DECL 
+		CursorKind.VAR_DECL optreset
+	CursorKind.VAR_DECL MAX_MESSAGE_SIZE
+		CursorKind.TYPE_REF size_t
+		CursorKind.UNEXPOSED_EXPR 
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.VAR_DECL SEMAPHORE
+		CursorKind.CXX_BOOL_LITERAL_EXPR 
+	CursorKind.VAR_DECL connected
+		CursorKind.UNARY_OPERATOR 
+			CursorKind.INTEGER_LITERAL 
+	CursorKind.FUNCTION_DECL print_connections
+		CursorKind.COMPOUND_STMT 
+			CursorKind.CALL_EXPR printf
+				CursorKind.UNEXPOSED_EXPR printf
+					CursorKind.DECL_REF_EXPR printf
+				CursorKind.UNEXPOSED_EXPR 
+					CursorKind.STRING_LITERAL "Connected to: "
+			CursorKind.IF_STMT 
+				CursorKind.BINARY_OPERATOR 
+					CursorKind.UNEXPOSED_EXPR connected
+						CursorKind.DECL_REF_EXPR connected
+					CursorKind.UNARY_OPERATOR 
+						CursorKind.INTEGER_LITERAL 
+				CursorKind.COMPOUND_STMT 
+					CursorKind.CALL_EXPR printf
+						CursorKind.UNEXPOSED_EXPR printf
+							CursorKind.DECL_REF_EXPR printf
+						CursorKind.UNEXPOSED_EXPR 
+							CursorKind.STRING_LITERAL "%d "
+						CursorKind.UNEXPOSED_EXPR connected
+							CursorKind.DECL_REF_EXPR connected
+				CursorKind.COMPOUND_STMT 
+					CursorKind.CALL_EXPR printf
+						CursorKind.UNEXPOSED_EXPR printf
+							CursorKind.DECL_REF_EXPR printf
+						CursorKind.UNEXPOSED_EXPR 
+							CursorKind.STRING_LITERAL "none"
+			CursorKind.CALL_EXPR printf
+				CursorKind.UNEXPOSED_EXPR printf
+					CursorKind.DECL_REF_EXPR printf
+				CursorKind.UNEXPOSED_EXPR 
+					CursorKind.STRING_LITERAL "\n"
+	CursorKind.FUNCTION_DECL handle_connection
+		CursorKind.PARM_DECL connectionfd
+		CursorKind.COMPOUND_STMT 
+			CursorKind.CALL_EXPR printf
+				CursorKind.UNEXPOSED_EXPR printf
+					CursorKind.DECL_REF_EXPR printf
+				CursorKind.UNEXPOSED_EXPR 
+					CursorKind.STRING_LITERAL "New connection %d\n"
+				CursorKind.UNEXPOSED_EXPR connectionfd
+					CursorKind.DECL_REF_EXPR connectionfd
+			CursorKind.DECL_STMT 
+				CursorKind.VAR_DECL msg
+					CursorKind.BINARY_OPERATOR 
+						CursorKind.UNEXPOSED_EXPR MAX_MESSAGE_SIZE
+							CursorKind.DECL_REF_EXPR MAX_MESSAGE_SIZE
+						CursorKind.UNEXPOSED_EXPR 
+							CursorKind.INTEGER_LITERAL 
+			CursorKind.UNEXPOSED_EXPR 
+				CursorKind.DECL_REF_EXPR 
+					CursorKind.OVERLOADED_DECL_REF memset
+				CursorKind.DECL_REF_EXPR msg
+				CursorKind.INTEGER_LITERAL 
+				CursorKind.CXX_UNARY_EXPR 
+					CursorKind.PAREN_EXPR 
+						CursorKind.DECL_REF_EXPR msg
+			CursorKind.DECL_STMT 
+				CursorKind.VAR_DECL rval
+					CursorKind.TYPE_REF ssize_t
+			CursorKind.IF_STMT 
+				CursorKind.BINARY_OPERATOR 
+					CursorKind.UNEXPOSED_EXPR rval
+						CursorKind.DECL_REF_EXPR rval
+					CursorKind.UNEXPOSED_EXPR 
+						CursorKind.UNARY_OPERATOR 
+							CursorKind.INTEGER_LITERAL 
+				CursorKind.COMPOUND_STMT 
+					CursorKind.CALL_EXPR perror
+						CursorKind.UNEXPOSED_EXPR perror
+							CursorKind.DECL_REF_EXPR perror
+						CursorKind.UNEXPOSED_EXPR 
+							CursorKind.STRING_LITERAL "Error reading stream message"
+					CursorKind.RETURN_STMT 
+						CursorKind.UNARY_OPERATOR 
+							CursorKind.INTEGER_LITERAL 
+			CursorKind.IF_STMT 
+				CursorKind.BINARY_OPERATOR 
+					CursorKind.UNEXPOSED_EXPR rval
+						CursorKind.DECL_REF_EXPR rval
+					CursorKind.UNEXPOSED_EXPR 
+						CursorKind.INTEGER_LITERAL 
+				CursorKind.COMPOUND_STMT 
+					CursorKind.CALL_EXPR perror
+						CursorKind.UNEXPOSED_EXPR perror
+							CursorKind.DECL_REF_EXPR perror
+						CursorKind.UNEXPOSED_EXPR 
+							CursorKind.STRING_LITERAL "Error: couldn't fit message in buffer"
+					CursorKind.RETURN_STMT 
+						CursorKind.UNARY_OPERATOR 
+							CursorKind.INTEGER_LITERAL 
+			CursorKind.DECL_STMT 
+				CursorKind.VAR_DECL command
+					CursorKind.UNEXPOSED_EXPR 
+						CursorKind.DECL_REF_EXPR 
+							CursorKind.OVERLOADED_DECL_REF strtok
+						CursorKind.DECL_REF_EXPR msg
+						CursorKind.STRING_LITERAL " "
+			CursorKind.DECL_STMT 
+				CursorKind.VAR_DECL client_id
+					CursorKind.CALL_EXPR 
+						CursorKind.DECL_REF_EXPR 
+							CursorKind.OVERLOADED_DECL_REF atoi
+						CursorKind.UNEXPOSED_EXPR 
+							CursorKind.DECL_REF_EXPR 
+								CursorKind.OVERLOADED_DECL_REF strtok
+							CursorKind.GNU_NULL_EXPR 
+							CursorKind.STRING_LITERAL " "
+			CursorKind.CALL_EXPR printf
+				CursorKind.UNEXPOSED_EXPR printf
+					CursorKind.DECL_REF_EXPR printf
+				CursorKind.UNEXPOSED_EXPR 
+					CursorKind.STRING_LITERAL "Client %d says '%s'\n"
+				CursorKind.UNEXPOSED_EXPR client_id
+					CursorKind.DECL_REF_EXPR client_id
+				CursorKind.UNEXPOSED_EXPR command
+					CursorKind.DECL_REF_EXPR command
+			CursorKind.IF_STMT 
+				CursorKind.BINARY_OPERATOR 
+					CursorKind.UNEXPOSED_EXPR 
+						CursorKind.DECL_REF_EXPR 
+							CursorKind.OVERLOADED_DECL_REF strcmp
+						CursorKind.DECL_REF_EXPR command
+						CursorKind.STRING_LITERAL "connect"
+					CursorKind.INTEGER_LITERAL 
+				CursorKind.COMPOUND_STMT 
+					CursorKind.IF_STMT 
+						CursorKind.UNEXPOSED_EXPR SEMAPHORE
+							CursorKind.DECL_REF_EXPR SEMAPHORE
+						CursorKind.COMPOUND_STMT 
+							CursorKind.CALL_EXPR printf
+								CursorKind.UNEXPOSED_EXPR printf
+									CursorKind.DECL_REF_EXPR printf
+								CursorKind.UNEXPOSED_EXPR 
+									CursorKind.STRING_LITERAL "Client %d is connected\n"
+								CursorKind.UNEXPOSED_EXPR client_id
+									CursorKind.DECL_REF_EXPR client_id
+							CursorKind.BINARY_OPERATOR 
+								CursorKind.DECL_REF_EXPR SEMAPHORE
+								CursorKind.CXX_BOOL_LITERAL_EXPR 
+							CursorKind.BINARY_OPERATOR 
+								CursorKind.DECL_REF_EXPR connected
+								CursorKind.UNEXPOSED_EXPR client_id
+									CursorKind.DECL_REF_EXPR client_id
+						CursorKind.COMPOUND_STMT 
+							CursorKind.CALL_EXPR printf
+								CursorKind.UNEXPOSED_EXPR printf
+									CursorKind.DECL_REF_EXPR printf
+								CursorKind.UNEXPOSED_EXPR 
+									CursorKind.STRING_LITERAL "Server already connected. Client %d is rejected\n"
+								CursorKind.UNEXPOSED_EXPR client_id
+									CursorKind.DECL_REF_EXPR client_id
+			CursorKind.IF_STMT 
+				CursorKind.BINARY_OPERATOR 
+					CursorKind.UNEXPOSED_EXPR 
+						CursorKind.DECL_REF_EXPR 
+							CursorKind.OVERLOADED_DECL_REF strcmp
+						CursorKind.DECL_REF_EXPR command
+						CursorKind.STRING_LITERAL "disconnect"
+					CursorKind.INTEGER_LITERAL 
+				CursorKind.COMPOUND_STMT 
+					CursorKind.IF_STMT 
+						CursorKind.BINARY_OPERATOR 
+							CursorKind.UNEXPOSED_EXPR connected
+								CursorKind.DECL_REF_EXPR connected
+							CursorKind.UNEXPOSED_EXPR client_id
+								CursorKind.DECL_REF_EXPR client_id
+						CursorKind.COMPOUND_STMT 
+							CursorKind.BINARY_OPERATOR 
+								CursorKind.DECL_REF_EXPR connected
+								CursorKind.UNARY_OPERATOR 
+									CursorKind.INTEGER_LITERAL 
+							CursorKind.BINARY_OPERATOR 
+								CursorKind.DECL_REF_EXPR SEMAPHORE
+								CursorKind.CXX_BOOL_LITERAL_EXPR 
+							CursorKind.CALL_EXPR printf
+								CursorKind.UNEXPOSED_EXPR printf
+									CursorKind.DECL_REF_EXPR printf
+								CursorKind.UNEXPOSED_EXPR 
+									CursorKind.STRING_LITERAL "Client %d is disconnected\n"
+								CursorKind.UNEXPOSED_EXPR client_id
+									CursorKind.DECL_REF_EXPR client_id
+						CursorKind.COMPOUND_STMT 
+							CursorKind.CALL_EXPR printf
+								CursorKind.UNEXPOSED_EXPR printf
+									CursorKind.DECL_REF_EXPR printf
+								CursorKind.UNEXPOSED_EXPR 
+									CursorKind.STRING_LITERAL "Client %d is not connected. Disconnect failed\n"
+								CursorKind.UNEXPOSED_EXPR client_id
+									CursorKind.DECL_REF_EXPR client_id
+			CursorKind.CALL_EXPR print_connections
+				CursorKind.UNEXPOSED_EXPR print_connections
+					CursorKind.DECL_REF_EXPR print_connections
+			CursorKind.CALL_EXPR close
+				CursorKind.UNEXPOSED_EXPR close
+					CursorKind.DECL_REF_EXPR close
+				CursorKind.UNEXPOSED_EXPR connectionfd
+					CursorKind.DECL_REF_EXPR connectionfd
+			CursorKind.RETURN_STMT 
+				CursorKind.INTEGER_LITERAL 
+	CursorKind.FUNCTION_DECL run_server
+		CursorKind.PARM_DECL port
+		CursorKind.PARM_DECL queue_size
+		CursorKind.COMPOUND_STMT 
+			CursorKind.DECL_STMT 
+				CursorKind.VAR_DECL sockfd
+					CursorKind.CALL_EXPR socket
+						CursorKind.UNEXPOSED_EXPR socket
+							CursorKind.DECL_REF_EXPR socket
+						CursorKind.INTEGER_LITERAL 
+						CursorKind.INTEGER_LITERAL 
+						CursorKind.INTEGER_LITERAL 
+			CursorKind.IF_STMT 
+				CursorKind.BINARY_OPERATOR 
+					CursorKind.UNEXPOSED_EXPR sockfd
+						CursorKind.DECL_REF_EXPR sockfd
+					CursorKind.UNARY_OPERATOR 
+						CursorKind.INTEGER_LITERAL 
+				CursorKind.COMPOUND_STMT 
+					CursorKind.CALL_EXPR perror
+						CursorKind.UNEXPOSED_EXPR perror
+							CursorKind.DECL_REF_EXPR perror
+						CursorKind.UNEXPOSED_EXPR 
+							CursorKind.STRING_LITERAL "Error opening stream socket"
+					CursorKind.RETURN_STMT 
+						CursorKind.UNARY_OPERATOR 
+							CursorKind.INTEGER_LITERAL 
+			CursorKind.DECL_STMT 
+				CursorKind.VAR_DECL yesval
+					CursorKind.INTEGER_LITERAL 
+			CursorKind.IF_STMT 
+				CursorKind.BINARY_OPERATOR 
+					CursorKind.CALL_EXPR setsockopt
+						CursorKind.UNEXPOSED_EXPR setsockopt
+							CursorKind.DECL_REF_EXPR setsockopt
+						CursorKind.UNEXPOSED_EXPR sockfd
+							CursorKind.DECL_REF_EXPR sockfd
+						CursorKind.INTEGER_LITERAL 
+						CursorKind.INTEGER_LITERAL 
+						CursorKind.UNEXPOSED_EXPR 
+							CursorKind.UNARY_OPERATOR 
+								CursorKind.DECL_REF_EXPR yesval
+						CursorKind.UNEXPOSED_EXPR 
+							CursorKind.CXX_UNARY_EXPR 
+								CursorKind.PAREN_EXPR 
+									CursorKind.DECL_REF_EXPR yesval
+					CursorKind.UNARY_OPERATOR 
+						CursorKind.INTEGER_LITERAL 
+				CursorKind.COMPOUND_STMT 
+					CursorKind.CALL_EXPR perror
+						CursorKind.UNEXPOSED_EXPR perror
+							CursorKind.DECL_REF_EXPR perror
+						CursorKind.UNEXPOSED_EXPR 
+							CursorKind.STRING_LITERAL "Error setting socket options"
+					CursorKind.RETURN_STMT 
+						CursorKind.UNARY_OPERATOR 
+							CursorKind.INTEGER_LITERAL 
+			CursorKind.DECL_STMT 
+				CursorKind.VAR_DECL addr
+					CursorKind.TYPE_REF struct sockaddr_in
+					CursorKind.CALL_EXPR sockaddr_in
+			CursorKind.IF_STMT 
+				CursorKind.BINARY_OPERATOR 
+					CursorKind.UNEXPOSED_EXPR 
+						CursorKind.DECL_REF_EXPR 
+							CursorKind.OVERLOADED_DECL_REF make_server_sockaddr
+						CursorKind.UNARY_OPERATOR 
+							CursorKind.DECL_REF_EXPR addr
+						CursorKind.DECL_REF_EXPR port
+					CursorKind.UNARY_OPERATOR 
+						CursorKind.INTEGER_LITERAL 
+				CursorKind.COMPOUND_STMT 
+					CursorKind.RETURN_STMT 
+						CursorKind.UNARY_OPERATOR 
+							CursorKind.INTEGER_LITERAL 
+			CursorKind.IF_STMT 
+				CursorKind.BINARY_OPERATOR 
+					CursorKind.CALL_EXPR bind
+						CursorKind.UNEXPOSED_EXPR bind
+							CursorKind.DECL_REF_EXPR bind
+						CursorKind.UNEXPOSED_EXPR sockfd
+							CursorKind.DECL_REF_EXPR sockfd
+						CursorKind.UNEXPOSED_EXPR 
+							CursorKind.CSTYLE_CAST_EXPR 
+								CursorKind.TYPE_REF struct sockaddr
+								CursorKind.UNARY_OPERATOR 
+									CursorKind.DECL_REF_EXPR addr
+						CursorKind.UNEXPOSED_EXPR 
+							CursorKind.CXX_UNARY_EXPR 
+								CursorKind.PAREN_EXPR 
+									CursorKind.DECL_REF_EXPR addr
+					CursorKind.UNARY_OPERATOR 
+						CursorKind.INTEGER_LITERAL 
+				CursorKind.COMPOUND_STMT 
+					CursorKind.CALL_EXPR perror
+						CursorKind.UNEXPOSED_EXPR perror
+							CursorKind.DECL_REF_EXPR perror
+						CursorKind.UNEXPOSED_EXPR 
+							CursorKind.STRING_LITERAL "Error binding stream socket"
+					CursorKind.RETURN_STMT 
+						CursorKind.UNARY_OPERATOR 
+							CursorKind.INTEGER_LITERAL 
+			CursorKind.BINARY_OPERATOR 
+				CursorKind.DECL_REF_EXPR port
+				CursorKind.UNEXPOSED_EXPR 
+					CursorKind.DECL_REF_EXPR 
+						CursorKind.OVERLOADED_DECL_REF get_port_number
+					CursorKind.DECL_REF_EXPR sockfd
+			CursorKind.CALL_EXPR printf
+				CursorKind.UNEXPOSED_EXPR printf
+					CursorKind.DECL_REF_EXPR printf
+				CursorKind.UNEXPOSED_EXPR 
+					CursorKind.STRING_LITERAL "Server listening on port %d...\n"
+				CursorKind.UNEXPOSED_EXPR port
+					CursorKind.DECL_REF_EXPR port
+			CursorKind.CALL_EXPR listen
+				CursorKind.UNEXPOSED_EXPR listen
+					CursorKind.DECL_REF_EXPR listen
+				CursorKind.UNEXPOSED_EXPR sockfd
+					CursorKind.DECL_REF_EXPR sockfd
+				CursorKind.UNEXPOSED_EXPR queue_size
+					CursorKind.DECL_REF_EXPR queue_size
+			CursorKind.WHILE_STMT 
+				CursorKind.CXX_BOOL_LITERAL_EXPR 
+				CursorKind.COMPOUND_STMT 
+					CursorKind.DECL_STMT 
+						CursorKind.VAR_DECL connectionfd
+							CursorKind.CALL_EXPR accept
+								CursorKind.UNEXPOSED_EXPR accept
+									CursorKind.DECL_REF_EXPR accept
+								CursorKind.UNEXPOSED_EXPR sockfd
+									CursorKind.DECL_REF_EXPR sockfd
+								CursorKind.UNEXPOSED_EXPR 
+									CursorKind.INTEGER_LITERAL 
+								CursorKind.UNEXPOSED_EXPR 
+									CursorKind.INTEGER_LITERAL 
+					CursorKind.IF_STMT 
+						CursorKind.BINARY_OPERATOR 
+							CursorKind.UNEXPOSED_EXPR connectionfd
+								CursorKind.DECL_REF_EXPR connectionfd
+							CursorKind.UNARY_OPERATOR 
+								CursorKind.INTEGER_LITERAL 
+						CursorKind.COMPOUND_STMT 
+							CursorKind.CALL_EXPR perror
+								CursorKind.UNEXPOSED_EXPR perror
+									CursorKind.DECL_REF_EXPR perror
+								CursorKind.UNEXPOSED_EXPR 
+									CursorKind.STRING_LITERAL "Error accepting connection"
+							CursorKind.RETURN_STMT 
+								CursorKind.UNARY_OPERATOR 
+									CursorKind.INTEGER_LITERAL 
+					CursorKind.IF_STMT 
+						CursorKind.BINARY_OPERATOR 
+							CursorKind.CALL_EXPR handle_connection
+								CursorKind.UNEXPOSED_EXPR handle_connection
+									CursorKind.DECL_REF_EXPR handle_connection
+								CursorKind.UNEXPOSED_EXPR connectionfd
+									CursorKind.DECL_REF_EXPR connectionfd
+							CursorKind.UNARY_OPERATOR 
+								CursorKind.INTEGER_LITERAL 
+						CursorKind.COMPOUND_STMT 
+							CursorKind.RETURN_STMT 
+								CursorKind.UNARY_OPERATOR 
+									CursorKind.INTEGER_LITERAL 
+	CursorKind.FUNCTION_DECL main
+		CursorKind.PARM_DECL argc
+		CursorKind.PARM_DECL argv
+		CursorKind.COMPOUND_STMT 
+			CursorKind.IF_STMT 
+				CursorKind.BINARY_OPERATOR 
+					CursorKind.UNEXPOSED_EXPR argc
+						CursorKind.DECL_REF_EXPR argc
+					CursorKind.INTEGER_LITERAL 
+				CursorKind.COMPOUND_STMT 
+					CursorKind.CALL_EXPR printf
+						CursorKind.UNEXPOSED_EXPR printf
+							CursorKind.DECL_REF_EXPR printf
+						CursorKind.UNEXPOSED_EXPR 
+							CursorKind.STRING_LITERAL "Usage: ./server port_num\n"
+					CursorKind.RETURN_STMT 
+						CursorKind.INTEGER_LITERAL 
+			CursorKind.DECL_STMT 
+				CursorKind.VAR_DECL port
+					CursorKind.INTEGER_LITERAL 
+			CursorKind.IF_STMT 
+				CursorKind.BINARY_OPERATOR 
+					CursorKind.CALL_EXPR run_server
+						CursorKind.UNEXPOSED_EXPR run_server
+							CursorKind.DECL_REF_EXPR run_server
+						CursorKind.UNEXPOSED_EXPR port
+							CursorKind.DECL_REF_EXPR port
+						CursorKind.INTEGER_LITERAL 
+					CursorKind.UNARY_OPERATOR 
+						CursorKind.INTEGER_LITERAL 
+				CursorKind.COMPOUND_STMT 
+					CursorKind.RETURN_STMT 
+						CursorKind.INTEGER_LITERAL 
+			CursorKind.RETURN_STMT 
+				CursorKind.INTEGER_LITERAL 
+
+Unique language constructs:
+CursorKind.MEMBER_REF_EXPR
+CursorKind.CXX_BOOL_LITERAL_EXPR
+CursorKind.BINARY_OPERATOR
+CursorKind.PACKED_ATTR
+CursorKind.FIELD_DECL
+CursorKind.CONDITIONAL_OPERATOR
+CursorKind.UNARY_OPERATOR
+CursorKind.DECL_REF_EXPR
+CursorKind.CXX_UNARY_EXPR
+CursorKind.TRANSLATION_UNIT
+CursorKind.ENUM_CONSTANT_DECL
+CursorKind.PARM_DECL
+CursorKind.ARRAY_SUBSCRIPT_EXPR
+CursorKind.CHARACTER_LITERAL
+CursorKind.COMPOUND_STMT
+CursorKind.TYPE_REF
+CursorKind.WHILE_STMT
+CursorKind.CSTYLE_CAST_EXPR
+CursorKind.DECL_STMT
+CursorKind.ASM_LABEL_ATTR
+CursorKind.UNION_DECL
+CursorKind.UNEXPOSED_DECL
+CursorKind.CONST_ATTR
+CursorKind.VISIBILITY_ATTR
+CursorKind.WARN_UNUSED_RESULT_ATTR
+CursorKind.STRING_LITERAL
+CursorKind.UNEXPOSED_EXPR
+CursorKind.VAR_DECL
+CursorKind.TYPEDEF_DECL
+CursorKind.RETURN_STMT
+CursorKind.NAMESPACE
+CursorKind.ENUM_DECL
+CursorKind.INTEGER_LITERAL
+CursorKind.CALL_EXPR
+CursorKind.OVERLOADED_DECL_REF
+CursorKind.PAREN_EXPR
+CursorKind.GNU_NULL_EXPR
+CursorKind.COMPOUND_ASSIGNMENT_OPERATOR
+CursorKind.STRUCT_DECL
+CursorKind.FUNCTION_DECL
+CursorKind.IF_STMT
+CursorKind.UNEXPOSED_ATTR

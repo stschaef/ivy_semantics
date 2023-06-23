@@ -1,0 +1,5 @@
+(executable
+ (name gpt)
+ (libraries yojson)
+ (flags (:standard -w -26))
+)

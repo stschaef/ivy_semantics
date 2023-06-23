@@ -1,10 +1,10 @@
 #include <arpa/inet.h>		// htons()
 #include <stdio.h>		// printf(), perror()i
-// #include <string>
+#include <string>
 #include <stdlib.h>		// atoi()
 #include <sys/socket.h>		// socket(), bind(), listen(), accept(), send(), recv()
 #include <unistd.h>		// close()
-// #include <set>
+#include <set>
 
 #include "helpers.h"		// make_server_sockaddr(), get_port_number()
 
@@ -45,7 +45,7 @@ int handle_connection(int connectionfd) {
 	memset(msg, 0, sizeof(msg));
 
 	// Call recv() enough times to consume all the data the client sends.
-	// size_t recvd = 0;
+	size_t recvd = 0;
 	ssize_t rval;
 // TODO make this a single round
 	// do {
@@ -183,8 +183,7 @@ int main(int argc, const char **argv) {
 		printf("Usage: ./server port_num\n");
 		return 1;
 	}
-	// int port = atoi(argv[1]);
-	int port = 300;
+	int port = atoi(argv[1]);
 
 	if (run_server(port, 10) == -1) {
 		return 1;

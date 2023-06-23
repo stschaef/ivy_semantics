@@ -41,25 +41,11 @@ int handle_connection(int connectionfd) {
 
 	// (1) Receive message from client.
 
-	char msg[MAX_MESSAGE_SIZE + 1];
+==============================================================================
+    char msg[MAX_MESSAGE_SIZE + 1];
 	memset(msg, 0, sizeof(msg));
 
-	// Call recv() enough times to consume all the data the client sends.
-	// size_t recvd = 0;
 	ssize_t rval;
-// TODO make this a single round
-	// do {
-	// 	// Receive as many additional bytes as we can in one call to recv()
-	// 	// (while not exceeding MAX_MESSAGE_SIZE bytes in total).
-	// 	rval = recv(connectionfd, msg + recvd, MAX_MESSAGE_SIZE - recvd, 0);
-	// 	if (rval == -1) {
-	// 		perror("Error reading stream message");
-	// 		return -1;
-	// 	}
-	// 	recvd += rval;
-	// } while (rval > 0);
-    // recv() returns 0 when client closes
-
     rval = recv(connectionfd, msg + recvd, MAX_MESSAGE_SIZE - recvd, 0);
 	if (rval == -1) {
 		perror("Error reading stream message");
@@ -71,27 +57,15 @@ int handle_connection(int connectionfd) {
         perror("Error: couldn't fit message in buffer");
         return -1;
     }
-// Requires pending_message(<server_id>, <client_id>, <message>, <time>)
+==============================================================================
+// abstract this away as a func
 
     char * command = strtok(msg, " ");
     int client_id = atoi(strtok(NULL, " "));
 
-    // msg = "connect 10"
-    // command = "connect"
-    // client_id = 10
-    // like python string.split()
-
 	// (2) Print out the message
 	printf("Client %d says '%s'\n", client_id, command);
     if (strcmp(command, "connect") == 0) {
-        // command \in type COMMAND = {connect, disconnect, garbage}
-        // command = connect
-        //
-        // Somewhat similar to symbolic execution
-        // Search through the code and find all uses of command. Splits into three cases
-        // 1. command = connect
-        // 2. command = disconnect
-        // 3. command = anything else
         if (SEMAPHORE) {
             printf("Client %d is connected\n", client_id);
             SEMAPHORE = false;
