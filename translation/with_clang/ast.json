@@ -3,36 +3,178 @@
   "spelling": "test.cpp",
   "location": "<SourceLocation file None, line 0, column 0>",
   "type": "TypeKind.INVALID",
+  "tokens": [
+    "int",
+    "ASDF",
+    "=",
+    "12",
+    ";",
+    "int",
+    "main",
+    "(",
+    ")",
+    "{",
+    "int",
+    "x",
+    "=",
+    "1",
+    ";",
+    "return",
+    "x",
+    "-",
+    "1",
+    ";",
+    "}",
+    "void",
+    "f",
+    "(",
+    "int",
+    "y",
+    ",",
+    "int",
+    "z",
+    ")",
+    "{",
+    "int",
+    "x",
+    "=",
+    "1",
+    ";",
+    "int",
+    "a",
+    ";",
+    "a",
+    "=",
+    "0",
+    ";",
+    "x",
+    "=",
+    "x",
+    "-",
+    "1",
+    ";",
+    "if",
+    "(",
+    "x",
+    "==",
+    "0",
+    ")",
+    "{",
+    "return",
+    ";",
+    "}",
+    "else",
+    "{",
+    "int",
+    "z",
+    "=",
+    "0",
+    ";",
+    "}",
+    "}"
+  ],
   "children": [
+    {
+      "kind": "CursorKind.VAR_DECL",
+      "spelling": "ASDF",
+      "location": "<SourceLocation file 'test.cpp', line 1, column 5>",
+      "type": "TypeKind.INT",
+      "tokens": [
+        "int",
+        "ASDF",
+        "=",
+        "12"
+      ],
+      "children": [
+        {
+          "kind": "CursorKind.INTEGER_LITERAL",
+          "spelling": "",
+          "location": "<SourceLocation file 'test.cpp', line 1, column 12>",
+          "type": "TypeKind.INT",
+          "tokens": [
+            "12"
+          ],
+          "children": []
+        }
+      ]
+    },
     {
       "kind": "CursorKind.FUNCTION_DECL",
       "spelling": "main",
-      "location": "<SourceLocation file 'test.cpp', line 1, column 5>",
+      "location": "<SourceLocation file 'test.cpp', line 3, column 5>",
       "type": "TypeKind.FUNCTIONPROTO",
+      "tokens": [
+        "int",
+        "main",
+        "(",
+        ")",
+        "{",
+        "int",
+        "x",
+        "=",
+        "1",
+        ";",
+        "return",
+        "x",
+        "-",
+        "1",
+        ";",
+        "}"
+      ],
       "children": [
         {
           "kind": "CursorKind.COMPOUND_STMT",
           "spelling": "",
-          "location": "<SourceLocation file 'test.cpp', line 1, column 12>",
+          "location": "<SourceLocation file 'test.cpp', line 3, column 12>",
           "type": "TypeKind.INVALID",
+          "tokens": [
+            "{",
+            "int",
+            "x",
+            "=",
+            "1",
+            ";",
+            "return",
+            "x",
+            "-",
+            "1",
+            ";",
+            "}"
+          ],
           "children": [
             {
               "kind": "CursorKind.DECL_STMT",
               "spelling": "",
-              "location": "<SourceLocation file 'test.cpp', line 2, column 3>",
+              "location": "<SourceLocation file 'test.cpp', line 4, column 3>",
               "type": "TypeKind.INVALID",
+              "tokens": [
+                "int",
+                "x",
+                "=",
+                "1",
+                ";"
+              ],
               "children": [
                 {
                   "kind": "CursorKind.VAR_DECL",
                   "spelling": "x",
-                  "location": "<SourceLocation file 'test.cpp', line 2, column 7>",
+                  "location": "<SourceLocation file 'test.cpp', line 4, column 7>",
                   "type": "TypeKind.INT",
+                  "tokens": [
+                    "int",
+                    "x",
+                    "=",
+                    "1"
+                  ],
                   "children": [
                     {
                       "kind": "CursorKind.INTEGER_LITERAL",
                       "spelling": "",
-                      "location": "<SourceLocation file 'test.cpp', line 2, column 11>",
+                      "location": "<SourceLocation file 'test.cpp', line 4, column 11>",
                       "type": "TypeKind.INT",
+                      "tokens": [
+                        "1"
+                      ],
                       "children": []
                     }
                   ]
@@ -42,26 +184,43 @@
             {
               "kind": "CursorKind.RETURN_STMT",
               "spelling": "",
-              "location": "<SourceLocation file 'test.cpp', line 3, column 3>",
+              "location": "<SourceLocation file 'test.cpp', line 5, column 3>",
               "type": "TypeKind.INVALID",
+              "tokens": [
+                "return",
+                "x",
+                "-",
+                "1"
+              ],
               "children": [
                 {
                   "kind": "CursorKind.BINARY_OPERATOR",
                   "spelling": "",
-                  "location": "<SourceLocation file 'test.cpp', line 3, column 10>",
+                  "location": "<SourceLocation file 'test.cpp', line 5, column 10>",
                   "type": "TypeKind.INT",
+                  "tokens": [
+                    "x",
+                    "-",
+                    "1"
+                  ],
                   "children": [
                     {
                       "kind": "CursorKind.UNEXPOSED_EXPR",
                       "spelling": "x",
-                      "location": "<SourceLocation file 'test.cpp', line 3, column 10>",
+                      "location": "<SourceLocation file 'test.cpp', line 5, column 10>",
                       "type": "TypeKind.INT",
+                      "tokens": [
+                        "x"
+                      ],
                       "children": [
                         {
                           "kind": "CursorKind.DECL_REF_EXPR",
                           "spelling": "x",
-                          "location": "<SourceLocation file 'test.cpp', line 3, column 10>",
+                          "location": "<SourceLocation file 'test.cpp', line 5, column 10>",
                           "type": "TypeKind.INT",
+                          "tokens": [
+                            "x"
+                          ],
                           "children": []
                         }
                       ]
@@ -69,8 +228,11 @@
                     {
                       "kind": "CursorKind.INTEGER_LITERAL",
                       "spelling": "",
-                      "location": "<SourceLocation file 'test.cpp', line 3, column 14>",
+                      "location": "<SourceLocation file 'test.cpp', line 5, column 14>",
                       "type": "TypeKind.INT",
+                      "tokens": [
+                        "1"
+                      ],
                       "children": []
                     }
                   ]
@@ -84,46 +246,159 @@
     {
       "kind": "CursorKind.FUNCTION_DECL",
       "spelling": "f",
-      "location": "<SourceLocation file 'test.cpp', line 6, column 6>",
+      "location": "<SourceLocation file 'test.cpp', line 8, column 6>",
       "type": "TypeKind.FUNCTIONPROTO",
+      "tokens": [
+        "void",
+        "f",
+        "(",
+        "int",
+        "y",
+        ",",
+        "int",
+        "z",
+        ")",
+        "{",
+        "int",
+        "x",
+        "=",
+        "1",
+        ";",
+        "int",
+        "a",
+        ";",
+        "a",
+        "=",
+        "0",
+        ";",
+        "x",
+        "=",
+        "x",
+        "-",
+        "1",
+        ";",
+        "if",
+        "(",
+        "x",
+        "==",
+        "0",
+        ")",
+        "{",
+        "return",
+        ";",
+        "}",
+        "else",
+        "{",
+        "int",
+        "z",
+        "=",
+        "0",
+        ";",
+        "}",
+        "}"
+      ],
       "children": [
         {
           "kind": "CursorKind.PARM_DECL",
           "spelling": "y",
-          "location": "<SourceLocation file 'test.cpp', line 6, column 12>",
+          "location": "<SourceLocation file 'test.cpp', line 8, column 12>",
           "type": "TypeKind.INT",
+          "tokens": [
+            "int",
+            "y"
+          ],
           "children": []
         },
         {
           "kind": "CursorKind.PARM_DECL",
           "spelling": "z",
-          "location": "<SourceLocation file 'test.cpp', line 6, column 19>",
+          "location": "<SourceLocation file 'test.cpp', line 8, column 19>",
           "type": "TypeKind.INT",
+          "tokens": [
+            "int",
+            "z"
+          ],
           "children": []
         },
         {
           "kind": "CursorKind.COMPOUND_STMT",
           "spelling": "",
-          "location": "<SourceLocation file 'test.cpp', line 6, column 22>",
+          "location": "<SourceLocation file 'test.cpp', line 8, column 22>",
           "type": "TypeKind.INVALID",
+          "tokens": [
+            "{",
+            "int",
+            "x",
+            "=",
+            "1",
+            ";",
+            "int",
+            "a",
+            ";",
+            "a",
+            "=",
+            "0",
+            ";",
+            "x",
+            "=",
+            "x",
+            "-",
+            "1",
+            ";",
+            "if",
+            "(",
+            "x",
+            "==",
+            "0",
+            ")",
+            "{",
+            "return",
+            ";",
+            "}",
+            "else",
+            "{",
+            "int",
+            "z",
+            "=",
+            "0",
+            ";",
+            "}",
+            "}"
+          ],
           "children": [
             {
               "kind": "CursorKind.DECL_STMT",
               "spelling": "",
-              "location": "<SourceLocation file 'test.cpp', line 7, column 3>",
+              "location": "<SourceLocation file 'test.cpp', line 9, column 3>",
               "type": "TypeKind.INVALID",
+              "tokens": [
+                "int",
+                "x",
+                "=",
+                "1",
+                ";"
+              ],
               "children": [
                 {
                   "kind": "CursorKind.VAR_DECL",
                   "spelling": "x",
-                  "location": "<SourceLocation file 'test.cpp', line 7, column 7>",
+                  "location": "<SourceLocation file 'test.cpp', line 9, column 7>",
                   "type": "TypeKind.INT",
+                  "tokens": [
+                    "int",
+                    "x",
+                    "=",
+                    "1"
+                  ],
                   "children": [
                     {
                       "kind": "CursorKind.INTEGER_LITERAL",
                       "spelling": "",
-                      "location": "<SourceLocation file 'test.cpp', line 7, column 11>",
+                      "location": "<SourceLocation file 'test.cpp', line 9, column 11>",
                       "type": "TypeKind.INT",
+                      "tokens": [
+                        "1"
+                      ],
                       "children": []
                     }
                   ]
@@ -133,14 +408,23 @@
             {
               "kind": "CursorKind.DECL_STMT",
               "spelling": "",
-              "location": "<SourceLocation file 'test.cpp', line 8, column 3>",
+              "location": "<SourceLocation file 'test.cpp', line 10, column 3>",
               "type": "TypeKind.INVALID",
+              "tokens": [
+                "int",
+                "a",
+                ";"
+              ],
               "children": [
                 {
                   "kind": "CursorKind.VAR_DECL",
                   "spelling": "a",
-                  "location": "<SourceLocation file 'test.cpp', line 8, column 7>",
+                  "location": "<SourceLocation file 'test.cpp', line 10, column 7>",
                   "type": "TypeKind.INT",
+                  "tokens": [
+                    "int",
+                    "a"
+                  ],
                   "children": []
                 }
               ]
@@ -148,21 +432,32 @@
             {
               "kind": "CursorKind.BINARY_OPERATOR",
               "spelling": "",
-              "location": "<SourceLocation file 'test.cpp', line 9, column 3>",
+              "location": "<SourceLocation file 'test.cpp', line 11, column 3>",
               "type": "TypeKind.INT",
+              "tokens": [
+                "a",
+                "=",
+                "0"
+              ],
               "children": [
                 {
                   "kind": "CursorKind.DECL_REF_EXPR",
                   "spelling": "a",
-                  "location": "<SourceLocation file 'test.cpp', line 9, column 3>",
+                  "location": "<SourceLocation file 'test.cpp', line 11, column 3>",
                   "type": "TypeKind.INT",
+                  "tokens": [
+                    "a"
+                  ],
                   "children": []
                 },
                 {
                   "kind": "CursorKind.INTEGER_LITERAL",
                   "spelling": "",
-                  "location": "<SourceLocation file 'test.cpp', line 9, column 7>",
+                  "location": "<SourceLocation file 'test.cpp', line 11, column 7>",
                   "type": "TypeKind.INT",
+                  "tokens": [
+                    "0"
+                  ],
                   "children": []
                 }
               ]
@@ -170,33 +465,54 @@
             {
               "kind": "CursorKind.BINARY_OPERATOR",
               "spelling": "",
-              "location": "<SourceLocation file 'test.cpp', line 10, column 3>",
+              "location": "<SourceLocation file 'test.cpp', line 12, column 3>",
               "type": "TypeKind.INT",
+              "tokens": [
+                "x",
+                "=",
+                "x",
+                "-",
+                "1"
+              ],
               "children": [
                 {
                   "kind": "CursorKind.DECL_REF_EXPR",
                   "spelling": "x",
-                  "location": "<SourceLocation file 'test.cpp', line 10, column 3>",
+                  "location": "<SourceLocation file 'test.cpp', line 12, column 3>",
                   "type": "TypeKind.INT",
+                  "tokens": [
+                    "x"
+                  ],
                   "children": []
                 },
                 {
                   "kind": "CursorKind.BINARY_OPERATOR",
                   "spelling": "",
-                  "location": "<SourceLocation file 'test.cpp', line 10, column 7>",
+                  "location": "<SourceLocation file 'test.cpp', line 12, column 7>",
                   "type": "TypeKind.INT",
+                  "tokens": [
+                    "x",
+                    "-",
+                    "1"
+                  ],
                   "children": [
                     {
                       "kind": "CursorKind.UNEXPOSED_EXPR",
                       "spelling": "x",
-                      "location": "<SourceLocation file 'test.cpp', line 10, column 7>",
+                      "location": "<SourceLocation file 'test.cpp', line 12, column 7>",
                       "type": "TypeKind.INT",
+                      "tokens": [
+                        "x"
+                      ],
                       "children": [
                         {
                           "kind": "CursorKind.DECL_REF_EXPR",
                           "spelling": "x",
-                          "location": "<SourceLocation file 'test.cpp', line 10, column 7>",
+                          "location": "<SourceLocation file 'test.cpp', line 12, column 7>",
                           "type": "TypeKind.INT",
+                          "tokens": [
+                            "x"
+                          ],
                           "children": []
                         }
                       ]
@@ -204,8 +520,11 @@
                     {
                       "kind": "CursorKind.INTEGER_LITERAL",
                       "spelling": "",
-                      "location": "<SourceLocation file 'test.cpp', line 10, column 11>",
+                      "location": "<SourceLocation file 'test.cpp', line 12, column 11>",
                       "type": "TypeKind.INT",
+                      "tokens": [
+                        "1"
+                      ],
                       "children": []
                     }
                   ]
@@ -215,26 +534,57 @@
             {
               "kind": "CursorKind.IF_STMT",
               "spelling": "",
-              "location": "<SourceLocation file 'test.cpp', line 11, column 3>",
+              "location": "<SourceLocation file 'test.cpp', line 13, column 3>",
               "type": "TypeKind.INVALID",
+              "tokens": [
+                "if",
+                "(",
+                "x",
+                "==",
+                "0",
+                ")",
+                "{",
+                "return",
+                ";",
+                "}",
+                "else",
+                "{",
+                "int",
+                "z",
+                "=",
+                "0",
+                ";",
+                "}"
+              ],
               "children": [
                 {
                   "kind": "CursorKind.BINARY_OPERATOR",
                   "spelling": "",
-                  "location": "<SourceLocation file 'test.cpp', line 11, column 7>",
+                  "location": "<SourceLocation file 'test.cpp', line 13, column 7>",
                   "type": "TypeKind.BOOL",
+                  "tokens": [
+                    "x",
+                    "==",
+                    "0"
+                  ],
                   "children": [
                     {
                       "kind": "CursorKind.UNEXPOSED_EXPR",
                       "spelling": "x",
-                      "location": "<SourceLocation file 'test.cpp', line 11, column 7>",
+                      "location": "<SourceLocation file 'test.cpp', line 13, column 7>",
                       "type": "TypeKind.INT",
+                      "tokens": [
+                        "x"
+                      ],
                       "children": [
                         {
                           "kind": "CursorKind.DECL_REF_EXPR",
                           "spelling": "x",
-                          "location": "<SourceLocation file 'test.cpp', line 11, column 7>",
+                          "location": "<SourceLocation file 'test.cpp', line 13, column 7>",
                           "type": "TypeKind.INT",
+                          "tokens": [
+                            "x"
+                          ],
                           "children": []
                         }
                       ]
@@ -242,8 +592,11 @@
                     {
                       "kind": "CursorKind.INTEGER_LITERAL",
                       "spelling": "",
-                      "location": "<SourceLocation file 'test.cpp', line 11, column 12>",
+                      "location": "<SourceLocation file 'test.cpp', line 13, column 12>",
                       "type": "TypeKind.INT",
+                      "tokens": [
+                        "0"
+                      ],
                       "children": []
                     }
                   ]
@@ -251,14 +604,23 @@
                 {
                   "kind": "CursorKind.COMPOUND_STMT",
                   "spelling": "",
-                  "location": "<SourceLocation file 'test.cpp', line 11, column 15>",
+                  "location": "<SourceLocation file 'test.cpp', line 13, column 15>",
                   "type": "TypeKind.INVALID",
+                  "tokens": [
+                    "{",
+                    "return",
+                    ";",
+                    "}"
+                  ],
                   "children": [
                     {
                       "kind": "CursorKind.RETURN_STMT",
                       "spelling": "",
-                      "location": "<SourceLocation file 'test.cpp', line 12, column 5>",
+                      "location": "<SourceLocation file 'test.cpp', line 14, column 5>",
                       "type": "TypeKind.INVALID",
+                      "tokens": [
+                        "return"
+                      ],
                       "children": []
                     }
                   ]
@@ -266,26 +628,51 @@
                 {
                   "kind": "CursorKind.COMPOUND_STMT",
                   "spelling": "",
-                  "location": "<SourceLocation file 'test.cpp', line 14, column 8>",
+                  "location": "<SourceLocation file 'test.cpp', line 16, column 8>",
                   "type": "TypeKind.INVALID",
+                  "tokens": [
+                    "{",
+                    "int",
+                    "z",
+                    "=",
+                    "0",
+                    ";",
+                    "}"
+                  ],
                   "children": [
                     {
                       "kind": "CursorKind.DECL_STMT",
                       "spelling": "",
-                      "location": "<SourceLocation file 'test.cpp', line 15, column 5>",
+                      "location": "<SourceLocation file 'test.cpp', line 17, column 5>",
                       "type": "TypeKind.INVALID",
+                      "tokens": [
+                        "int",
+                        "z",
+                        "=",
+                        "0",
+                        ";"
+                      ],
                       "children": [
                         {
                           "kind": "CursorKind.VAR_DECL",
                           "spelling": "z",
-                          "location": "<SourceLocation file 'test.cpp', line 15, column 9>",
+                          "location": "<SourceLocation file 'test.cpp', line 17, column 9>",
                           "type": "TypeKind.INT",
+                          "tokens": [
+                            "int",
+                            "z",
+                            "=",
+                            "0"
+                          ],
                           "children": [
                             {
                               "kind": "CursorKind.INTEGER_LITERAL",
                               "spelling": "",
-                              "location": "<SourceLocation file 'test.cpp', line 15, column 13>",
+                              "location": "<SourceLocation file 'test.cpp', line 17, column 13>",
                               "type": "TypeKind.INT",
+                              "tokens": [
+                                "0"
+                              ],
                               "children": []
                             }
                           ]

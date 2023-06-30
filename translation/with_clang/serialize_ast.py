@@ -9,6 +9,7 @@ def cursor_to_dict(cursor):
         'spelling': cursor.spelling,
         'location': str(cursor.location),
         'type': str(cursor.type.kind),
+        'tokens': [t.spelling for t in cursor.get_tokens()],
         'children': [cursor_to_dict(c) for c in cursor.get_children()]
     }
 
