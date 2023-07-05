@@ -26,6 +26,15 @@ let makeType name =
   let name = string_to_char_list name in
   Ivytype_UserDefined(name, int_to_nat 0)
 
+let rec find_node_in_parents kind parents =
+  match parents with
+  | [] -> None
+  | parent :: rest ->
+      if parent.kind = kind then
+        Some parent
+      else
+        find_node_in_parents kind rest
+
 let rec find_node_by_kind kind node =
   if node.kind = kind then
     Some node
@@ -42,7 +51,7 @@ let rec find_node_by_kind kind node =
        in
        find_in_children children
 
-let rec translate node : translate_result =
+let rec translate node path : translate_result =
   match node.kind with
   | "CursorKind.FUNCTION_DECL" ->
      let name = string_to_char_list node.spelling in
@@ -53,30 +62,26 @@ let rec translate node : translate_result =
        match return_stmt with
         | Some stmt ->
            (match stmt.children with
-              | child :: _ -> child.type_kind
-              | _ -> "void")
-        | None -> "void"
-      in
-    let return_string = match return_type with
-      | "void" -> ""
-      | _ -> "returns (<todo_new_variable>: " ^ return_type ^ ")"
+              | child :: _ -> makeType child.type_kind
+              | _ -> Ivytype_Void)
+        | None -> Ivytype_Void
     in
     (* TODO Skips here are todos for function bodies *)
     let body = fold_left
                (fun acc n ->
-                    match translate n with
+                    match translate n (node :: path) with
                     | Com c -> Com_Seq(acc, c)
                     | Expr e -> Com_Seq(acc, Com_Skip) (* should prob never happen *)
                 )
                node.children Com_Skip
     in
-    print_endline ("\nBEGINFUNCTIONBODY\n" ^ string_of_com body ^ "\nENDFUNCTIONBODY\n");
-    Com ( Com_ActionDecl (name, param_names_and_types, makeType return_type, body) )
+    (* print_endline ("\nBEGINFUNCTIONBODY\n" ^ string_of_com body ^ "\nENDFUNCTIONBODY\n"); *)
+    Com ( Com_ActionDecl (name, param_names_and_types, return_type, body) )
   | "CursorKind.COMPOUND_STMT" ->
      Com (
      fold_left
      (fun acc n ->
-        match translate n with
+        match translate n (node :: path) with
         | Com c -> Com_Seq(acc, c)
         | Expr e -> Com_Seq(acc, Com_Skip) (* should prob never happen *)
      )
@@ -87,26 +92,36 @@ let rec translate node : translate_result =
          let name = string_to_char_list var_decl.spelling in
          let typ = makeType var_decl.type_kind in
          let init = (match var_decl.children with
-           | init :: _ -> Com_Assign(name, translate init |> to_expr)
+           | init :: _ -> Com_Assign(name, (translate init (node :: path)) |> to_expr)
            | _ -> Com_Skip)
           in
          Com ( Com_Seq(Com_LocalVarDecl(name, typ), init) )
       | _ -> failwith "No variable declaration in DECL_STMT")
-  | "CursorKind.VAR_DECL" -> Com ( Com_Skip )
-  | "CursorKind.UNEXPOSED_EXPR" -> translate (node.children |> List.hd)
+  | "CursorKind.VAR_DECL" ->
+        let name = string_to_char_list node.spelling in
+        let typ = makeType node.type_kind in
+        let init = (match node.children with
+           | init :: _ -> Com_Assign(name, translate init (node :: path) |> to_expr)
+           | _ -> Com_Skip)
+          in
+        Com ( Com_Seq(Com_GlobalVarDecl(name, typ) , init ))
+  | "CursorKind.UNEXPOSED_EXPR" -> translate (node.children |> List.hd) (node::path)
   | "CursorKind.DECL_REF_EXPR" -> Expr ( Expr_VarLiteral(string_to_char_list node.spelling) )
   | "CursorKind.IF_STMT" ->
-        let cond = node.children |> List.hd |> translate |> to_expr in
-        let then_branch = node.children |> List.tl |> List.hd |> translate |> to_com in
-        let else_branch = node.children |> List.tl |> List.tl |> List.hd |> translate |> to_com in
+        let cond = (translate (node.children |> List.hd) (node ::path))  |> to_expr in
+        let then_branch = (translate (node.children |> List.tl |> List.hd) (node :: path)) |> to_com in
+        let else_branch = (translate (node.children |> List.tl |> List.tl |> List.hd ) (node :: path)) |> to_com in
         Com ( Com_IfElse(cond, then_branch, else_branch) )
   | "CursorKind.TRANSLATION_UNIT" -> Com ( Com_Skip )
   | "CursorKind.RETURN_STMT" ->
      (match node.children with
-      | child :: _ -> Com ( Com_Assign(string_to_char_list "<the var to return>", translate child |> to_expr))
+      | child :: _ ->
+         print_endline ("function parent :" ^
+           (find_node_in_parents "CursorKind.FUNCTION_DECL" path |> Option.get).spelling);
+         Com ( Com_Assign(string_to_char_list "<the var to return>",
+               translate child (node :: path)|> to_expr))
       | _ -> Com ( Com_Skip) )
   | "CursorKind.INTEGER_LITERAL" ->
-     let name = string_to_char_list node.spelling in
      Expr (Expr_VarLiteral(string_to_char_list (node.tokens |> List.hd)))
      (* TODO need some check that this is actually an int later on ? *)
   | "CursorKind.BINARY_OPERATOR" ->
@@ -115,9 +130,9 @@ let rec translate node : translate_result =
       (* https://stackoverflow.com/questions/51077903/get-binary-operation-code-with-clang-python-bindings *)
       let len_left = List.length ((List.hd node.children).tokens) in
       let op = List.nth node.tokens (len_left) in
-      let lhs = node.children |> List.hd |> translate |> to_expr in
-      let rhs = node.children |> List.tl |> List.hd |> translate |> to_expr in
-      print_endline ("Binary op: " ^ op);
+      let lhs = (translate (node.children |> List.hd) (node :: path)) |> to_expr in
+      let rhs = (translate (node.children |> List.tl |> List.hd) (node :: path)) |> to_expr in
+      (* print_endline ("Binary op: " ^ op); *)
       (match op with
         | "=" -> Com ( Com_Assign(node.tokens |> List.hd |> string_to_char_list, rhs) )
         | _ -> Expr ( Expr_FunctionSymbol(string_to_char_list op, [lhs; rhs]) ))
@@ -134,22 +149,22 @@ let rec dict_to_ast json =
   let tokens = json |> member "tokens" |> to_list |> List.map to_string in
   { kind; spelling; location; type_kind; children; tokens; }
 
-let rec print_ast indent node =
+let rec print_ast indent node path =
   let spaces = String.make indent ' ' in
-  (* let print_string = match translate node with *)
-    (* | Com c -> string_of_com c *)
-    (* | Expr e -> string_of_expr e *)
-   (* in *)
   Printf.printf "%s%s: %s, %s, %s\n" spaces node.kind node.spelling node.location node.type_kind;
-  Printf.printf "Translation?\n %s\n" (match translate node with
+  Printf.printf "Translation?\n %s\n" (match translate node path with
     | Com c -> string_of_com c
     | Expr e -> string_of_expr e);
-  List.iter (print_ast (indent + 4)) node.children
+  List.iter (fun x -> print_ast (indent + 4) x path) node.children
 
 let deserialize_ast file_name =
   let json = Yojson.Basic.from_file file_name in
   let ast = dict_to_ast json in
-  print_ast 0 ast
+  fold_left (fun acc n -> match translate n [] with
+    | Com c -> Com_Seq(acc, c)
+    | Expr e -> Com_Seq(acc, Com_Skip) (* should prob never happen *)
+  ) ast.children Com_Skip |> string_of_com |> print_endline
+
 
 let main () =
   let argc = Array.length Sys.argv in

@@ -27,42 +27,61 @@ let rec string_of_ivytype = function
   | Ivytype_Function (args, ret) -> 
       "(" ^ String.concat "," (List.map string_of_ivytype args) ^ ")" ^ " -> " ^ string_of_ivytype ret
 
-      
-      let rec string_of_expr (e : expr) : string =
-        match e with
-        | Expr_VarLiteral id -> (string_of_chars id)
-        | Expr_EnumVarLiteral (t, n) -> string_of_ivytype t ^ ";" ^ string_of_int (nat_to_int n)
-        | Expr_FunctionSymbol (id, args) -> (string_of_chars id) ^ "(" ^ String.concat "," (List.map string_of_expr args) ^ ")"
-        (* | Expr_VarFun (id, args) -> (string_of_chars id) ^ "(" ^ String.concat "," (List.map string_of_expr args) ^ ")" *)
-        (* | Expr_ActionApplication (id, args) -> id ^ "(" ^ String.concat "," (List.map string_of_expr args) ^ ")" *)
-        | Expr_True -> "true"
-        | Expr_False -> "false"
-        | Expr_Not e -> "!" ^ string_of_expr e
-        | Expr_And (e1, e2) -> string_of_expr e1 ^ " && " ^ string_of_expr e2
-        | Expr_Or (e1, e2) -> string_of_expr e1 ^ " || " ^ string_of_expr e2
-        | Expr_Eq (e1, e2) -> string_of_expr e1 ^ " == " ^ string_of_expr e2
-        | Expr_Implies (e1, e2) -> string_of_expr e1 ^ " -> " ^ string_of_expr e2
-        | Expr_Iff (e1, e2) -> string_of_expr e1 ^ " <-> " ^ string_of_expr e2
-        | Expr_Forall (id, t, e) -> "forall " ^ (string_of_chars id) ^ " : " ^ string_of_ivytype t ^ " . " ^ string_of_expr e
-        | Expr_Exists (id, t, e) -> "exists " ^ (string_of_chars id) ^ " : " ^ string_of_ivytype t ^ " . " ^ string_of_expr e
-        (* | Expr_Nondet t -> "nondet " ^ string_of_ivytype t *)
-        | Expr_Cond (e1, e2, e3) -> "if " ^ string_of_expr e1 ^ " then " ^ string_of_expr e2 ^ " else " ^ string_of_expr e3
-        | Expr_Error -> "error"
+let rec string_of_expr (e : expr) : string =
+  match e with
+  | Expr_VarLiteral id -> (string_of_chars id)
+  | Expr_EnumVarLiteral (t, n) -> string_of_ivytype t ^ ";" ^ string_of_int (nat_to_int n)
+  | Expr_FunctionSymbol (id, args) -> (string_of_chars id) ^ "(" ^ String.concat "," (List.map string_of_expr args) ^ ")"
+  (* | Expr_VarFun (id, args) -> (string_of_chars id) ^ "(" ^ String.concat "," (List.map string_of_expr args) ^ ")" *)
+  (* | Expr_ActionApplication (id, args) -> id ^ "(" ^ String.concat "," (List.map string_of_expr args) ^ ")" *)
+  | Expr_True -> "true"
+  | Expr_False -> "false"
+  | Expr_Not e -> "!" ^ string_of_expr e
+  | Expr_And (e1, e2) -> string_of_expr e1 ^ " && " ^ string_of_expr e2
+  | Expr_Or (e1, e2) -> string_of_expr e1 ^ " || " ^ string_of_expr e2
+  | Expr_Eq (e1, e2) -> string_of_expr e1 ^ " == " ^ string_of_expr e2
+  | Expr_Implies (e1, e2) -> string_of_expr e1 ^ " -> " ^ string_of_expr e2
+  | Expr_Iff (e1, e2) -> string_of_expr e1 ^ " <-> " ^ string_of_expr e2
+  | Expr_Forall (id, t, e) -> "forall " ^ (string_of_chars id) ^ " : " ^ string_of_ivytype t ^ " . " ^ string_of_expr e
+  | Expr_Exists (id, t, e) -> "exists " ^ (string_of_chars id) ^ " : " ^ string_of_ivytype t ^ " . " ^ string_of_expr e
+  (* | Expr_Nondet t -> "nondet " ^ string_of_ivytype t *)
+  | Expr_Cond (e1, e2, e3) -> "if " ^ string_of_expr e1 ^ " then " ^ string_of_expr e2 ^ " else " ^ string_of_expr e3
+  | Expr_Error -> "error"
         
 let rec string_of_com (p : com) : string =
   match p with
   | Com_Assign (id, e) -> (string_of_chars id) ^ " := " ^ string_of_expr e
   | Com_AssignFun (id, args, e) -> (string_of_chars id) ^ "(" ^ String.concat "," (List.map string_of_expr args) ^ ")" ^ " := " ^ string_of_expr e
-  | Com_Seq (p1, p2) -> string_of_com p1 ^ ";\n" ^ string_of_com p2
-  | Com_If (e, p1) -> "if " ^ string_of_expr e ^ " then " ^ string_of_com p1
-  | Com_IfElse (e, p1, p2) -> "if " ^ string_of_expr e ^ " then " ^ string_of_com p1 ^ " else " ^ string_of_com p2
+  | Com_Seq (p1, p2) ->
+    (match p1 with
+     | Com_Skip -> string_of_com p2
+     | _ -> (match p2 with
+            | Com_Skip -> string_of_com p1
+            | _ -> string_of_com p1 ^ ";\n" ^ string_of_com p2
+            )
+    )
+    (* string_of_com p1 ^ ";\n" ^ string_of_com p2 *)
+  | Com_If (e, p1) -> "if " ^ string_of_expr e ^ " then {\n" ^ string_of_com p1 ^ "\n}"
+  | Com_IfElse (e, p1, p2) -> "if " ^ string_of_expr e ^ " then {\n" ^ string_of_com p1 ^ "\n}\n else {\n"
+                              ^ string_of_com p2 ^ "\n}"
   | Com_For (x, t, p') -> "for " ^ (string_of_chars x) ^ " : " ^ string_of_ivytype t ^ " do " ^ string_of_com p' 
   | Com_While (e, p) -> "while " ^ string_of_expr e ^ " do " ^ string_of_com p
   | Com_LocalVarDecl (id, t) -> "var " ^ (string_of_chars id) ^ " : " ^ string_of_ivytype t
   | Com_GlobalVarDecl (id, t) -> "global " ^ (string_of_chars id) ^ " : " ^ string_of_ivytype t
   | Com_GlobalFuncVarDecl (id, arg_ids_and_ts, ret_type) -> "global " ^ (string_of_chars id) ^ " : " ^ string_of_ivytype (Ivytype_Function (map (snd) arg_ids_and_ts, ret_type))
   | Com_TypeDecl (id, n) -> "type " ^ (string_of_chars id) ^ " of size " ^ string_of_int (nat_to_int n)
-  | Com_ActionDecl (id, arg_ids_and_ts, ret, p') -> "action " ^ (string_of_chars id) ^ " : " ^ string_of_ivytype (Ivytype_Function (map (snd) arg_ids_and_ts, ret))
+  | Com_ActionDecl (id, arg_ids_and_ts, ret, p') ->
+    "action " ^ (string_of_chars id) ^
+    (* " : " ^ string_of_ivytype (Ivytype_Function (map (snd) arg_ids_and_ts, ret)) ^ " = { " ^ string_of_com p' ^ " }" *)
+    "(" ^ (List.fold_left
+        (fun acc x -> acc ^ string_of_chars(fst x) ^ " : " ^ string_of_ivytype(snd x) ^ ", ") "" arg_ids_and_ts)
+        ^ ")" ^
+       (match ret with
+           | Ivytype_Void -> ""
+           | _ -> " returns (" ^ "TODO" ^ " : " ^ string_of_ivytype ret ^ ")"
+       )
+       (* TODO indentation *)
+       ^ " = { " ^ string_of_com p' ^ " }"
   | Com_Skip -> "skip"
   | Com_Call (id, args) -> (string_of_chars id) ^ "(" ^ String.concat "," (List.map string_of_expr args) ^ ")"
 
