@@ -116,9 +116,8 @@ let rec translate node path : translate_result =
   | "CursorKind.RETURN_STMT" ->
      (match node.children with
       | child :: _ ->
-         print_endline ("function parent :" ^
-           (find_node_in_parents "CursorKind.FUNCTION_DECL" path |> Option.get).spelling);
-         Com ( Com_Assign(string_to_char_list "<the var to return>",
+         let rval = "rval_" ^ (find_node_in_parents "CursorKind.FUNCTION_DECL" path |> Option.get).spelling in
+         Com ( Com_Assign(string_to_char_list rval,
                translate child (node :: path)|> to_expr))
       | _ -> Com ( Com_Skip) )
   | "CursorKind.INTEGER_LITERAL" ->
@@ -129,16 +128,31 @@ let rec translate node path : translate_result =
       (* Very hacky solution: look at the tokens attribute. Will probably need to fix later * *)
       (* https://stackoverflow.com/questions/51077903/get-binary-operation-code-with-clang-python-bindings *)
       let len_left = List.length ((List.hd node.children).tokens) in
-      let op = List.nth node.tokens (len_left) in
+      let op = List.nth node.tokens (len_left + 1) ^ "binop" in
+      (* TODO this operation tokenizing doesn't work  *)
       let lhs = (translate (node.children |> List.hd) (node :: path)) |> to_expr in
       let rhs = (translate (node.children |> List.tl |> List.hd) (node :: path)) |> to_expr in
       (* print_endline ("Binary op: " ^ op); *)
       (match op with
         | "=" -> Com ( Com_Assign(node.tokens |> List.hd |> string_to_char_list, rhs) )
         | _ -> Expr ( Expr_FunctionSymbol(string_to_char_list op, [lhs; rhs]) ))
-  | _ -> Com ( Com_Skip )
-  (* | _ -> failwith (node.kind ^ "should be handled elsewhere or not at all") *)
+  (* | _ -> Com ( Com_Skip ) *)
+  | "CursorKind.TYPEDEF_DECL" -> Com ( Com_Skip )
+  | "CursorKind.UNION_DECL" -> Com ( Com_Skip )
+  | "CursorKind.STRUCT_DECL" -> Com ( Com_Skip )
+  | "CursorKind.NAMESPACE" -> Com ( Com_Skip )
+  | "CursorKind.TYPE_REF" -> Com ( Com_Skip )
+  | "CursorKind.PARM_DECL" -> Com ( Com_Skip )
+  | "CursorKind.CSTYLE_CAST_EXPR" -> Com ( Com_Skip )
+  | "CursorKind.CALL_EXPR" ->
+     let func = (translate (node.children |> List.hd) (node :: path)) |> to_expr in
+     let args = (translate (node.children |> List.tl |> List.hd) (node :: path)) |> to_expr in
+     Expr ( Expr_FunctionSymbol(string_to_char_list "call", [func; args]) )
+  | _ -> failwith (node.kind ^ " should be handled elsewhere or not at all")
 
+let default_header =
+  Com_Seq (Com_TypeDecl (string_to_char_list "TypeKind.INT" , 0 |> int_to_nat) ,
+           Com_Interpret ((makeType "TypeKind.INT"), string_to_char_list "int"))
 
 let rec dict_to_ast json =
   let kind = json |> member "kind" |> to_string in
@@ -160,10 +174,10 @@ let rec print_ast indent node path =
 let deserialize_ast file_name =
   let json = Yojson.Basic.from_file file_name in
   let ast = dict_to_ast json in
-  fold_left (fun acc n -> match translate n [] with
+  (Com_Seq (default_header, fold_left (fun acc n -> match translate n [] with
     | Com c -> Com_Seq(acc, c)
     | Expr e -> Com_Seq(acc, Com_Skip) (* should prob never happen *)
-  ) ast.children Com_Skip |> string_of_com |> print_endline
+  ) ast.children Com_Skip)) |> string_of_com |> print_endline
 
 
 let main () =

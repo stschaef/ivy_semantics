@@ -1,0 +1,15 @@
+type TypeKind.INT;
+interpret TypeKind.INT int;
+
+action f(z : TypeKind.INT) returns (rval_f : TypeKind.INT) = {
+    rval_f := +binop(z,z)
+};
+action g(z : TypeKind.INT) returns (rval_g : TypeKind.INT) = {
+    rval_g := zbinop(2,z)
+};
+
+action main() returns (rval_main : TypeKind.INT) = {
+   rval_main := 0
+}
+
+invaraiant [doubleisdouble] (forall A : TypeKind.INT . f(A) = g(A))

@@ -1,0 +1,203 @@
+{
+  "kind": "CursorKind.TRANSLATION_UNIT",
+  "spelling": "double.cpp",
+  "location": "<SourceLocation file None, line 0, column 0>",
+  "type": "TypeKind.INVALID",
+  "tokens": [],
+  "children": [
+    {
+      "kind": "CursorKind.FUNCTION_DECL",
+      "spelling": "f",
+      "location": "<SourceLocation file 'double.cpp', line 1, column 5>",
+      "type": "TypeKind.FUNCTIONPROTO",
+      "tokens": [],
+      "children": [
+        {
+          "kind": "CursorKind.PARM_DECL",
+          "spelling": "z",
+          "location": "<SourceLocation file 'double.cpp', line 1, column 11>",
+          "type": "TypeKind.INT",
+          "tokens": [],
+          "children": []
+        },
+        {
+          "kind": "CursorKind.COMPOUND_STMT",
+          "spelling": "",
+          "location": "<SourceLocation file 'double.cpp', line 1, column 14>",
+          "type": "TypeKind.INVALID",
+          "tokens": [],
+          "children": [
+            {
+              "kind": "CursorKind.RETURN_STMT",
+              "spelling": "",
+              "location": "<SourceLocation file 'double.cpp', line 2, column 3>",
+              "type": "TypeKind.INVALID",
+              "tokens": [],
+              "children": [
+                {
+                  "kind": "CursorKind.BINARY_OPERATOR",
+                  "spelling": "",
+                  "location": "<SourceLocation file 'double.cpp', line 2, column 10>",
+                  "type": "TypeKind.INT",
+                  "tokens": [
+                    "z",
+                    "+",
+                    "z"
+                  ],
+                  "children": [
+                    {
+                      "kind": "CursorKind.UNEXPOSED_EXPR",
+                      "spelling": "z",
+                      "location": "<SourceLocation file 'double.cpp', line 2, column 10>",
+                      "type": "TypeKind.INT",
+                      "tokens": [],
+                      "children": [
+                        {
+                          "kind": "CursorKind.DECL_REF_EXPR",
+                          "spelling": "z",
+                          "location": "<SourceLocation file 'double.cpp', line 2, column 10>",
+                          "type": "TypeKind.INT",
+                          "tokens": [],
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "CursorKind.UNEXPOSED_EXPR",
+                      "spelling": "z",
+                      "location": "<SourceLocation file 'double.cpp', line 2, column 14>",
+                      "type": "TypeKind.INT",
+                      "tokens": [],
+                      "children": [
+                        {
+                          "kind": "CursorKind.DECL_REF_EXPR",
+                          "spelling": "z",
+                          "location": "<SourceLocation file 'double.cpp', line 2, column 14>",
+                          "type": "TypeKind.INT",
+                          "tokens": [],
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "CursorKind.FUNCTION_DECL",
+      "spelling": "g",
+      "location": "<SourceLocation file 'double.cpp', line 5, column 5>",
+      "type": "TypeKind.FUNCTIONPROTO",
+      "tokens": [],
+      "children": [
+        {
+          "kind": "CursorKind.PARM_DECL",
+          "spelling": "z",
+          "location": "<SourceLocation file 'double.cpp', line 5, column 11>",
+          "type": "TypeKind.INT",
+          "tokens": [],
+          "children": []
+        },
+        {
+          "kind": "CursorKind.COMPOUND_STMT",
+          "spelling": "",
+          "location": "<SourceLocation file 'double.cpp', line 5, column 14>",
+          "type": "TypeKind.INVALID",
+          "tokens": [],
+          "children": [
+            {
+              "kind": "CursorKind.RETURN_STMT",
+              "spelling": "",
+              "location": "<SourceLocation file 'double.cpp', line 6, column 3>",
+              "type": "TypeKind.INVALID",
+              "tokens": [],
+              "children": [
+                {
+                  "kind": "CursorKind.BINARY_OPERATOR",
+                  "spelling": "",
+                  "location": "<SourceLocation file 'double.cpp', line 6, column 10>",
+                  "type": "TypeKind.INT",
+                  "tokens": [
+                    "2",
+                    "*",
+                    "z"
+                  ],
+                  "children": [
+                    {
+                      "kind": "CursorKind.INTEGER_LITERAL",
+                      "spelling": "",
+                      "location": "<SourceLocation file 'double.cpp', line 6, column 10>",
+                      "type": "TypeKind.INT",
+                      "tokens": [
+                        "2"
+                      ],
+                      "children": []
+                    },
+                    {
+                      "kind": "CursorKind.UNEXPOSED_EXPR",
+                      "spelling": "z",
+                      "location": "<SourceLocation file 'double.cpp', line 6, column 14>",
+                      "type": "TypeKind.INT",
+                      "tokens": [],
+                      "children": [
+                        {
+                          "kind": "CursorKind.DECL_REF_EXPR",
+                          "spelling": "z",
+                          "location": "<SourceLocation file 'double.cpp', line 6, column 14>",
+                          "type": "TypeKind.INT",
+                          "tokens": [],
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "CursorKind.FUNCTION_DECL",
+      "spelling": "main",
+      "location": "<SourceLocation file 'double.cpp', line 9, column 5>",
+      "type": "TypeKind.FUNCTIONPROTO",
+      "tokens": [],
+      "children": [
+        {
+          "kind": "CursorKind.COMPOUND_STMT",
+          "spelling": "",
+          "location": "<SourceLocation file 'double.cpp', line 9, column 12>",
+          "type": "TypeKind.INVALID",
+          "tokens": [],
+          "children": [
+            {
+              "kind": "CursorKind.RETURN_STMT",
+              "spelling": "",
+              "location": "<SourceLocation file 'double.cpp', line 10, column 3>",
+              "type": "TypeKind.INVALID",
+              "tokens": [],
+              "children": [
+                {
+                  "kind": "CursorKind.INTEGER_LITERAL",
+                  "spelling": "",
+                  "location": "<SourceLocation file 'double.cpp', line 10, column 10>",
+                  "type": "TypeKind.INT",
+                  "tokens": [
+                    "0"
+                  ],
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

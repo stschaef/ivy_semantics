@@ -14,6 +14,6 @@ void f(int y, int z) {
     return;
   }
   else {
-    int z = 0;
+    int q = 0;
   }
 }

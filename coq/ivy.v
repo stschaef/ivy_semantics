@@ -369,6 +369,7 @@ option context :=
       end
     end
   | Com_Skip => Some Gamma
+  | Com_Interpret _ _ => None
 end.
 
 (* Check that a command is well-formed. 

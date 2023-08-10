@@ -3,88 +3,14 @@
   "spelling": "test.cpp",
   "location": "<SourceLocation file None, line 0, column 0>",
   "type": "TypeKind.INVALID",
-  "tokens": [
-    "int",
-    "ASDF",
-    "=",
-    "12",
-    ";",
-    "int",
-    "main",
-    "(",
-    ")",
-    "{",
-    "int",
-    "x",
-    "=",
-    "1",
-    ";",
-    "return",
-    "x",
-    "-",
-    "1",
-    ";",
-    "}",
-    "void",
-    "f",
-    "(",
-    "int",
-    "y",
-    ",",
-    "int",
-    "z",
-    ")",
-    "{",
-    "int",
-    "x",
-    "=",
-    "1",
-    ";",
-    "int",
-    "a",
-    ";",
-    "a",
-    "=",
-    "0",
-    ";",
-    "x",
-    "=",
-    "x",
-    "-",
-    "1",
-    ";",
-    "if",
-    "(",
-    "x",
-    "==",
-    "0",
-    ")",
-    "{",
-    "return",
-    ";",
-    "}",
-    "else",
-    "{",
-    "int",
-    "z",
-    "=",
-    "0",
-    ";",
-    "}",
-    "}"
-  ],
+  "tokens": [],
   "children": [
     {
       "kind": "CursorKind.VAR_DECL",
       "spelling": "ASDF",
       "location": "<SourceLocation file 'test.cpp', line 1, column 5>",
       "type": "TypeKind.INT",
-      "tokens": [
-        "int",
-        "ASDF",
-        "=",
-        "12"
-      ],
+      "tokens": [],
       "children": [
         {
           "kind": "CursorKind.INTEGER_LITERAL",
@@ -103,69 +29,28 @@
       "spelling": "main",
       "location": "<SourceLocation file 'test.cpp', line 3, column 5>",
       "type": "TypeKind.FUNCTIONPROTO",
-      "tokens": [
-        "int",
-        "main",
-        "(",
-        ")",
-        "{",
-        "int",
-        "x",
-        "=",
-        "1",
-        ";",
-        "return",
-        "x",
-        "-",
-        "1",
-        ";",
-        "}"
-      ],
+      "tokens": [],
       "children": [
         {
           "kind": "CursorKind.COMPOUND_STMT",
           "spelling": "",
           "location": "<SourceLocation file 'test.cpp', line 3, column 12>",
           "type": "TypeKind.INVALID",
-          "tokens": [
-            "{",
-            "int",
-            "x",
-            "=",
-            "1",
-            ";",
-            "return",
-            "x",
-            "-",
-            "1",
-            ";",
-            "}"
-          ],
+          "tokens": [],
           "children": [
             {
               "kind": "CursorKind.DECL_STMT",
               "spelling": "",
               "location": "<SourceLocation file 'test.cpp', line 4, column 3>",
               "type": "TypeKind.INVALID",
-              "tokens": [
-                "int",
-                "x",
-                "=",
-                "1",
-                ";"
-              ],
+              "tokens": [],
               "children": [
                 {
                   "kind": "CursorKind.VAR_DECL",
                   "spelling": "x",
                   "location": "<SourceLocation file 'test.cpp', line 4, column 7>",
                   "type": "TypeKind.INT",
-                  "tokens": [
-                    "int",
-                    "x",
-                    "=",
-                    "1"
-                  ],
+                  "tokens": [],
                   "children": [
                     {
                       "kind": "CursorKind.INTEGER_LITERAL",
@@ -186,12 +71,7 @@
               "spelling": "",
               "location": "<SourceLocation file 'test.cpp', line 5, column 3>",
               "type": "TypeKind.INVALID",
-              "tokens": [
-                "return",
-                "x",
-                "-",
-                "1"
-              ],
+              "tokens": [],
               "children": [
                 {
                   "kind": "CursorKind.BINARY_OPERATOR",
@@ -209,18 +89,14 @@
                       "spelling": "x",
                       "location": "<SourceLocation file 'test.cpp', line 5, column 10>",
                       "type": "TypeKind.INT",
-                      "tokens": [
-                        "x"
-                      ],
+                      "tokens": [],
                       "children": [
                         {
                           "kind": "CursorKind.DECL_REF_EXPR",
                           "spelling": "x",
                           "location": "<SourceLocation file 'test.cpp', line 5, column 10>",
                           "type": "TypeKind.INT",
-                          "tokens": [
-                            "x"
-                          ],
+                          "tokens": [],
                           "children": []
                         }
                       ]
@@ -248,65 +124,14 @@
       "spelling": "f",
       "location": "<SourceLocation file 'test.cpp', line 8, column 6>",
       "type": "TypeKind.FUNCTIONPROTO",
-      "tokens": [
-        "void",
-        "f",
-        "(",
-        "int",
-        "y",
-        ",",
-        "int",
-        "z",
-        ")",
-        "{",
-        "int",
-        "x",
-        "=",
-        "1",
-        ";",
-        "int",
-        "a",
-        ";",
-        "a",
-        "=",
-        "0",
-        ";",
-        "x",
-        "=",
-        "x",
-        "-",
-        "1",
-        ";",
-        "if",
-        "(",
-        "x",
-        "==",
-        "0",
-        ")",
-        "{",
-        "return",
-        ";",
-        "}",
-        "else",
-        "{",
-        "int",
-        "z",
-        "=",
-        "0",
-        ";",
-        "}",
-        "}"
-      ],
+      "tokens": [],
       "children": [
         {
           "kind": "CursorKind.PARM_DECL",
           "spelling": "y",
           "location": "<SourceLocation file 'test.cpp', line 8, column 12>",
           "type": "TypeKind.INT",
-          "tokens": [
-            "int",
-            "y"
-          ],
+          "tokens": [],
           "children": []
         },
         {
@@ -314,10 +139,7 @@
           "spelling": "z",
           "location": "<SourceLocation file 'test.cpp', line 8, column 19>",
           "type": "TypeKind.INT",
-          "tokens": [
-            "int",
-            "z"
-          ],
+          "tokens": [],
           "children": []
         },
         {
@@ -325,71 +147,21 @@
           "spelling": "",
           "location": "<SourceLocation file 'test.cpp', line 8, column 22>",
           "type": "TypeKind.INVALID",
-          "tokens": [
-            "{",
-            "int",
-            "x",
-            "=",
-            "1",
-            ";",
-            "int",
-            "a",
-            ";",
-            "a",
-            "=",
-            "0",
-            ";",
-            "x",
-            "=",
-            "x",
-            "-",
-            "1",
-            ";",
-            "if",
-            "(",
-            "x",
-            "==",
-            "0",
-            ")",
-            "{",
-            "return",
-            ";",
-            "}",
-            "else",
-            "{",
-            "int",
-            "z",
-            "=",
-            "0",
-            ";",
-            "}",
-            "}"
-          ],
+          "tokens": [],
           "children": [
             {
               "kind": "CursorKind.DECL_STMT",
               "spelling": "",
               "location": "<SourceLocation file 'test.cpp', line 9, column 3>",
               "type": "TypeKind.INVALID",
-              "tokens": [
-                "int",
-                "x",
-                "=",
-                "1",
-                ";"
-              ],
+              "tokens": [],
               "children": [
                 {
                   "kind": "CursorKind.VAR_DECL",
                   "spelling": "x",
                   "location": "<SourceLocation file 'test.cpp', line 9, column 7>",
                   "type": "TypeKind.INT",
-                  "tokens": [
-                    "int",
-                    "x",
-                    "=",
-                    "1"
-                  ],
+                  "tokens": [],
                   "children": [
                     {
                       "kind": "CursorKind.INTEGER_LITERAL",
@@ -410,21 +182,14 @@
               "spelling": "",
               "location": "<SourceLocation file 'test.cpp', line 10, column 3>",
               "type": "TypeKind.INVALID",
-              "tokens": [
-                "int",
-                "a",
-                ";"
-              ],
+              "tokens": [],
               "children": [
                 {
                   "kind": "CursorKind.VAR_DECL",
                   "spelling": "a",
                   "location": "<SourceLocation file 'test.cpp', line 10, column 7>",
                   "type": "TypeKind.INT",
-                  "tokens": [
-                    "int",
-                    "a"
-                  ],
+                  "tokens": [],
                   "children": []
                 }
               ]
@@ -445,9 +210,7 @@
                   "spelling": "a",
                   "location": "<SourceLocation file 'test.cpp', line 11, column 3>",
                   "type": "TypeKind.INT",
-                  "tokens": [
-                    "a"
-                  ],
+                  "tokens": [],
                   "children": []
                 },
                 {
@@ -480,9 +243,7 @@
                   "spelling": "x",
                   "location": "<SourceLocation file 'test.cpp', line 12, column 3>",
                   "type": "TypeKind.INT",
-                  "tokens": [
-                    "x"
-                  ],
+                  "tokens": [],
                   "children": []
                 },
                 {
@@ -501,18 +262,14 @@
                       "spelling": "x",
                       "location": "<SourceLocation file 'test.cpp', line 12, column 7>",
                       "type": "TypeKind.INT",
-                      "tokens": [
-                        "x"
-                      ],
+                      "tokens": [],
                       "children": [
                         {
                           "kind": "CursorKind.DECL_REF_EXPR",
                           "spelling": "x",
                           "location": "<SourceLocation file 'test.cpp', line 12, column 7>",
                           "type": "TypeKind.INT",
-                          "tokens": [
-                            "x"
-                          ],
+                          "tokens": [],
                           "children": []
                         }
                       ]
@@ -536,26 +293,7 @@
               "spelling": "",
               "location": "<SourceLocation file 'test.cpp', line 13, column 3>",
               "type": "TypeKind.INVALID",
-              "tokens": [
-                "if",
-                "(",
-                "x",
-                "==",
-                "0",
-                ")",
-                "{",
-                "return",
-                ";",
-                "}",
-                "else",
-                "{",
-                "int",
-                "z",
-                "=",
-                "0",
-                ";",
-                "}"
-              ],
+              "tokens": [],
               "children": [
                 {
                   "kind": "CursorKind.BINARY_OPERATOR",
@@ -573,18 +311,14 @@
                       "spelling": "x",
                       "location": "<SourceLocation file 'test.cpp', line 13, column 7>",
                       "type": "TypeKind.INT",
-                      "tokens": [
-                        "x"
-                      ],
+                      "tokens": [],
                       "children": [
                         {
                           "kind": "CursorKind.DECL_REF_EXPR",
                           "spelling": "x",
                           "location": "<SourceLocation file 'test.cpp', line 13, column 7>",
                           "type": "TypeKind.INT",
-                          "tokens": [
-                            "x"
-                          ],
+                          "tokens": [],
                           "children": []
                         }
                       ]
@@ -606,21 +340,14 @@
                   "spelling": "",
                   "location": "<SourceLocation file 'test.cpp', line 13, column 15>",
                   "type": "TypeKind.INVALID",
-                  "tokens": [
-                    "{",
-                    "return",
-                    ";",
-                    "}"
-                  ],
+                  "tokens": [],
                   "children": [
                     {
                       "kind": "CursorKind.RETURN_STMT",
                       "spelling": "",
                       "location": "<SourceLocation file 'test.cpp', line 14, column 5>",
                       "type": "TypeKind.INVALID",
-                      "tokens": [
-                        "return"
-                      ],
+                      "tokens": [],
                       "children": []
                     }
                   ]
@@ -630,40 +357,21 @@
                   "spelling": "",
                   "location": "<SourceLocation file 'test.cpp', line 16, column 8>",
                   "type": "TypeKind.INVALID",
-                  "tokens": [
-                    "{",
-                    "int",
-                    "z",
-                    "=",
-                    "0",
-                    ";",
-                    "}"
-                  ],
+                  "tokens": [],
                   "children": [
                     {
                       "kind": "CursorKind.DECL_STMT",
                       "spelling": "",
                       "location": "<SourceLocation file 'test.cpp', line 17, column 5>",
                       "type": "TypeKind.INVALID",
-                      "tokens": [
-                        "int",
-                        "z",
-                        "=",
-                        "0",
-                        ";"
-                      ],
+                      "tokens": [],
                       "children": [
                         {
                           "kind": "CursorKind.VAR_DECL",
                           "spelling": "z",
                           "location": "<SourceLocation file 'test.cpp', line 17, column 9>",
                           "type": "TypeKind.INT",
-                          "tokens": [
-                            "int",
-                            "z",
-                            "=",
-                            "0"
-                          ],
+                          "tokens": [],
                           "children": [
                             {
                               "kind": "CursorKind.INTEGER_LITERAL",

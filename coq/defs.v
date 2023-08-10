@@ -106,6 +106,7 @@ Inductive Com : Type :=
   | Com_TypeDecl : string -> nat -> Com 
   (* | Com_EnumTypeDecl : string -> list string -> Com *)
   | Com_ActionDecl : string -> list (string * Ivytype) -> Ivytype -> Com -> Com
+  | Com_Interpret : Ivytype -> string -> Com
   | Com_Skip.
 
 (* Values *)

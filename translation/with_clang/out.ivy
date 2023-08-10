@@ -1,0 +1,18 @@
+global ASDF : TypeKind.INT;
+ASDF := 12;
+action main() returns (TODO : TypeKind.INT) = { var x : TypeKind.INT;
+x := 1;
+<the var to return> := -(x,1) };
+action f(y : TypeKind.INT, z : TypeKind.INT, ) = { skip;
+var x : TypeKind.INT;
+x := 1;
+var a : TypeKind.INT;
+a := 0;
+x := -(x,1);
+if ==(x,0) then {
+skip
+}
+ else {
+var z : TypeKind.INT;
+z := 0
+} }

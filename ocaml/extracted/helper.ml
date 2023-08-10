@@ -69,7 +69,8 @@ let rec string_of_com (p : com) : string =
   | Com_LocalVarDecl (id, t) -> "var " ^ (string_of_chars id) ^ " : " ^ string_of_ivytype t
   | Com_GlobalVarDecl (id, t) -> "global " ^ (string_of_chars id) ^ " : " ^ string_of_ivytype t
   | Com_GlobalFuncVarDecl (id, arg_ids_and_ts, ret_type) -> "global " ^ (string_of_chars id) ^ " : " ^ string_of_ivytype (Ivytype_Function (map (snd) arg_ids_and_ts, ret_type))
-  | Com_TypeDecl (id, n) -> "type " ^ (string_of_chars id) ^ " of size " ^ string_of_int (nat_to_int n)
+  | Com_TypeDecl (id, n) -> "type " ^ (string_of_chars id)
+(* ^ " of size " ^ string_of_int (nat_to_int n) *)
   | Com_ActionDecl (id, arg_ids_and_ts, ret, p') ->
     "action " ^ (string_of_chars id) ^
     (* " : " ^ string_of_ivytype (Ivytype_Function (map (snd) arg_ids_and_ts, ret)) ^ " = { " ^ string_of_com p' ^ " }" *)
@@ -78,12 +79,14 @@ let rec string_of_com (p : com) : string =
         ^ ")" ^
        (match ret with
            | Ivytype_Void -> ""
-           | _ -> " returns (" ^ "TODO" ^ " : " ^ string_of_ivytype ret ^ ")"
+           | _ -> " returns (" ^ "rval_" ^ string_of_chars(id) ^ " : " ^ string_of_ivytype ret ^ ")"
        )
        (* TODO indentation *)
        ^ " = { " ^ string_of_com p' ^ " }"
   | Com_Skip -> "skip"
   | Com_Call (id, args) -> (string_of_chars id) ^ "(" ^ String.concat "," (List.map string_of_expr args) ^ ")"
+  | Com_Interpret (t, str) -> "interpret " ^ string_of_ivytype t ^ " " ^ string_of_chars(str)
+  | _ -> failwith "string_of_com: not implemented"
 
 let safely_get (e : expr option) : expr =
   match e with
